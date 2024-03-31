@@ -288,7 +288,7 @@ public class ThirdPersonPlayer : MonoBehaviour
     private void Locomotion()
     {
         // set target speed based on move speed, sprint speed and if sprint is pressed
-        float targetSpeed = _input.sprint ? SprintSpeed : MoveSpeed;
+        float targetSpeed;
 
         if (_input.move == Vector2.zero) targetSpeed = 0.0f;
 
@@ -309,6 +309,17 @@ public class ThirdPersonPlayer : MonoBehaviour
         Vector3 cameraRelativeMovement = 
             forwardRelativeVerticalMovement + rightRelativeHorizontalMovement;
 
+        if(_input.move.y > 0.0f && (Mathf.Abs(_input.move.y) > Mathf.Abs(_input.move.x)))
+        {
+            //The player is running in a forward direction! Then only sprint!
+
+            targetSpeed = _input.sprint ? SprintSpeed : MoveSpeed;
+        }
+        else
+        {
+            targetSpeed = MoveSpeed;
+        }
+        
         _controller.Move(cameraRelativeMovement.normalized * (targetSpeed * Time.deltaTime) +
                               new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
 

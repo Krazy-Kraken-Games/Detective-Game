@@ -1,4 +1,5 @@
 using KrazyKrakenGames.DetectiveGame.Managers;
+using TMPro;
 using UnityEngine;
 using static KrazyKrakenGames.DetectiveGame.Global.MetaConstants;
 
@@ -12,6 +13,8 @@ namespace KrazyKrakenGames
         public bool allowDebugging = true;
 
         [SerializeField] private GamePlayerManager playerManager;
+
+        [SerializeField] private TextMeshProUGUI status;
 
         private void Awake()
         {
@@ -28,6 +31,18 @@ namespace KrazyKrakenGames
         private void Start()
         {
            playerManager = GamePlayerManager.instance;
+        }
+
+        private void Update()
+        {
+            if (allowDebugging)
+            {
+                status.text = "Kraken Debugger is active";
+            }
+            else
+            {
+                status.text = "Kraken Debugger is inactive";
+            }
         }
 
         #region Update Game Mode Debug Buttons Handling
