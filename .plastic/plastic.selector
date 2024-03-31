@@ -1,0 +1,4 @@
+repository "DetectiveGame@Pratik5295@cloud"
+  path "/"
+    br "/main"
+    co "/main"
