@@ -2,9 +2,9 @@ using StarterAssets;
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using static KrazyKrakenGames.Global.MetaConstants;
+using static KrazyKrakenGames.DetectiveGame.Global.MetaConstants;
 
-namespace KrazyKrakenGames.Managers
+namespace KrazyKrakenGames.DetectiveGame.Managers
 {
     /// <summary>
     /// This singleton script will be responsible for handling player mode and 

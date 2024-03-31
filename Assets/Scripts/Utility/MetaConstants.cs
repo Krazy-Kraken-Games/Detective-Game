@@ -1,5 +1,5 @@
 
-namespace KrazyKrakenGames.Global
+namespace KrazyKrakenGames.DetectiveGame.Global
 {
     public class MetaConstants
     {

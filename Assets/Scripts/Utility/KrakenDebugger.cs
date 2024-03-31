@@ -1,6 +1,6 @@
-using KrazyKrakenGames.Managers;
+using KrazyKrakenGames.DetectiveGame.Managers;
 using UnityEngine;
-using static KrazyKrakenGames.Global.MetaConstants;
+using static KrazyKrakenGames.DetectiveGame.Global.MetaConstants;
 
 namespace KrazyKrakenGames
 {
