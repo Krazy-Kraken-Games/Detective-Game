@@ -84,7 +84,7 @@ namespace StarterAssets
         private float _animationBlend;
         private float _targetRotation = 0.0f;
         private float _rotationVelocity;
-        private float _verticalVelocity;
+        protected float _verticalVelocity;
         private float _terminalVelocity = 53.0f;
 
         // timeout deltatime
@@ -92,19 +92,20 @@ namespace StarterAssets
         private float _fallTimeoutDelta;
 
         // animation IDs
-        private int _animIDSpeed;
-        private int _animIDGrounded;
-        private int _animIDJump;
-        private int _animIDFreeFall;
-        private int _animIDMotionSpeed;
+        protected int _animIDSpeed;
+        protected int _animIDGrounded;
+        protected int _animIDJump; 
+        protected int _animIDMotionSpeed;
+        protected int _animIDFreeFall;
+        protected int _animIDirection;
 
 #if ENABLE_INPUT_SYSTEM 
         private PlayerInput _playerInput;
 #endif
-        private Animator _animator;
-        private CharacterController _controller;
-        private StarterAssetsInputs _input;
-        private GameObject _mainCamera;
+        protected Animator _animator;
+        protected CharacterController _controller;
+        protected StarterAssetsInputs _input;
+        protected GameObject _mainCamera;
 
         private const float _threshold = 0.01f;
 
@@ -132,7 +133,7 @@ namespace StarterAssets
             }
         }
 
-        private void Start()
+        public virtual void Start()
         {
             _cinemachineTargetYaw = CinemachineCameraTarget.transform.rotation.eulerAngles.y;
             
@@ -152,7 +153,7 @@ namespace StarterAssets
             _fallTimeoutDelta = FallTimeout;
         }
 
-        private void Update()
+        public virtual void Update()
         {
             _hasAnimator = TryGetComponent(out _animator);
 
@@ -161,7 +162,7 @@ namespace StarterAssets
             Move();
         }
 
-        private void LateUpdate()
+        public virtual void LateUpdate()
         {
             CameraRotation();
         }
