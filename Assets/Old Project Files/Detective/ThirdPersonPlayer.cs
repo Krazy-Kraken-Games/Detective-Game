@@ -1,3 +1,5 @@
+using Cinemachine;
+using KrazyKrakenGames.DetectiveGame.Gameplay;
 using KrazyKrakenGames.DetectiveGame.Managers;
 using StarterAssets;
 using System;
@@ -50,6 +52,7 @@ public class ThirdPersonPlayer : MonoBehaviour
 
     #endregion
 
+
     #region Cinemachine Camera Variables
 
     [Header("Cinemachine")]
@@ -76,6 +79,7 @@ public class ThirdPersonPlayer : MonoBehaviour
 
     #endregion
 
+
     #region Animation IDs Variables
 
     // animation IDs
@@ -87,6 +91,7 @@ public class ThirdPersonPlayer : MonoBehaviour
     protected int _animIDirection;
 
     #endregion
+
 
     #region Dynamic Variable References
 
@@ -122,10 +127,13 @@ public class ThirdPersonPlayer : MonoBehaviour
 
     #endregion
 
+
     #region Events Fired Section
     public Action OnFocusedKeyPressed;
     #endregion
 
+
+    #region Unity Methods
 
     private void Awake()
     {
@@ -192,6 +200,9 @@ public class ThirdPersonPlayer : MonoBehaviour
             CameraRotation();
         }
     }
+
+    #endregion
+
 
     #region Events and Variable Registrations
 
@@ -404,6 +415,22 @@ public class ThirdPersonPlayer : MonoBehaviour
         //    nearbyInteractableObj = true;
         //    interactableObject = other.GetComponent<InteractableObject>();  
         //}
+
+        if(other.gameObject.tag == "TriggerBox")
+        {
+            TriggerBox triggerBox = other.gameObject.GetComponent<TriggerBox>();
+
+            if(triggerBox != null)
+            {
+                _animator.SetFloat(_animIDSpeed, 0.0f);
+                isInputAllowed = false;
+                Debug.Log("Player entered trigger box");
+
+                var lookAt = triggerBox.GetPivot();
+
+                CameraManager.instance.SetState(GameCameraState.SECONDARY,lookAt);
+            }
+        }
     }
 
     private void OnTriggerExit(Collider other)
@@ -413,6 +440,11 @@ public class ThirdPersonPlayer : MonoBehaviour
         //    nearbyInteractableObj = false;
         //    interactableObject = null;
         //}
+
+        if (other.gameObject.tag == "TriggerBox")
+        {
+            Debug.Log("Player left trigger box");
+        }
     }
 
     #endregion

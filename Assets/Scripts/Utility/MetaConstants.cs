@@ -31,6 +31,13 @@ namespace KrazyKrakenGames.DetectiveGame.Global
             OBJECTVIEWER = 2,
             PUZZLE = 3
         }
+
+        public enum GameCameraState
+        {
+            PRIMARY = 0,
+            SECONDARY = 1,
+        }
+
         #endregion
 
         #region Environment Interactable Object Constants
