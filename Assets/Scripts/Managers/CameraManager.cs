@@ -36,7 +36,7 @@ namespace KrazyKrakenGames.DetectiveGame.Managers
 
         private void Start()
         {
-            
+            SetState(GameCameraState.PRIMARY);
         }
 
         #endregion
