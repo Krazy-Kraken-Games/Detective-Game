@@ -371,24 +371,15 @@ public class ThirdPersonPlayer : MonoBehaviour
 
     private void Interact()
     {
-        //if (nearbyInteractableObj)
-        //{
-        //    if (_input.interact)
-        //    {
-        //        if (interactableObject != null)
-        //        {
-        //            interactableObject.Interact(this);
-        //        }
-        //        _input.interact = false;
-        //    }
-        //}
-        //else
-        //{
-        //    if (_input.interact)
-        //    {
-        //        _input.interact = false;
-        //    }
-        //}
+        if (_input.interact)
+        {
+            Debug.Log("Interact");
+            _input.interact = false;
+        }
+        else
+        {
+            Debug.Log("No Interact");
+        }
     }
     #endregion
 
@@ -410,12 +401,6 @@ public class ThirdPersonPlayer : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        //if(other.gameObject.tag == MetaConstants.ObjInterestTag)
-        //{
-        //    nearbyInteractableObj = true;
-        //    interactableObject = other.GetComponent<InteractableObject>();  
-        //}
-
         if(other.gameObject.tag == "TriggerBox")
         {
             TriggerBox triggerBox = other.gameObject.GetComponent<TriggerBox>();
