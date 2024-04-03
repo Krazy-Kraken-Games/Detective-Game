@@ -10,6 +10,8 @@ namespace KrazyKrakenGames.DetectiveGame.Managers
     /// This singleton script will be responsible for handling player mode and 
     /// firing listeners, updating player mode and firing other related events
     /// </summary>
+
+    [DefaultExecutionOrder(-1)]
     public class GamePlayerManager : MonoBehaviour
     {
         #region Variables

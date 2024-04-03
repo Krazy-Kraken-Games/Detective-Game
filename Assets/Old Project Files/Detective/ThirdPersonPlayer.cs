@@ -7,6 +7,8 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using static KrazyKrakenGames.DetectiveGame.Global.MetaConstants;
 
+
+[DefaultExecutionOrder(0)]
 public class ThirdPersonPlayer : MonoBehaviour
 {
     [Header("Game Player Manager reference")]
@@ -21,7 +23,7 @@ public class ThirdPersonPlayer : MonoBehaviour
 
     [Space(5)]
     [Header("Nearby interactable object")]
-    //[SerializeField] private InteractableObject interactableObject;
+    [SerializeField] private GameObject interactableObject;
     [SerializeField] private bool nearbyInteractableObj;
 
     #region Player Locomotion Variables
@@ -103,6 +105,8 @@ public class ThirdPersonPlayer : MonoBehaviour
     private bool _hasAnimator;
     private CharacterController _controller;
     private StarterAssetsInputs _input;
+    public StarterAssetsInputs Input => _input;
+
     private GameObject _mainCamera;
 
 
@@ -208,15 +212,11 @@ public class ThirdPersonPlayer : MonoBehaviour
 
     private void OnPlayerInputModeChangedEventHandler(PlayerInputMode playerInputMode)
     {
-        if (playerInputMode == PlayerInputMode.LOCKED)
-        {
-            isInputAllowed = false;
-        }
-        else if (playerInputMode == PlayerInputMode.UNLOCKED)
+        if (playerInputMode == PlayerInputMode.PRIMARY)
         {
             isInputAllowed = true;
         }
-        else if (playerInputMode == PlayerInputMode.OBJECTVIEWER)
+        else
         {
             //This will stop the 3rd person player motion script from taking input
             isInputAllowed = false;
@@ -371,24 +371,24 @@ public class ThirdPersonPlayer : MonoBehaviour
 
     private void Interact()
     {
-        //if (nearbyInteractableObj)
-        //{
-        //    if (_input.interact)
-        //    {
-        //        if (interactableObject != null)
-        //        {
-        //            interactableObject.Interact(this);
-        //        }
-        //        _input.interact = false;
-        //    }
-        //}
-        //else
-        //{
-        //    if (_input.interact)
-        //    {
-        //        _input.interact = false;
-        //    }
-        //}
+        if (_input.interact)
+        {
+            _input.interact = false;
+
+            if(nearbyInteractableObj && interactableObject != null)
+            {
+                //TODO: Move all this into a function later
+                _animator.SetFloat(_animIDSpeed, 0.0f);
+                isInputAllowed = false;
+
+                var triggerBox = interactableObject.GetComponent<TriggerBox>();
+                var lookAt = triggerBox.GetPivot();
+                transform.position = triggerBox.PlayerPosition.position;
+
+                CameraManager.instance.SetState(GameCameraState.SECONDARY,lookAt);
+                playerManager.UpdateInputMode(PlayerInputMode.SECONDARY);
+            }
+        }
     }
     #endregion
 
@@ -410,40 +410,25 @@ public class ThirdPersonPlayer : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        //if(other.gameObject.tag == MetaConstants.ObjInterestTag)
-        //{
-        //    nearbyInteractableObj = true;
-        //    interactableObject = other.GetComponent<InteractableObject>();  
-        //}
-
         if(other.gameObject.tag == "TriggerBox")
         {
             TriggerBox triggerBox = other.gameObject.GetComponent<TriggerBox>();
 
             if(triggerBox != null)
             {
-                _animator.SetFloat(_animIDSpeed, 0.0f);
-                isInputAllowed = false;
-                Debug.Log("Player entered trigger box");
-
-                var lookAt = triggerBox.GetPivot();
-
-                CameraManager.instance.SetState(GameCameraState.SECONDARY,lookAt);
+                interactableObject = triggerBox.gameObject;
+                nearbyInteractableObj = true;
             }
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        //if (other.gameObject.tag == MetaConstants.ObjInterestTag)
-        //{
-        //    nearbyInteractableObj = false;
-        //    interactableObject = null;
-        //}
-
         if (other.gameObject.tag == "TriggerBox")
         {
             Debug.Log("Player left trigger box");
+            interactableObject = null;
+            nearbyInteractableObj = false;
         }
     }
 

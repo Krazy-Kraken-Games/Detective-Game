@@ -13,6 +13,8 @@ namespace StarterAssets
 		public Vector2 look;
 		public bool jump;
 		public bool sprint;
+		public bool interact;
+		public bool cancel;
 
 		[Header("Movement Settings")]
 		public bool analogMovement;
@@ -107,6 +109,16 @@ namespace StarterAssets
 			}
 			SprintInput(value.isPressed);
 		}
+
+		public void OnInteract(InputValue value)
+		{
+			InteractInput(value.isPressed);
+        }
+
+		public void OnCancel(InputValue value)
+		{
+			CancelInput(value.isPressed);
+		}
 #endif
 
 
@@ -129,6 +141,17 @@ namespace StarterAssets
 		{
 			sprint = newSprintState;
 		}
+
+		public void InteractInput(bool newInteractState)
+		{
+			interact = newInteractState;
+		}
+
+		public void CancelInput(bool newCancelState)
+		{
+            cancel = newCancelState;
+
+        }
 		
 		private void OnApplicationFocus(bool hasFocus)
 		{

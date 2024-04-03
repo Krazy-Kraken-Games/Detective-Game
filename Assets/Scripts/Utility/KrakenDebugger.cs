@@ -52,7 +52,6 @@ namespace KrazyKrakenGames
             if (playerManager != null)
             {
                 playerManager.UpdateMode(GameState.NORMAL);
-                playerManager.UpdateInputMode(PlayerInputMode.UNLOCKED);
             }
         }
 
@@ -61,7 +60,6 @@ namespace KrazyKrakenGames
             if (playerManager != null)
             {
                 playerManager.UpdateMode(GameState.VIEWER);
-                playerManager.UpdateInputMode(PlayerInputMode.OBJECTVIEWER);
             }
         }
 
@@ -70,7 +68,6 @@ namespace KrazyKrakenGames
             if (playerManager != null)
             {
                 playerManager.UpdateMode(GameState.PUZZLE);
-                playerManager.UpdateInputMode(PlayerInputMode.PUZZLE);
             }
         }
 
