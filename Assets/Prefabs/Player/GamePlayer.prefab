@@ -758,6 +758,7 @@ GameObject:
   - component: {fileID: 8575731222841864565}
   - component: {fileID: 7529960169702941434}
   - component: {fileID: 3031184496442676689}
+  - component: {fileID: 8928034499385203982}
   m_Layer: 8
   m_Name: GamePlayer
   m_TagString: Player
@@ -864,6 +865,7 @@ MonoBehaviour:
   look: {x: 0, y: 0}
   jump: 0
   sprint: 0
+  interact: 0
   analogMovement: 0
   cursorLocked: 1
   cursorInputForLook: 1
@@ -982,6 +984,7 @@ MonoBehaviour:
   isInputAllowed: 0
   visionPivot: {fileID: 0}
   mainCamera: {fileID: 0}
+  interactableObject: {fileID: 0}
   nearbyInteractableObj: 0
   MoveSpeed: 4
   SprintSpeed: 8
@@ -997,7 +1000,20 @@ MonoBehaviour:
   BottomClamp: -30
   CameraAngleOverride: 0
   LockCameraPosition: 0
-  secondaryCamera: {fileID: 8027527545724769677}
+--- !u!114 &8928034499385203982
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2577962281278469258}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2eabb51a01378ec49ae472ffc5126c06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gamePlayer: {fileID: 0}
+  _input: {fileID: 0}
 --- !u!1 &2713560972567264230
 GameObject:
   m_ObjectHideFlags: 0

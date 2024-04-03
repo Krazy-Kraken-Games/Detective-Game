@@ -14,6 +14,7 @@ namespace StarterAssets
 		public bool jump;
 		public bool sprint;
 		public bool interact;
+		public bool cancel;
 
 		[Header("Movement Settings")]
 		public bool analogMovement;
@@ -113,6 +114,11 @@ namespace StarterAssets
 		{
 			InteractInput(value.isPressed);
         }
+
+		public void OnCancel(InputValue value)
+		{
+			CancelInput(value.isPressed);
+		}
 #endif
 
 
@@ -140,6 +146,12 @@ namespace StarterAssets
 		{
 			interact = newInteractState;
 		}
+
+		public void CancelInput(bool newCancelState)
+		{
+            cancel = newCancelState;
+
+        }
 		
 		private void OnApplicationFocus(bool hasFocus)
 		{

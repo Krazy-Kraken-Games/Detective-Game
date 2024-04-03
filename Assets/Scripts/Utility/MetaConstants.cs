@@ -26,10 +26,9 @@ namespace KrazyKrakenGames.DetectiveGame.Global
 
         public enum PlayerInputMode
         {
-            UNLOCKED = 0,
-            LOCKED = 1,
-            OBJECTVIEWER = 2,
-            PUZZLE = 3
+            PRIMARY = 0, //Refers to Third person input mode
+
+            SECONDARY = 1 // Refers to First person input mode
         }
 
         public enum GameCameraState
