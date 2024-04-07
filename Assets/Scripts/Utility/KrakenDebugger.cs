@@ -12,9 +12,14 @@ namespace KrazyKrakenGames
 
         public bool allowDebugging = true;
 
-        [SerializeField] private GamePlayerManager playerManager;
+        [Header("Panel References")]
+        [SerializeField] private GameObject statusPanel;
+        [SerializeField] private GameObject gameMenuPanel;
 
+        [Space(5)]
+        [Header("Status Texts")]
         [SerializeField] private TextMeshProUGUI status;
+        [SerializeField] private TextMeshProUGUI fpsText;
 
         private void Awake()
         {
@@ -30,45 +35,63 @@ namespace KrazyKrakenGames
 
         private void Start()
         {
-           playerManager = GamePlayerManager.instance;
+            HideMenu();
         }
+
 
         private void Update()
         {
             if (allowDebugging)
             {
                 status.text = "Kraken Debugger is active";
+                statusPanel.SetActive(true);
+                ShowFPS();
             }
             else
             {
                 status.text = "Kraken Debugger is inactive";
+                statusPanel.SetActive(false);
             }
         }
 
-        #region Update Game Mode Debug Buttons Handling
 
-        public void SetToGameMode()
+        #region FPS Counter 
+
+        /// <summary>
+        /// Helper function to display FPS counter on screen
+        /// </summary>
+        private void ShowFPS()
         {
-            if (playerManager != null)
+            if (fpsText != null)
             {
-                playerManager.UpdateMode(GameState.NORMAL);
+                float fps = (int)(1f / Time.deltaTime);
+
+                fpsText.text = $"FPS: {fps}";
+            }
+            else
+            {
+                Debug.LogWarning("FPS counter text has not been added");
             }
         }
 
-        public void SetToModelViewerMode()
+        #endregion
+
+        #region Game Control Region
+
+
+        public void ShowMenu()
         {
-            if (playerManager != null)
-            {
-                playerManager.UpdateMode(GameState.VIEWER);
-            }
+            gameMenuPanel.SetActive(true);
         }
 
-        public void SetToPuzzleMode()
+        public void HideMenu()
         {
-            if (playerManager != null)
-            {
-                playerManager.UpdateMode(GameState.PUZZLE);
-            }
+            gameMenuPanel.SetActive(false);
+        }
+
+        public void QuitGame()
+        {
+            Application.Quit();
         }
 
         #endregion

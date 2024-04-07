@@ -16,6 +16,9 @@ namespace StarterAssets
 		public bool interact;
 		public bool cancel;
 
+
+		public bool kraken; //Only for debugger mode
+
 		[Header("Movement Settings")]
 		public bool analogMovement;
 
@@ -119,6 +122,11 @@ namespace StarterAssets
 		{
 			CancelInput(value.isPressed);
 		}
+
+		public void OnKraken(InputValue value)
+		{
+			KrakenInput(value.isPressed);
+		}
 #endif
 
 
@@ -152,8 +160,14 @@ namespace StarterAssets
             cancel = newCancelState;
 
         }
-		
-		private void OnApplicationFocus(bool hasFocus)
+
+		public void KrakenInput(bool newKrakenState)
+		{
+			kraken = newKrakenState;
+		}
+
+
+        private void OnApplicationFocus(bool hasFocus)
 		{
 			SetCursorState(cursorLocked);
 			m_IgnoreInput = !hasFocus;

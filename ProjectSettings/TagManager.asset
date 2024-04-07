@@ -23,8 +23,8 @@ TagManager:
   - Occluder
   - Camera
   - MainCameraOnly
-  - 
-  - 
+  - Environment
+  - Ignore
   - 
   - 
   - 

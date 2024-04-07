@@ -43,6 +43,13 @@ namespace KrazyKrakenGames.DetectiveGame.Player
 
         private void Update()
         {
+            //Entry point to handle kraken debugger input
+
+            if(KrakenDebugger.Instance != null && KrakenDebugger.Instance.allowDebugging)
+            {
+                HandleKrakenDebuggerEntry();
+            }
+
             if (!isInputAllowed) return;
 
             CancelInputHandling();
@@ -82,6 +89,19 @@ namespace KrazyKrakenGames.DetectiveGame.Player
         {
             CameraManager.instance.SetState(GameCameraState.PRIMARY);
             playerManager.UpdateInputMode(PlayerInputMode.PRIMARY);
+        }
+
+
+        private void HandleKrakenDebuggerEntry()
+        {
+            if (_input.kraken)
+            {
+                _input.kraken = false;
+
+                KrakenDebugger.Instance.ShowMenu();
+                _input.cursorLocked = false;
+                _input.cursorInputForLook = false;
+            }
         }
     }
 }
