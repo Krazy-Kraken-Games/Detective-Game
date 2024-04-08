@@ -361,12 +361,11 @@ public class ThirdPersonPlayer : MonoBehaviour
     #region Input Handling
     private void FocusMode()
     {
-        //if (_input.focusMode)
-        //{
-        //    OnFocusedKeyPressed?.Invoke();
-
-        //    _input.focusMode = false;
-        //}
+        if (_input.leftTrigger)
+        {
+            Debug.Log("Detective Mode trigger initiated");
+            _input.leftTrigger = false;
+        }
     }
 
     private void Interact()

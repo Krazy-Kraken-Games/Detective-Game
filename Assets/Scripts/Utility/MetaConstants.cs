@@ -65,4 +65,13 @@ namespace KrazyKrakenGames.DetectiveGame.Global
 
         #endregion
     }
+
+
+    public class PostProcessingConstants
+    {
+        public enum ProcessVolume
+        {
+            DETECTIVE = 0
+        }
+    }
 }

@@ -15,6 +15,7 @@ namespace StarterAssets
 		public bool sprint;
 		public bool interact;
 		public bool cancel;
+		public bool leftTrigger;
 
 
 		public bool kraken; //Only for debugger mode
@@ -127,6 +128,11 @@ namespace StarterAssets
 		{
 			KrakenInput(value.isPressed);
 		}
+
+		public void OnLTriggerOne(InputValue value)
+		{
+			LeftTriggerInput(value.isPressed);
+		}
 #endif
 
 
@@ -164,6 +170,11 @@ namespace StarterAssets
 		public void KrakenInput(bool newKrakenState)
 		{
 			kraken = newKrakenState;
+		}
+
+		public void LeftTriggerInput(bool newLeftTriggerState)
+		{
+			leftTrigger = newLeftTriggerState;
 		}
 
 
