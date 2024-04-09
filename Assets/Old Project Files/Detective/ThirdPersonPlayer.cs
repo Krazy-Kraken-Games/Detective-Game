@@ -132,6 +132,16 @@ public class ThirdPersonPlayer : MonoBehaviour
     #endregion
 
 
+    #region Detective Mode References
+
+    [Space(5)]
+    [Header("Detective Mode Script Reference")]
+    [SerializeField] private DetectiveMode detectiveMode;
+    [SerializeField] private bool isDetectiveModeActive;
+    [SerializeField] private bool isDetectiveModeInProcess;
+
+    #endregion
+
     #region Events Fired Section
     public Action OnFocusedKeyPressed;
     #endregion
@@ -154,13 +164,8 @@ public class ThirdPersonPlayer : MonoBehaviour
         mainCamera = Camera.main;
         playerManager = GamePlayerManager.instance;
 
-        if(playerManager != null )
-        {
-            playerManager.OnPlayerInputModeChangedEvent += OnPlayerInputModeChangedEventHandler;
-
-            OnPlayerInputModeChangedEventHandler(playerManager.playerInputMode);
-        }
-
+        RegisterEvents();
+        
         _hasAnimator = TryGetComponent(out _animator);
         _controller = GetComponent<CharacterController>();
         _input = GetComponent<StarterAssetsInputs>();
@@ -175,9 +180,40 @@ public class ThirdPersonPlayer : MonoBehaviour
 
     private void OnDestroy()
     {
+       
+        UnregisterEvents();
+    }
+
+
+    private void RegisterEvents()
+    {
+        if (playerManager != null)
+        {
+            playerManager.OnPlayerInputModeChangedEvent += OnPlayerInputModeChangedEventHandler;
+
+            OnPlayerInputModeChangedEventHandler(playerManager.playerInputMode);
+        }
+
+        if(detectiveMode != null)
+        {
+            detectiveMode.OnDetectiveModeActivated += OnDetectiveModeActivatedHandler;
+            detectiveMode.OnDetectiveModeProcessEvent += OnDetectiveModeInProcessHandler;
+            detectiveMode.OnDetectiveModeDeactivated += OnDetectiveModeDeactivatedHandler;
+        }
+    }
+
+    private void UnregisterEvents()
+    {
         if (playerManager != null)
         {
             playerManager.OnPlayerInputModeChangedEvent -= OnPlayerInputModeChangedEventHandler;
+        }
+
+        if (detectiveMode != null)
+        {
+            detectiveMode.OnDetectiveModeActivated -= OnDetectiveModeActivatedHandler;
+            detectiveMode.OnDetectiveModeDeactivated -= OnDetectiveModeDeactivatedHandler;
+            detectiveMode.OnDetectiveModeProcessEvent += OnDetectiveModeInProcessHandler;
         }
     }
 
@@ -361,12 +397,13 @@ public class ThirdPersonPlayer : MonoBehaviour
     #region Input Handling
     private void FocusMode()
     {
-        //if (_input.focusMode)
-        //{
-        //    OnFocusedKeyPressed?.Invoke();
+        if (_input.leftTrigger)
+        {
+            _input.leftTrigger = false;
 
-        //    _input.focusMode = false;
-        //}
+            //Logic to handle starting the detective mode
+            detectiveMode.StartDetectiveMode();
+        }
     }
 
     private void Interact()
@@ -384,6 +421,13 @@ public class ThirdPersonPlayer : MonoBehaviour
                 var triggerBox = interactableObject.GetComponent<TriggerBox>();
                 var lookAt = triggerBox.GetPivot();
                 transform.position = triggerBox.PlayerPosition.position;
+
+                //Check if detective mode is active, if true then force override to end it
+
+                if (isDetectiveModeInProcess || isDetectiveModeActive)
+                {
+                    detectiveMode.EndDetectiveMode();
+                }
 
                 CameraManager.instance.SetState(GameCameraState.SECONDARY,lookAt);
                 playerManager.UpdateInputMode(PlayerInputMode.SECONDARY);
@@ -405,6 +449,27 @@ public class ThirdPersonPlayer : MonoBehaviour
     }
     #endregion
 
+
+    #region Detective Mode Handling Section
+
+    private void OnDetectiveModeActivatedHandler()
+    {
+        isDetectiveModeActive = true;
+        isDetectiveModeInProcess = false;
+    }
+
+    private void OnDetectiveModeDeactivatedHandler()
+    {
+        isDetectiveModeActive = false;
+        isDetectiveModeInProcess = false;
+    }
+
+    private void OnDetectiveModeInProcessHandler()
+    {
+        isDetectiveModeInProcess = true;
+    }
+
+    #endregion
 
     #region Collision and Triggers Detection Section
 

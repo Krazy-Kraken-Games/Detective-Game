@@ -7,10 +7,7 @@ namespace KrazyKrakenGames.DetectiveGame.Global
 
         #region Detective Mode
 
-        public static readonly float DetectiveModeSaturationValue = -100;
-        public static readonly float GameModeSaturationValue = 20;
-
-        public static readonly float TimeToActivate = 1f;
+        public static readonly float TimeToActivate = 3.5f;
         public static readonly float DetectiveModeEndTime = 8f;
 
         #endregion
@@ -64,5 +61,14 @@ namespace KrazyKrakenGames.DetectiveGame.Global
 
 
         #endregion
+    }
+
+
+    public class PostProcessingConstants
+    {
+        public enum ProcessVolume
+        {
+            DETECTIVE = 0
+        }
     }
 }
