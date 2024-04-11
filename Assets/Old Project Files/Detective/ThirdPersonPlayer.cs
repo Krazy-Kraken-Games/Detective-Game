@@ -416,7 +416,7 @@ public class ThirdPersonPlayer : MonoBehaviour
             {
                 //TODO: Move all this into a function later
                 _animator.SetFloat(_animIDSpeed, 0.0f);
-            
+                isInputAllowed = false;
 
                 var triggerBox = interactableObject.GetComponent<TriggerBox>();
                 var lookAt = triggerBox.GetPivot();
@@ -438,7 +438,7 @@ public class ThirdPersonPlayer : MonoBehaviour
                     Debug.Log("Go into secondary");
                     CameraManager.instance.SetState(GameCameraState.SECONDARY, lookAt);
                     playerManager.UpdateInputMode(PlayerInputMode.SECONDARY);
-                    isInputAllowed = false;
+                    
                 }
 
                 else if (triggerBox.type == InteractableType.PROCEDURAL)
