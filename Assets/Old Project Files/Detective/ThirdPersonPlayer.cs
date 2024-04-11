@@ -429,6 +429,7 @@ public class ThirdPersonPlayer : MonoBehaviour
                     detectiveMode.EndDetectiveMode();
                 }
 
+                Debug.Log("Go into secondary");
                 CameraManager.instance.SetState(GameCameraState.SECONDARY,lookAt);
                 playerManager.UpdateInputMode(PlayerInputMode.SECONDARY);
             }
