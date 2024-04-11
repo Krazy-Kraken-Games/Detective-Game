@@ -416,10 +416,13 @@ public class ThirdPersonPlayer : MonoBehaviour
             {
                 //TODO: Move all this into a function later
                 _animator.SetFloat(_animIDSpeed, 0.0f);
-                isInputAllowed = false;
+            
 
                 var triggerBox = interactableObject.GetComponent<TriggerBox>();
                 var lookAt = triggerBox.GetPivot();
+                var objectToInteract = triggerBox.GetInteractionObject();
+
+
                 transform.position = triggerBox.PlayerPosition.position;
 
                 //Check if detective mode is active, if true then force override to end it
@@ -429,9 +432,23 @@ public class ThirdPersonPlayer : MonoBehaviour
                     detectiveMode.EndDetectiveMode();
                 }
 
-                Debug.Log("Go into secondary");
-                CameraManager.instance.SetState(GameCameraState.SECONDARY,lookAt);
-                playerManager.UpdateInputMode(PlayerInputMode.SECONDARY);
+                if (triggerBox.type == InteractableType.PUZZLE)
+                {
+
+                    Debug.Log("Go into secondary");
+                    CameraManager.instance.SetState(GameCameraState.SECONDARY, lookAt);
+                    playerManager.UpdateInputMode(PlayerInputMode.SECONDARY);
+                    isInputAllowed = false;
+                }
+
+                else if (triggerBox.type == InteractableType.PROCEDURAL)
+                {
+                    if (objectToInteract != null)
+                    {
+                        PlayerInteractionSystem.instance.interactableObject = objectToInteract;
+                        PlayerInteractionSystem.instance.OpenDoorSequence();
+                    }
+                }
             }
         }
     }
@@ -495,6 +512,8 @@ public class ThirdPersonPlayer : MonoBehaviour
             Debug.Log("Player left trigger box");
             interactableObject = null;
             nearbyInteractableObj = false;
+
+            PlayerInteractionSystem.instance.interactableObject = null;
         }
     }
 

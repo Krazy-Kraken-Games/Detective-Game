@@ -1,21 +1,37 @@
+using KrazyKrakenGames.DetectiveGame.Global;
+using KrazyKrakenGames.DetectiveGame.Managers;
 using RootMotion.FinalIK;
 using UnityEngine;
 
 
 public class PlayerInteractionSystem : MonoBehaviour
 {
-    public FullBodyBipedIK fullBodyIk;
+    public static PlayerInteractionSystem instance = null;
+    private InteractionSystem interactionSystem;
 
-    public InteractionSystem interactionSystem;
-
-    public InteractionObject doorKnob;
+    public InteractionObject interactableObject;
 
     public FullBodyBipedEffector effector;
 
     private bool initiated;
+
+
+    private void Awake()
+    {
+        if(instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
     private void Start()
     {
-       if(interactionSystem != null)
+        interactionSystem = GetComponent<InteractionSystem>();
+
+       if (interactionSystem != null)
         {
             interactionSystem.OnInitiatedEvent += OnInteractionSystemInitiated;
         }
@@ -32,13 +48,29 @@ public class PlayerInteractionSystem : MonoBehaviour
     private void OnInteractionSystemInitiated(bool hasInitiated)
     {
         initiated = hasInitiated;
-
-        BeginInteraction();
     }
 
-    private void BeginInteraction()
+    public void OpenDoorSequence()
     {
-        var completed = interactionSystem.StartInteraction(effector, doorKnob,true);
+        if (initiated)
+        {
+            var completed = interactionSystem.StartInteraction(effector, interactableObject, true);
 
+            if (completed)
+            {
+                //Logic to perform animations on door knob and the door itself
+
+                //Then stopping door sequence once completed
+
+                Invoke("StopInteractions", 1f);
+            }
+        }
+    }
+
+    public void StopInteractions()
+    {
+        interactionSystem.StopInteraction(effector);
+
+        GamePlayerManager.instance.UpdateInputMode(MetaConstants.PlayerInputMode.PRIMARY);
     }
 }
