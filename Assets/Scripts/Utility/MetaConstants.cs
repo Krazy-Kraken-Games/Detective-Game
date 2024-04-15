@@ -41,10 +41,9 @@ namespace KrazyKrakenGames.DetectiveGame.Global
         public static readonly string ObjInterestTag = "ObjectOfInterest";
         public enum InteractableType
         {
-            INFO = 0,   //A simple text box would be shown for the default object
-            VIEWER = 1, //The model viewer system will show the model in detail
-            EVIDENCE = 2,  //Building up on type 1, this type would also be able to save in inventory
-            PUZZLE = 3  // This will fire up a puzzle, currently we only have reconstruction puzzle elements
+            PROCEDURAL = 0, //This denotes that on trigger enter it will perform final ik animations, Stay in third person mode
+            PUZZLE = 1,
+            PICKUP = 2  //Same as Procedural, but item will be picked up, while procedural is generic, pick up is specific
         }
 
         #endregion
