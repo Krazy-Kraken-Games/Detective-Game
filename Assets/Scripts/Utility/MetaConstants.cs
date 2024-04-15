@@ -42,7 +42,8 @@ namespace KrazyKrakenGames.DetectiveGame.Global
         public enum InteractableType
         {
             PROCEDURAL = 0, //This denotes that on trigger enter it will perform final ik animations, Stay in third person mode
-            PUZZLE = 1
+            PUZZLE = 1,
+            PICKUP = 2  //Same as Procedural, but item will be picked up, while procedural is generic, pick up is specific
         }
 
         #endregion

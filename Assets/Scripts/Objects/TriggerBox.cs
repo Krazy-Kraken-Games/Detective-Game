@@ -15,8 +15,11 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay
         //Interactable object details
         [SerializeField] private InteractionObject interactableObject;
 
+        public bool overridePlayerPosition;
+
         public Transform GetPivot() { return pivotPoint; }
 
+        
         public Transform PlayerPosition { get {  return playerPosition; } }
 
         public InteractionObject GetInteractionObject() {  return interactableObject; }

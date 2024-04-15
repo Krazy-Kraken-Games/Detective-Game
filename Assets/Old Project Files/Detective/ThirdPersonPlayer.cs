@@ -422,8 +422,10 @@ public class ThirdPersonPlayer : MonoBehaviour
                 var lookAt = triggerBox.GetPivot();
                 var objectToInteract = triggerBox.GetInteractionObject();
 
-
-                transform.position = triggerBox.PlayerPosition.position;
+                if (triggerBox.overridePlayerPosition && triggerBox.PlayerPosition != null)
+                {
+                    transform.position = triggerBox.PlayerPosition.position;
+                }
 
                 //Check if detective mode is active, if true then force override to end it
 
@@ -441,7 +443,7 @@ public class ThirdPersonPlayer : MonoBehaviour
                     
                 }
 
-                else if (triggerBox.type == InteractableType.PROCEDURAL)
+                else if (triggerBox.type == InteractableType.PROCEDURAL || triggerBox.type == InteractableType.PICKUP)
                 {
                     if (objectToInteract != null)
                     {
