@@ -43,7 +43,8 @@ namespace KrazyKrakenGames.DetectiveGame.Global
         {
             PROCEDURAL = 0, //This denotes that on trigger enter it will perform final ik animations, Stay in third person mode
             PUZZLE = 1,
-            PICKUP = 2  //Same as Procedural, but item will be picked up, while procedural is generic, pick up is specific
+            PICKUP = 2,  //Same as Procedural, but item will be picked up, while procedural is generic, pick up is specific
+            DIALOG = 3 // Denotes player is interacting with an NPC
         }
 
         #endregion

@@ -1,5 +1,6 @@
 using Cinemachine;
 using KrazyKrakenGames.DetectiveGame.Gameplay;
+using KrazyKrakenGames.DetectiveGame.Global;
 using KrazyKrakenGames.DetectiveGame.Managers;
 using StarterAssets;
 using System;
@@ -23,7 +24,7 @@ public class ThirdPersonPlayer : MonoBehaviour
 
     [Space(5)]
     [Header("Nearby interactable object")]
-    [SerializeField] private GameObject interactableObject;
+    [SerializeField] private InteractableObject interactableObject;
     [SerializeField] private bool nearbyInteractableObj;
 
     #region Player Locomotion Variables
@@ -418,7 +419,7 @@ public class ThirdPersonPlayer : MonoBehaviour
                 _animator.SetFloat(_animIDSpeed, 0.0f);
                 isInputAllowed = false;
 
-                var triggerBox = interactableObject.GetComponent<TriggerBox>();
+                var triggerBox = interactableObject.triggerBox;
                 var lookAt = triggerBox.GetPivot();
                 var objectToInteract = triggerBox.GetInteractionObject();
 
@@ -450,6 +451,13 @@ public class ThirdPersonPlayer : MonoBehaviour
                         PlayerInteractionSystem.instance.interactableObject = objectToInteract;
                         PlayerInteractionSystem.instance.OpenDoorSequence();
                     }
+                }
+
+                else if(triggerBox.type == InteractableType.DIALOG)
+                {
+                    Debug.Log("Dialog interaction started with an NPC");
+
+                    GamePlayerManager.instance.UpdateInputMode(MetaConstants.PlayerInputMode.PRIMARY);
                 }
             }
         }
@@ -501,7 +509,7 @@ public class ThirdPersonPlayer : MonoBehaviour
 
             if(triggerBox != null)
             {
-                interactableObject = triggerBox.gameObject;
+                interactableObject = triggerBox.interactionObject;
                 nearbyInteractableObj = true;
             }
         }
