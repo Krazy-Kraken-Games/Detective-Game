@@ -1,4 +1,3 @@
-using Cinemachine;
 using KrazyKrakenGames.DetectiveGame.Gameplay;
 using KrazyKrakenGames.DetectiveGame.Global;
 using KrazyKrakenGames.DetectiveGame.Managers;
@@ -420,9 +419,9 @@ public class ThirdPersonPlayer : MonoBehaviour
                 isInputAllowed = false;
 
                 var triggerBox = interactableObject.triggerBox;
-                var lookAt = triggerBox.GetPivot();
-                var objectToInteract = triggerBox.GetInteractionObject();
+               // var lookAt = triggerBox.GetPivot();
 
+                // Check if position override for player exists, perform update on position if yes
                 if (triggerBox.overridePlayerPosition && triggerBox.PlayerPosition != null)
                 {
                     transform.position = triggerBox.PlayerPosition.position;
@@ -435,29 +434,39 @@ public class ThirdPersonPlayer : MonoBehaviour
                     detectiveMode.EndDetectiveMode();
                 }
 
-                if (triggerBox.type == InteractableType.PUZZLE)
+                #region TO BE DELETED SECTION
+                //if (interactableObject.type == InteractableType.PUZZLE)
+                //{
+                //    Debug.Log("Go into secondary");
+                //    CameraManager.instance.SetState(GameCameraState.SECONDARY, lookAt);
+                //    playerManager.UpdateInputMode(PlayerInputMode.SECONDARY);
+                //}
+
+                //else if (interactableObject.type == InteractableType.PROCEDURAL || interactableObject.type == InteractableType.PICKUP)
+                //{
+                //    if (interactableObject != null)
+                //    {
+                //        interactableObject.Interact();
+                //    }
+                //}
+
+                //else if(interactableObject.type == InteractableType.DIALOG)
+                //{
+                //    Debug.Log("Dialog interaction started with an NPC");
+
+                //    if (interactableObject != null)
+                //    {
+                //        interactableObject.Interact();
+                //    }
+
+                //    GamePlayerManager.instance.UpdateInputMode(MetaConstants.PlayerInputMode.PRIMARY);
+                //}
+
+                #endregion
+
+                if (interactableObject != null)
                 {
-
-                    Debug.Log("Go into secondary");
-                    CameraManager.instance.SetState(GameCameraState.SECONDARY, lookAt);
-                    playerManager.UpdateInputMode(PlayerInputMode.SECONDARY);
-                    
-                }
-
-                else if (triggerBox.type == InteractableType.PROCEDURAL || triggerBox.type == InteractableType.PICKUP)
-                {
-                    if (objectToInteract != null)
-                    {
-                        PlayerInteractionSystem.instance.interactableObject = objectToInteract;
-                        PlayerInteractionSystem.instance.OpenDoorSequence();
-                    }
-                }
-
-                else if(triggerBox.type == InteractableType.DIALOG)
-                {
-                    Debug.Log("Dialog interaction started with an NPC");
-
-                    GamePlayerManager.instance.UpdateInputMode(MetaConstants.PlayerInputMode.PRIMARY);
+                    interactableObject.Interact();
                 }
             }
         }

@@ -1,6 +1,4 @@
-using RootMotion.FinalIK;
 using UnityEngine;
-using static KrazyKrakenGames.DetectiveGame.Global.MetaConstants;
 
 namespace KrazyKrakenGames.DetectiveGame.Gameplay
 {
@@ -10,18 +8,11 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay
     /// </summary>
     public class TriggerBox : MonoBehaviour
     {
-        public InteractableType type;
-
         [SerializeField] private Transform pivotPoint;
         [SerializeField] private Transform playerPosition;
 
-
-        //TODO: Move to interactable object script
-        //Interactable object details
-        [SerializeField] private InteractionObject interactableObject;
-
         /// <summary>
-        /// TODO: THIS WILL BE USED TO CONNECT WITH OTHER INTERACTION ELEMENTS OF THE GAME SYSTEM
+        /// Holds reference to the interactable object partner
         /// </summary>
         public InteractableObject interactionObject;
         public bool overridePlayerPosition;
@@ -31,6 +22,5 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay
         
         public Transform PlayerPosition { get {  return playerPosition; } }
 
-        public InteractionObject GetInteractionObject() {  return interactableObject; }
     }
 }

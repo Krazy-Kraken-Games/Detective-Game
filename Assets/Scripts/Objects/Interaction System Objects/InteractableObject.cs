@@ -1,3 +1,4 @@
+using RootMotion.FinalIK;
 using UnityEngine;
 using static KrazyKrakenGames.DetectiveGame.Global.MetaConstants;
 
@@ -11,6 +12,9 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay
         public InteractableType Type;
         public TriggerBox triggerBox;
 
+        //Root IK component reference
+        [SerializeField] private InteractionObject interactableObject;
+
         public InteractableType type
         {
             get
@@ -19,18 +23,15 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay
             }
         }
 
-       //TODO: This method will be moved to segregated and specialized pick up interaction obj script
-        public void PickUpObject()
+        private void Start()
         {
-            //Before destroying, add logic to update inventory
-
-            Destroy(triggerBox.gameObject);
-            Destroy(gameObject);
+            interactableObject = GetComponent<InteractionObject>();
         }
 
-        public void Interact()
+        public virtual void Interact()
         {
-
+            PlayerInteractionSystem.instance.interactableObject = interactableObject;
+            PlayerInteractionSystem.instance.StartInteraction();
         }
     }
 }

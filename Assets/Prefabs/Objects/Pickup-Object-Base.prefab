@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7147058870612110256}
   - component: {fileID: 725762435417700232}
   - component: {fileID: 7093867557568029472}
-  - component: {fileID: 8458051999741802728}
+  - component: {fileID: 8645178999229502572}
   m_Layer: 0
   m_Name: Pickup-Object-Base
   m_TagString: Untagged
@@ -33,7 +33,8 @@ Transform:
   m_LocalPosition: {x: -4.59, y: 1.45, z: 3.329}
   m_LocalScale: {x: 0.35653, y: 0.35653, z: 0.35653}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 9119036240768729889}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &8452584418457425345
@@ -173,8 +174,8 @@ MonoBehaviour:
     unityEvent:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 8458051999741802728}
-          m_TargetAssemblyTypeName: KrazyKrakenGames.DetectiveGame.Gameplay.InteractableObject,
+        - m_Target: {fileID: 8645178999229502572}
+          m_TargetAssemblyTypeName: KrazyKrakenGames.DetectiveGame.Gameplay.PickupInteraction,
             Assembly-CSharp
           m_MethodName: PickUpObject
           m_Mode: 1
@@ -186,7 +187,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
---- !u!114 &8458051999741802728
+--- !u!114 &8645178999229502572
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -195,8 +196,111 @@ MonoBehaviour:
   m_GameObject: {fileID: 1618192804475809777}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a2199f81a7f48d468abe716c8e136cc, type: 3}
+  m_Script: {fileID: 11500000, guid: 8b897ea57f9b349408a8aae20b1de89c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 2
-  triggerBox: {fileID: 0}
+  Type: 2
+  triggerBox: {fileID: 2664941869053849399}
+  interactableObject: {fileID: 0}
+--- !u!1 &2358214467328813411
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4028251741167211713}
+  m_Layer: 0
+  m_Name: LookAtPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4028251741167211713
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2358214467328813411}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.084, y: 0.029, z: 1.1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 9119036240768729889}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6391199955472243705
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9119036240768729889}
+  - component: {fileID: 4091114134466965459}
+  - component: {fileID: 2664941869053849399}
+  m_Layer: 0
+  m_Name: Interaction-Trigger-Box
+  m_TagString: TriggerBox
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9119036240768729889
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6391199955472243705}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.96485656, y: 0.54693866, z: 0.215971}
+  m_LocalScale: {x: 2.804813, y: 2.804813, z: 2.804813}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 4028251741167211713}
+  m_Father: {fileID: 56985260009097031}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &4091114134466965459
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6391199955472243705}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.21, y: 0.64, z: 1.34}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2664941869053849399
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6391199955472243705}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28006be671806804d9b52815b74e032e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pivotPoint: {fileID: 56985260009097031}
+  playerPosition: {fileID: 0}
+  interactionObject: {fileID: 8645178999229502572}
+  overridePlayerPosition: 0
