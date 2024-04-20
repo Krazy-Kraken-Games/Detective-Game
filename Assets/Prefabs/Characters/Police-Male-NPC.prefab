@@ -1431,6 +1431,7 @@ GameObject:
   - component: {fileID: 9078973320216908228}
   - component: {fileID: 6511006143443827949}
   - component: {fileID: 4350200102324960399}
+  - component: {fileID: 1816475968074858139}
   m_Layer: 0
   m_Name: Police-Male-NPC
   m_TagString: Untagged
@@ -1561,6 +1562,19 @@ MonoBehaviour:
   triggerBox: {fileID: 1938777121381922452}
   interactableObject: {fileID: 0}
   lookAt: {fileID: 2607157160545239704}
+  npc: {fileID: 1816475968074858139}
+--- !u!114 &1816475968074858139
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4536264356760717015}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a289726e4f2679e4fa3714e7b8787b2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4929069956091925365
 GameObject:
   m_ObjectHideFlags: 0

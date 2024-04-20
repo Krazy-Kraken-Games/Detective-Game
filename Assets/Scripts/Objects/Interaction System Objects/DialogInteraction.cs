@@ -1,3 +1,4 @@
+using KrazyKrakenGames.DetectiveGame.AI;
 using KrazyKrakenGames.DetectiveGame.Managers;
 using KrazyKrakenGames.DetectiveGame.UI;
 using UnityEngine;
@@ -9,6 +10,8 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay
     {
         [SerializeField] private Transform lookAt;
         private string message;
+
+        [SerializeField] private NPC_Dialog npc;
         public override void Interact()
         {
             message = "Dialog interaction through inheritance";
@@ -22,7 +25,8 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay
 
         private void StartConversation()
         {
-            UIManager.instance.ShowDialog(message);
+            npc.StartConversation();
+            UIManager.instance.ShowDialog(message,npc);
         }
     }
 }

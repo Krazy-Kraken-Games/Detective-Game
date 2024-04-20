@@ -1,3 +1,4 @@
+using KrazyKrakenGames.DetectiveGame.AI;
 using UnityEngine;
 
 namespace KrazyKrakenGames.DetectiveGame.UI
@@ -12,6 +13,8 @@ namespace KrazyKrakenGames.DetectiveGame.UI
         [SerializeField] private bool isDialogActive = false;
 
         public bool DialogActive() => isDialogActive;
+
+        [SerializeField] private NPC_Dialog currentNpc;
 
         private void Awake()
         {
@@ -49,15 +52,20 @@ namespace KrazyKrakenGames.DetectiveGame.UI
 
         #region Dialog System Section
 
-        public void ShowDialog(string _message)
+        public void ShowDialog(string _message,NPC_Dialog npc)
         {
             dialogSystem.UpdateText(_message);
             dialogSystem.Show();
+
+            currentNpc = npc;
         }
 
         public void HideDialog()
         {
             dialogSystem.Hide();
+
+            currentNpc.EndConversation();
+            currentNpc = null;
 
         }
 
