@@ -14,7 +14,7 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay
         [SerializeField] private NPC_Dialog npc;
         public override void Interact()
         {
-            message = "Dialog interaction through inheritance";
+            message = "Dialog interaction detected from player";
             Debug.Log(message);
 
             CameraManager.instance.SetState(GameCameraState.SECONDARY, lookAt);
