@@ -1,6 +1,7 @@
-using KrazyKrakenGames.DetectiveGame.Global;
 using KrazyKrakenGames.DetectiveGame.Managers;
+using KrazyKrakenGames.DetectiveGame.UI;
 using UnityEngine;
+using static KrazyKrakenGames.DetectiveGame.Global.MetaConstants;
 
 namespace KrazyKrakenGames.DetectiveGame.Gameplay
 {
@@ -8,9 +9,11 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay
     {
         public override void Interact()
         {
-            Debug.Log("Dialog interaction through inheritance");
+            string message = "Dialog interaction through inheritance";
+            Debug.Log(message);
+            UIManager.instance.ShowDialog(message);
 
-            GamePlayerManager.instance.UpdateInputMode(MetaConstants.PlayerInputMode.PRIMARY);
+            GamePlayerManager.instance.UpdateInputMode(PlayerInputMode.SECONDARY);
         }
     }
 }

@@ -71,4 +71,24 @@ namespace KrazyKrakenGames.DetectiveGame.Global
             DETECTIVE = 0
         }
     }
+
+    public class GameControlConstants
+    {
+        public static readonly string Move = "Move";
+        public static readonly string Look = "Look";
+        public static readonly string Sprint = "Sprint";
+        public static readonly string Interact = "Interact";
+        public static readonly string Cancel = "Cancel";
+        public static readonly string LeftTrigger = "LTriggerOne";
+
+        public enum ActionKey
+        {
+            Move,
+            Look,
+            Sprint,
+            Interact,
+            Cancel,
+            LTriggerOne,
+        }
+    }
 }

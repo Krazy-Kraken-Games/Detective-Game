@@ -419,7 +419,6 @@ public class ThirdPersonPlayer : MonoBehaviour
                 isInputAllowed = false;
 
                 var triggerBox = interactableObject.triggerBox;
-               // var lookAt = triggerBox.GetPivot();
 
                 // Check if position override for player exists, perform update on position if yes
                 if (triggerBox.overridePlayerPosition && triggerBox.PlayerPosition != null)

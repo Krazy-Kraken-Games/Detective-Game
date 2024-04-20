@@ -1,4 +1,5 @@
 using KrazyKrakenGames.DetectiveGame.Managers;
+using KrazyKrakenGames.DetectiveGame.UI;
 using StarterAssets;
 using UnityEngine;
 using static KrazyKrakenGames.DetectiveGame.Global.MetaConstants;
@@ -79,6 +80,13 @@ namespace KrazyKrakenGames.DetectiveGame.Player
             if (_input.cancel)
             {
                 _input.cancel = false;
+
+                //Check if dialog box is currently open
+                if (UIManager.instance.DialogActive())
+                {
+                    UIManager.instance.HideDialog();
+                }
+
                 SwitchControlBackToPrimaryController();
             }
         }
