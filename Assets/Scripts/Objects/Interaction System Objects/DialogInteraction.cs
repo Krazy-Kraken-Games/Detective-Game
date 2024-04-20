@@ -7,13 +7,22 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay
 {
     public class DialogInteraction : InteractableObject
     {
+        [SerializeField] private Transform lookAt;
+        private string message;
         public override void Interact()
         {
-            string message = "Dialog interaction through inheritance";
+            message = "Dialog interaction through inheritance";
             Debug.Log(message);
-            UIManager.instance.ShowDialog(message);
 
+            CameraManager.instance.SetState(GameCameraState.SECONDARY, lookAt);
             GamePlayerManager.instance.UpdateInputMode(PlayerInputMode.SECONDARY);
+
+            Invoke("StartConversation", 0.8f);
+        }
+
+        private void StartConversation()
+        {
+            UIManager.instance.ShowDialog(message);
         }
     }
 }
