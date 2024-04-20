@@ -50,7 +50,7 @@ public class PlayerInteractionSystem : MonoBehaviour
         initiated = hasInitiated;
     }
 
-    public void OpenDoorSequence()
+    public void StartInteraction()
     {
         if (initiated)
         {

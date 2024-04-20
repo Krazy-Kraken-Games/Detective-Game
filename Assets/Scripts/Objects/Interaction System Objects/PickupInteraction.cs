@@ -1,12 +1,15 @@
 using UnityEngine;
-using static KrazyKrakenGames.DetectiveGame.Global.MetaConstants;
 
 namespace KrazyKrakenGames.DetectiveGame.Gameplay
 {
-    public class InteractableObject : MonoBehaviour
+    public class PickupInteraction : InteractableObject
     {
-        public InteractableType type;
-        public TriggerBox triggerBox;
+        public override void Interact()
+        {
+            Debug.Log("Pick up interaction through inheritance");
+
+            base.Interact();
+        }
 
         public void PickUpObject()
         {
