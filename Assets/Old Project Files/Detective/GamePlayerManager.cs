@@ -11,7 +11,7 @@ namespace KrazyKrakenGames.DetectiveGame.Managers
     /// firing listeners, updating player mode and firing other related events
     /// </summary>
 
-    [DefaultExecutionOrder(-1)]
+    [DefaultExecutionOrder(-2)]
     public class GamePlayerManager : MonoBehaviour
     {
         #region Variables
@@ -58,10 +58,6 @@ namespace KrazyKrakenGames.DetectiveGame.Managers
 
         private void Start()
         {
-            _input = GetComponent<StarterAssetsInputs>();
-            _playerInput = GetComponent<PlayerInput>();
-
-
             UpdateMode(GameState.NORMAL);
             //detectiveModeObject.OnDetectiveModeActivatedEvent += OnDetectiveModeActivatedEventHandler;
         }
@@ -82,6 +78,17 @@ namespace KrazyKrakenGames.DetectiveGame.Managers
         public void UpdateMode(GameState mode)
         {
             gameState = mode;
+
+            if(mode == GameState.PUZZLE)
+            {
+                _input.cursorLocked = false;
+                _input.SetCursorInGame(_input.cursorLocked);
+            }
+            else
+            {
+                _input.cursorLocked = true;
+                _input.SetCursorInGame(_input.cursorLocked);
+            }
             OnGameStateChangedEvent?.Invoke(gameState);
         }
         #endregion
@@ -96,6 +103,7 @@ namespace KrazyKrakenGames.DetectiveGame.Managers
         public void UpdateInputMode(PlayerInputMode mode)
         {
             playerInputMode = mode;
+
             OnPlayerInputModeChangedEvent?.Invoke(playerInputMode);
         }
         #endregion

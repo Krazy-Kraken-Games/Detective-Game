@@ -1,3 +1,4 @@
+using KrazyKrakenGames.DetectiveGame.Gameplay.Puzzles;
 using KrazyKrakenGames.DetectiveGame.Managers;
 using KrazyKrakenGames.DetectiveGame.UI;
 using StarterAssets;
@@ -15,6 +16,14 @@ namespace KrazyKrakenGames.DetectiveGame.Player
         [SerializeField] private ThirdPersonPlayer gamePlayer;
         [SerializeField] private StarterAssetsInputs _input;
 
+        [SerializeField] private GameState currentGameState;
+
+        [SerializeField] private LayerMask pieceLayer = 1 << 15;
+
+
+        //TO BE MOVED INTO PUZZLE MANAGER
+        public PuzzlePiece selectedPuzzlePiece;
+
         #region Unity Methods
 
         private void Start()
@@ -27,8 +36,11 @@ namespace KrazyKrakenGames.DetectiveGame.Player
             if (playerManager != null)
             {
                 playerManager.OnPlayerInputModeChangedEvent += OnPlayerInputModeChangedEventHandler;
+                playerManager.OnGameStateChangedEvent += OnGameModeChangeEventHandler;
 
                 OnPlayerInputModeChangedEventHandler(playerManager.playerInputMode);
+
+                OnGameModeChangeEventHandler(playerManager.gameState);
             }
         }
 
@@ -37,6 +49,7 @@ namespace KrazyKrakenGames.DetectiveGame.Player
             if (playerManager != null)
             {
                 playerManager.OnPlayerInputModeChangedEvent -= OnPlayerInputModeChangedEventHandler;
+                playerManager.OnGameStateChangedEvent -= OnGameModeChangeEventHandler;
             }
         }
 
@@ -53,6 +66,10 @@ namespace KrazyKrakenGames.DetectiveGame.Player
             if (!isInputAllowed) return;
 
             CancelInputHandling();
+
+            InteractionInputHandling();
+
+          
 
         }
 
@@ -72,6 +89,11 @@ namespace KrazyKrakenGames.DetectiveGame.Player
             }
         }
 
+        private void OnGameModeChangeEventHandler(GameState gameState)
+        {
+            currentGameState = gameState;
+        }
+
         #endregion
 
 
@@ -87,7 +109,32 @@ namespace KrazyKrakenGames.DetectiveGame.Player
                     UIManager.instance.HideDialog();
                 }
 
-                SwitchControlBackToPrimaryController();
+                if (selectedPuzzlePiece != null)
+                {
+                    selectedPuzzlePiece.UnSelect();
+                    selectedPuzzlePiece = null;
+                }
+                else
+                {
+                    SwitchControlBackToPrimaryController();
+                }
+            }
+        }
+
+        private void InteractionInputHandling()
+        {
+            if (_input.interact)
+            {
+                _input.interact = false;
+
+                //If game state is currently puzzle, then we take raycasting input
+
+                if (currentGameState == GameState.PUZZLE)
+                {
+                    //Allow raycasting
+
+                    LookInputHandling();
+                }
             }
         }
 
@@ -96,9 +143,38 @@ namespace KrazyKrakenGames.DetectiveGame.Player
         {
             CameraManager.instance.SetState(GameCameraState.PRIMARY);
             playerManager.UpdateInputMode(PlayerInputMode.PRIMARY);
+            playerManager.UpdateMode(GameState.NORMAL);
         }
 
+        #region Raycast Input Handling
 
+        private void LookInputHandling()
+        {
+            if (_input != null)
+            {
+                Vector2 startPosition = new Vector2(_input.raycaster.x, _input.raycaster.y);
+                Ray ray = Camera.main.ScreenPointToRay(startPosition);
+
+                RaycastHit hit;
+
+                if (Physics.Raycast(ray, out hit, Mathf.Infinity, pieceLayer))
+                {
+                  Debug.Log($"Object interacted with:{hit.collider.gameObject.name}");
+
+                  if (selectedPuzzlePiece != null)
+                  {
+                    selectedPuzzlePiece.UnSelect();
+                    selectedPuzzlePiece = null;
+                  }
+                    selectedPuzzlePiece = hit.collider.gameObject.GetComponent<PuzzlePiece>();
+                    selectedPuzzlePiece.Select();
+                }
+            }
+        }
+
+        #endregion
+
+        #region Debugging
         private void HandleKrakenDebuggerEntry()
         {
             if (_input.kraken)
@@ -110,5 +186,22 @@ namespace KrazyKrakenGames.DetectiveGame.Player
                 _input.cursorInputForLook = false;
             }
         }
+
+
+        private void OnDrawGizmos()
+        {
+            if (!isInputAllowed) return;
+
+            if(currentGameState == GameState.PUZZLE)
+            {
+                Vector2 startPosition = new Vector2(_input.raycaster.x, _input.raycaster.y);
+                Ray ray = Camera.main.ScreenPointToRay(startPosition);
+
+                Gizmos.color = Color.blue;
+                Gizmos.DrawRay(ray);
+            }
+        }
+
+        #endregion
     }
 }

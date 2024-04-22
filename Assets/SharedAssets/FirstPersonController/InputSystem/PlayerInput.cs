@@ -11,6 +11,7 @@ namespace StarterAssets
 		[Header("Character Input Values")]
 		public Vector2 move;
 		public Vector2 look;
+		public Vector2 raycaster;
 		public bool jump;
 		public bool sprint;
 		public bool interact;
@@ -133,6 +134,12 @@ namespace StarterAssets
 		{
 			LeftTriggerInput(value.isPressed);
 		}
+
+		public void OnRaycaster(InputValue value)
+		{
+			RaycasterInput(value.Get<Vector2>());
+
+        }
 #endif
 
 
@@ -144,6 +151,11 @@ namespace StarterAssets
 		public void LookInput(Vector2 newLookDirection)
 		{ 
 			look = newLookDirection;
+		}
+
+		public void RaycasterInput(Vector2 newRaycastDirection)
+		{
+			raycaster = newRaycastDirection;
 		}
 
 		public void JumpInput(bool newJumpState)
@@ -182,6 +194,12 @@ namespace StarterAssets
 		{
 			SetCursorState(cursorLocked);
 			m_IgnoreInput = !hasFocus;
+		}
+
+		public void SetCursorInGame(bool newState)
+		{
+			Cursor.lockState = newState ? CursorLockMode.Locked : CursorLockMode.None;
+			//Cursor.visible = false;
 		}
 
 		private void SetCursorState(bool newState)

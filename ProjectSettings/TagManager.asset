@@ -6,9 +6,9 @@ TagManager:
   tags:
   - MainLight
   - CinemachineTarget
-  - ScreenCamera
-  - cockpit_capitalLaser
   - TriggerBox
+  - PuzzlePiece
+  - ScreenCamera
   layers:
   - Default
   - TransparentFX
@@ -25,18 +25,18 @@ TagManager:
   - MainCameraOnly
   - Environment
   - Ignore
+  - PuzzlePiece
   - 
   - 
   - 
   - 
   - 
-  - Cockpit
-  - Cockpit_3DSkybox
-  - Cockpit_3DSkybox_BG
-  - Cockpit_Ally
-  - Cockpit_Invader
-  - Cockpit_BG
-  - Cockpit_DepthClear
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
   - 
   - 
   - 

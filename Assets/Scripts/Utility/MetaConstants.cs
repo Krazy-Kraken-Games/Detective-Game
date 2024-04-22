@@ -57,6 +57,8 @@ namespace KrazyKrakenGames.DetectiveGame.Global
             SOLVED = 1
         }
 
+        public static readonly string PieceTag = "PuzzlePiece";
+
         #endregion
 
 
