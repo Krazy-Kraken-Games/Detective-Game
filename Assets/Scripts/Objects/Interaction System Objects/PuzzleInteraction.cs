@@ -13,6 +13,7 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay
 
             CameraManager.instance.SetState(GameCameraState.SECONDARY, lookAt);
             GamePlayerManager.instance.UpdateInputMode(PlayerInputMode.SECONDARY);
+            GamePlayerManager.instance.UpdateMode(GameState.PUZZLE);
         }
     }
 }

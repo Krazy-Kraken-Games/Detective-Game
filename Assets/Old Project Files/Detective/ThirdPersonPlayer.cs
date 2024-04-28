@@ -1,6 +1,7 @@
 using KrazyKrakenGames.DetectiveGame.Gameplay;
 using KrazyKrakenGames.DetectiveGame.Global;
 using KrazyKrakenGames.DetectiveGame.Managers;
+using KrazyKrakenGames.DetectiveGame.UI;
 using StarterAssets;
 using System;
 using UnityEngine;
@@ -230,6 +231,8 @@ public class ThirdPersonPlayer : MonoBehaviour
 
             //Interact with environment
             Interact();
+
+            CancelInputHandling();
         }
     }
 
@@ -472,6 +475,24 @@ public class ThirdPersonPlayer : MonoBehaviour
     }
     #endregion
 
+    
+    #region Cancel Input Handling
+
+    private void CancelInputHandling()
+    {
+        if (_input.cancel)
+        {
+            _input.cancel = false;
+            //Check if instruction box is currently open
+            if (UIManager.instance.InstructionActive())
+            {
+                UIManager.instance.HideInstructionBox();
+            }
+        }
+    }
+
+    #endregion
+
 
     #region Object Detection System Section
     private void ObjectDetectionSystem()
@@ -506,6 +527,7 @@ public class ThirdPersonPlayer : MonoBehaviour
     }
 
     #endregion
+
 
     #region Collision and Triggers Detection Section
 

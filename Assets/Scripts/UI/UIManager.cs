@@ -1,4 +1,5 @@
 using KrazyKrakenGames.DetectiveGame.AI;
+using KrazyKrakenGames.DetectiveGame.Managers;
 using UnityEngine;
 
 namespace KrazyKrakenGames.DetectiveGame.UI
@@ -8,13 +9,26 @@ namespace KrazyKrakenGames.DetectiveGame.UI
     {
         public static UIManager instance = null;
 
+        [Header("Cross-Hair Reference")]
+        [SerializeField] private RectTransform crossHair;
+
+        [Space(5)]
         [Header("Dialog System References")]
         [SerializeField] private DialogUISystem dialogSystem;
         [SerializeField] private bool isDialogActive = false;
 
+        [Space(5)]
+        [Header("Instruction System References")]
+        [SerializeField] private InstructionUISystem instructionSystem;
+        [SerializeField] private bool isInstructionActive = false;
+
+        public bool InstructionActive() => isInstructionActive;
+
         public bool DialogActive() => isDialogActive;
 
         [SerializeField] private NPC_Dialog currentNpc;
+
+        private GamePlayerManager playerManager;
 
         private void Awake()
         {
@@ -30,6 +44,12 @@ namespace KrazyKrakenGames.DetectiveGame.UI
 
         private void Start()
         {
+            playerManager = GamePlayerManager.instance;
+
+            if (playerManager != null)
+            {
+                Debug.Log("Game player manager found");
+            }
             RegisterEvents();
         }
 
@@ -38,15 +58,31 @@ namespace KrazyKrakenGames.DetectiveGame.UI
             UnregisterEvents();
         }
 
+        private void Update()
+        {
+            if(playerManager != null && playerManager._input.raycaster != Vector2.zero)
+            {
+                // Convert viewport position to screen position
+                Vector3 screenPos = playerManager._input.raycaster;
+
+                // Set the position of the RectTransform
+                crossHair.position = screenPos;
+            }
+        }
+
 
         private void RegisterEvents()
         {
             dialogSystem.OnDialogStateUpdate += (bool _value) => isDialogActive = _value;
+
+            instructionSystem.OnInstructionStateUpdate += (bool _value) => isInstructionActive = _value;
         }
 
         private void UnregisterEvents()
         {
             dialogSystem.OnDialogStateUpdate -= (bool _value) => isDialogActive = _value;
+
+            instructionSystem.OnInstructionStateUpdate -= (bool _value) => isInstructionActive = _value;
         }
 
 
@@ -67,6 +103,21 @@ namespace KrazyKrakenGames.DetectiveGame.UI
             currentNpc.EndConversation();
             currentNpc = null;
 
+        }
+
+        #endregion
+
+        #region Instruction System Section
+
+        public void ShowInstructionBox(string message)
+        {
+            instructionSystem.UpdateText(message);
+            instructionSystem.Show();
+        }
+
+        public void HideInstructionBox()
+        {
+            instructionSystem.Hide();
         }
 
         #endregion

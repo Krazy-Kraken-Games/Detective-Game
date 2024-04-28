@@ -57,8 +57,17 @@ namespace KrazyKrakenGames.DetectiveGame.Global
             SOLVED = 1
         }
 
+        public static readonly string PieceTag = "PuzzlePiece";
+
         #endregion
 
+
+        #endregion
+
+
+        #region UI Messages and Constants
+
+        public static readonly string CancelMessage = "Press X to Skip";
 
         #endregion
     }
