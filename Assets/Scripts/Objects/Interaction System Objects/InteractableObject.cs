@@ -1,4 +1,5 @@
 using RootMotion.FinalIK;
+using System;
 using UnityEngine;
 using static KrazyKrakenGames.DetectiveGame.Global.MetaConstants;
 
@@ -23,6 +24,8 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay
             }
         }
 
+        public Action OnInteractionInitEvent;
+
         private void Start()
         {
             interactableObject = GetComponent<InteractionObject>();
@@ -32,6 +35,8 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay
         {
             PlayerInteractionSystem.instance.interactableObject = interactableObject;
             PlayerInteractionSystem.instance.StartInteraction();
+
+            OnInteractionInitEvent?.Invoke();
         }
     }
 }

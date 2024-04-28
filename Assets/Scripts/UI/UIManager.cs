@@ -17,6 +17,13 @@ namespace KrazyKrakenGames.DetectiveGame.UI
         [SerializeField] private DialogUISystem dialogSystem;
         [SerializeField] private bool isDialogActive = false;
 
+        [Space(5)]
+        [Header("Instruction System References")]
+        [SerializeField] private InstructionUISystem instructionSystem;
+        [SerializeField] private bool isInstructionActive = false;
+
+        public bool InstructionActive() => isInstructionActive;
+
         public bool DialogActive() => isDialogActive;
 
         [SerializeField] private NPC_Dialog currentNpc;
@@ -67,11 +74,15 @@ namespace KrazyKrakenGames.DetectiveGame.UI
         private void RegisterEvents()
         {
             dialogSystem.OnDialogStateUpdate += (bool _value) => isDialogActive = _value;
+
+            instructionSystem.OnInstructionStateUpdate += (bool _value) => isInstructionActive = _value;
         }
 
         private void UnregisterEvents()
         {
             dialogSystem.OnDialogStateUpdate -= (bool _value) => isDialogActive = _value;
+
+            instructionSystem.OnInstructionStateUpdate -= (bool _value) => isInstructionActive = _value;
         }
 
 
@@ -92,6 +103,21 @@ namespace KrazyKrakenGames.DetectiveGame.UI
             currentNpc.EndConversation();
             currentNpc = null;
 
+        }
+
+        #endregion
+
+        #region Instruction System Section
+
+        public void ShowInstructionBox(string message)
+        {
+            instructionSystem.UpdateText(message);
+            instructionSystem.Show();
+        }
+
+        public void HideInstructionBox()
+        {
+            instructionSystem.Hide();
         }
 
         #endregion

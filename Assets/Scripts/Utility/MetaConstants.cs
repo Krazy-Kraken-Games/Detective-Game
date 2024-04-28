@@ -63,6 +63,13 @@ namespace KrazyKrakenGames.DetectiveGame.Global
 
 
         #endregion
+
+
+        #region UI Messages and Constants
+
+        public static readonly string CancelMessage = "Press X to Skip";
+
+        #endregion
     }
 
 

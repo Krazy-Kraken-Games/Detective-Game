@@ -6,13 +6,21 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay.Puzzles
 {
     public class PlacementCell : MonoBehaviour
     {
-        [SerializeField] private GameObject correctResponse;
+        [SerializeField] private PuzzlePiece correctResponse;
 
         [SerializeField] private bool hasResponse;
+        public bool isCorrectPieceInPlace;
 
-        [SerializeField] private GameObject placedObject;
+        [SerializeField] private PuzzlePiece placedObject;
 
-        public Action<bool> OnObjectPlacedEvent;
+        public Action<PlacementCell,bool> OnObjectPlacedEvent;
+
+        public Action OnTestAction;
+
+        private void Update()
+        {
+            
+        }
 
         public void OnTriggerEnter(Collider other)
         {
@@ -22,27 +30,36 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay.Puzzles
                 {
                     hasResponse = true;
 
-                    placedObject = other.gameObject;
+                    placedObject = other.gameObject.GetComponent<PuzzlePiece>();
+
+                    placedObject.SetToPlacedState(this);
 
                     ValidateResponse();
                 }
                 else
                 {
-                    //Send the puzzle piece back to its original position
+                    //If a response already exists, and another piece is being added to same 
+                    Debug.Log("Send puzzle piece back");
+                    var tempPiece = other.gameObject.GetComponent<PuzzlePiece>();
+                    tempPiece.Reset();
                 }
             }
         }
 
         public void OnTriggerExit(Collider other)
         {
-            if (other.gameObject.tag == MetaConstants.PieceTag)
+            if (other.gameObject.tag == MetaConstants.PieceTag && other.gameObject == placedObject)
             {
-                hasResponse = false;
-
-                placedObject = null;
-
+                PieceRemovedFromCell();
                 ValidateResponse();
             }
+        }
+
+        public void PieceRemovedFromCell()
+        {
+            hasResponse = false;
+            isCorrectPieceInPlace = false;
+            placedObject = null;
         }
 
         private void ValidateResponse()
@@ -51,11 +68,15 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay.Puzzles
             {
                 if (placedObject == correctResponse)
                 {
-                    OnObjectPlacedEvent?.Invoke(true);
+                    Debug.Log("Correct object placed");
+                    isCorrectPieceInPlace = true;
+                    OnObjectPlacedEvent?.Invoke(this,true);
                 }
                 else
                 {
-                    OnObjectPlacedEvent?.Invoke(false);
+                    Debug.Log("Wrong object placed");
+                    isCorrectPieceInPlace = false;
+                    OnObjectPlacedEvent?.Invoke(this,false);
                 }
             }
             else

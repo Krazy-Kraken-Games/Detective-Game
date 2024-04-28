@@ -2,6 +2,7 @@ using KrazyKrakenGames.DetectiveGame.Gameplay.Puzzles;
 using KrazyKrakenGames.DetectiveGame.Managers;
 using KrazyKrakenGames.DetectiveGame.UI;
 using StarterAssets;
+using System;
 using UnityEngine;
 using static KrazyKrakenGames.DetectiveGame.Global.MetaConstants;
 
@@ -23,6 +24,9 @@ namespace KrazyKrakenGames.DetectiveGame.Player
 
         //TO BE MOVED INTO PUZZLE MANAGER
         public PuzzlePiece selectedPuzzlePiece;
+
+
+        public Action<Vector2> OnMoveInputEvent;
 
         #region Unity Methods
 
@@ -69,8 +73,7 @@ namespace KrazyKrakenGames.DetectiveGame.Player
 
             InteractionInputHandling();
 
-          
-
+            MovementInputHandling();
         }
 
         #endregion
@@ -109,9 +112,16 @@ namespace KrazyKrakenGames.DetectiveGame.Player
                     UIManager.instance.HideDialog();
                 }
 
+                //Check if instruction box is currently open
+                if (UIManager.instance.InstructionActive())
+                {
+                    UIManager.instance.HideInstructionBox();
+                }
+
                 if (selectedPuzzlePiece != null)
                 {
-                    selectedPuzzlePiece.UnSelect();
+                    //Drop functionality
+                    selectedPuzzlePiece.UnSelect(this);
                     selectedPuzzlePiece = null;
                 }
                 else
@@ -132,7 +142,6 @@ namespace KrazyKrakenGames.DetectiveGame.Player
                 if (currentGameState == GameState.PUZZLE)
                 {
                     //Allow raycasting
-
                     LookInputHandling();
                 }
             }
@@ -163,12 +172,24 @@ namespace KrazyKrakenGames.DetectiveGame.Player
 
                   if (selectedPuzzlePiece != null)
                   {
-                    selectedPuzzlePiece.UnSelect();
+                    selectedPuzzlePiece.UnSelect(this);
                     selectedPuzzlePiece = null;
                   }
                     selectedPuzzlePiece = hit.collider.gameObject.GetComponent<PuzzlePiece>();
-                    selectedPuzzlePiece.Select();
+                    selectedPuzzlePiece.Select(this);
                 }
+            }
+        }
+
+        #endregion
+
+        #region Movement Input Handling
+
+        private void MovementInputHandling()
+        {
+            if(_input.move != Vector2.zero)
+            {
+                OnMoveInputEvent?.Invoke( _input.move);
             }
         }
 

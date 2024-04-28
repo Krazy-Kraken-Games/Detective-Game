@@ -199,7 +199,7 @@ namespace StarterAssets
 		public void SetCursorInGame(bool newState)
 		{
 			Cursor.lockState = newState ? CursorLockMode.Locked : CursorLockMode.None;
-			//Cursor.visible = false;
+			Cursor.visible = false;
 		}
 
 		private void SetCursorState(bool newState)
