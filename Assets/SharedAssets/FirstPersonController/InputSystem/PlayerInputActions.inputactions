@@ -51,13 +51,13 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Kraken",
-                    "type": "Button",
-                    "id": "1c3d8b41-0f25-4dd9-87e6-cdc8f9eff9dc",
-                    "expectedControlType": "Button",
+                    "name": "Raycaster",
+                    "type": "Value",
+                    "id": "48a1a008-b52d-47e9-9dd1-6246cd636152",
+                    "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 },
                 {
                     "name": "LTriggerOne",
@@ -69,13 +69,31 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Raycaster",
-                    "type": "Value",
-                    "id": "48a1a008-b52d-47e9-9dd1-6246cd636152",
-                    "expectedControlType": "Vector2",
+                    "name": "LTriggerTwo",
+                    "type": "PassThrough",
+                    "id": "8114dee9-4e8f-4868-9a33-1ab93b02350e",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": true
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "RTriggerTwo",
+                    "type": "Button",
+                    "id": "c23a9959-5568-49ee-89d2-28cb518cbb13",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Kraken",
+                    "type": "Button",
+                    "id": "1c3d8b41-0f25-4dd9-87e6-cdc8f9eff9dc",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -213,17 +231,6 @@
                 },
                 {
                     "name": "",
-                    "id": "dfbbf882-3723-43c0-a0a9-803cf1ebdebf",
-                    "path": "<Mouse>/leftButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "KeyboardMouse",
-                    "action": "Interact",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "4b41745b-69f3-4dc6-ae46-27ee7cc826d6",
                     "path": "<Keyboard>/x",
                     "interactions": "",
@@ -246,39 +253,6 @@
                 },
                 {
                     "name": "",
-                    "id": "7bd5c7ca-f562-4f3a-b116-afd7853cd578",
-                    "path": "<Keyboard>/k",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "KeyboardMouse",
-                    "action": "Kraken",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "24a2f18c-e8ed-4625-91d4-45964f4e3bdc",
-                    "path": "<Keyboard>/z",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "KeyboardMouse",
-                    "action": "LTriggerOne",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "f8fb518f-4e1c-4068-9971-a40cec6249d9",
-                    "path": "<Gamepad>/leftTrigger",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "LTriggerOne",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "085df2d2-6269-4878-b903-1dce4c10edaa",
                     "path": "<Mouse>/position",
                     "interactions": "",
@@ -296,6 +270,83 @@
                     "processors": "InvertVector2(invertX=false)",
                     "groups": "Gamepad",
                     "action": "Raycaster",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a73ea6a4-6292-4978-b25c-9b1ce8c86b88",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KeyboardMouse",
+                    "action": "LTriggerTwo",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d651c8cf-66fa-43fd-9838-9badcbb47d53",
+                    "path": "<Gamepad>/leftTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "LTriggerTwo",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "24a2f18c-e8ed-4625-91d4-45964f4e3bdc",
+                    "path": "<Keyboard>/z",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KeyboardMouse",
+                    "action": "LTriggerOne",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f8fb518f-4e1c-4068-9971-a40cec6249d9",
+                    "path": "<Gamepad>/leftShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "LTriggerOne",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7bd5c7ca-f562-4f3a-b116-afd7853cd578",
+                    "path": "<Keyboard>/k",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KeyboardMouse",
+                    "action": "Kraken",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "269a0807-2583-4b7c-a94c-6c097fc3c87c",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KeyboardMouse",
+                    "action": "RTriggerTwo",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2786d85c-dfef-45bd-8551-064382328dfa",
+                    "path": "<Gamepad>/rightTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "RTriggerTwo",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

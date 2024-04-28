@@ -118,6 +118,8 @@ public class ThirdPersonPlayer : MonoBehaviour
     protected float _verticalVelocity;
     private float _terminalVelocity = 53.0f;
 
+    private bool shootInputProcessed = false;
+
     private bool IsCurrentDeviceMouse
     {
         get
@@ -226,11 +228,21 @@ public class ThirdPersonPlayer : MonoBehaviour
             EnforceGravity();
             Locomotion();
 
-            //Detective or Focused Mode
-            FocusMode();
+            if (playerManager.gameState != GameState.SHOOT)
+            {
+                //Detective or Focused Mode
+                FocusMode();
 
-            //Interact with environment
-            Interact();
+                //Interact with environment
+                Interact();
+            }
+            else
+            {
+                HandleShootButtonHit();
+            }
+
+            //TODO: Decide if we want to make game not switch to shooting mode if in detective mode
+            ShootInput();
 
             CancelInputHandling();
         }
@@ -400,12 +412,44 @@ public class ThirdPersonPlayer : MonoBehaviour
     #region Input Handling
     private void FocusMode()
     {
-        if (_input.leftTrigger)
+        if (_input.leftShoulder)
         {
-            _input.leftTrigger = false;
+            _input.leftShoulder = false;
 
             //Logic to handle starting the detective mode
             detectiveMode.StartDetectiveMode();
+        }
+    }
+
+    private void ShootInput()
+    {
+        if (_input.leftTrigger)
+        {
+            if (!shootInputProcessed)
+            {
+                playerManager.UpdateMode(GameState.SHOOT);
+                shootInputProcessed = true;
+            }
+        }
+        else
+        {
+            if (shootInputProcessed)
+            {
+                //Shoot input was detected some time
+                playerManager.UpdateMode(GameState.NORMAL);
+                _input.rightTrigger = false;
+            }
+
+            shootInputProcessed = false;
+        }
+    }
+
+    private void HandleShootButtonHit()
+    {
+        if (_input.rightTrigger)
+        {
+            Debug.Log("Player shoot projectile");
+            _input.rightTrigger = false;
         }
     }
 
