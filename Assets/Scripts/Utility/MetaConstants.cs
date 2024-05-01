@@ -81,7 +81,7 @@ namespace KrazyKrakenGames.DetectiveGame.Global
         public static readonly float ShootCameraDistance = 2f;
 
         public static readonly Vector3 FollowCameraShoulderOffset = new Vector3(3,0,0);
-        public static readonly Vector3 ShootCameraShoulderOffset = new Vector3(4, 0.25f, 0);
+        public static readonly Vector3 ShootCameraShoulderOffset = new Vector3(1.5f, 0.25f, 0);
     }
 
     public class PostProcessingConstants
@@ -116,5 +116,10 @@ namespace KrazyKrakenGames.DetectiveGame.Global
             RTriggerOne,
             RTriggerTwo
         }
+    }
+
+    public class GamePlayConstants
+    {
+        public static readonly float ProjectileSpeed = 10f;
     }
 }

@@ -1,5 +1,8 @@
+using Cinemachine;
 using KrazyKrakenGames.DetectiveGame.AI;
+using KrazyKrakenGames.DetectiveGame.Global;
 using KrazyKrakenGames.DetectiveGame.Managers;
+using UnityEditor;
 using UnityEngine;
 
 namespace KrazyKrakenGames.DetectiveGame.UI
@@ -10,7 +13,10 @@ namespace KrazyKrakenGames.DetectiveGame.UI
         public static UIManager instance = null;
 
         [Header("Cross-Hair Reference")]
-        [SerializeField] private RectTransform crossHair;
+        public RectTransform crossHair;
+        private Vector3 crossHairWorldPos;
+
+        public Vector3 CrossHairWorldPosition => crossHairWorldPos;
 
         [Space(5)]
         [Header("Dialog System References")]
@@ -29,6 +35,8 @@ namespace KrazyKrakenGames.DetectiveGame.UI
         [SerializeField] private NPC_Dialog currentNpc;
 
         private GamePlayerManager playerManager;
+
+        #region Unity Methods
 
         private void Awake()
         {
@@ -58,18 +66,20 @@ namespace KrazyKrakenGames.DetectiveGame.UI
             UnregisterEvents();
         }
 
-        private void Update()
+        private void LateUpdate()
         {
-            if(playerManager != null && playerManager._input.raycaster != Vector2.zero)
-            {
-                // Convert viewport position to screen position
-                Vector3 screenPos = playerManager._input.raycaster;
+            SetCrossHairWorldPosition();
 
-                // Set the position of the RectTransform
-                crossHair.position = screenPos;
+            if (playerManager != null && playerManager.gameState == MetaConstants.GameState.PUZZLE)
+            {
+                PuzzleCrossHairMovement();
             }
         }
 
+        #endregion
+
+
+        #region Event Registrations
 
         private void RegisterEvents()
         {
@@ -84,6 +94,8 @@ namespace KrazyKrakenGames.DetectiveGame.UI
 
             instructionSystem.OnInstructionStateUpdate -= (bool _value) => isInstructionActive = _value;
         }
+
+        #endregion
 
 
         #region Dialog System Section
@@ -107,6 +119,7 @@ namespace KrazyKrakenGames.DetectiveGame.UI
 
         #endregion
 
+
         #region Instruction System Section
 
         public void ShowInstructionBox(string message)
@@ -118,6 +131,30 @@ namespace KrazyKrakenGames.DetectiveGame.UI
         public void HideInstructionBox()
         {
             instructionSystem.Hide();
+        }
+
+        #endregion
+
+
+        #region Cross-Hair Update Handling Section 
+
+        private void SetCrossHairWorldPosition()
+        {
+            Camera cam = Camera.main.GetComponent<CinemachineBrain>().OutputCamera;
+            crossHairWorldPos = cam.ScreenToWorldPoint(new Vector3(crossHair.position.x, crossHair.position.y, 2f));
+
+        }
+
+        private void PuzzleCrossHairMovement()
+        {
+            if (playerManager._input.raycaster != Vector2.zero)
+            {
+                //Convert viewport position to screen position
+                Vector3 screenPos = playerManager._input.raycaster;
+
+                // Set the position of the RectTransform
+                crossHair.position = screenPos;
+            }
         }
 
         #endregion

@@ -24,6 +24,10 @@ namespace KrazyKrakenGames.DetectiveGame.Managers
 
         public Action<GameCameraState> OnStateChangeEvent;
 
+        public CinemachineVirtualCamera PrimaryCamera => primaryCamera;
+        public Cinemachine3rdPersonFollow PrimaryFollowComponent => primaryFramingTransposer;
+
+        public Vector3 middlePoint;
         #region UNITY_METHODS
 
         private void Awake()
@@ -56,6 +60,13 @@ namespace KrazyKrakenGames.DetectiveGame.Managers
             {
                 playerManager.OnGameStateChangedEvent -= OnGameStateChangeEventHandler;
             }
+        }
+
+        private void LateUpdate()
+        {
+            middlePoint = GetMiddlePoint();
+
+            //Debug.Log($"Middle Point in world Space: {middlePoint}");
         }
 
         #endregion
@@ -131,5 +142,20 @@ namespace KrazyKrakenGames.DetectiveGame.Managers
         }
 
         #endregion
+
+
+        private Vector3 GetMiddlePoint()
+        {
+            Camera cam = Camera.main.GetComponent<CinemachineBrain>().OutputCamera;
+
+            // Get the middle point of the screen in screen space (normalized)
+            Vector3 screenMiddlePoint = new Vector3(0.5f, 0.5f, cam.nearClipPlane);
+
+            // Convert the screen point to a world point
+            Vector3 worldMiddlePoint = cam.ViewportToWorldPoint(screenMiddlePoint);
+
+            return worldMiddlePoint;
+
+        }
     }
 }

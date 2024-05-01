@@ -1,4 +1,8 @@
+using Cinemachine;
+using KrazyKrakenGames;
 using KrazyKrakenGames.DetectiveGame.Gameplay;
+using KrazyKrakenGames.DetectiveGame.Gameplay.Feature.Shooting;
+using KrazyKrakenGames.DetectiveGame.Gameplay.Shooting;
 using KrazyKrakenGames.DetectiveGame.Global;
 using KrazyKrakenGames.DetectiveGame.Managers;
 using KrazyKrakenGames.DetectiveGame.UI;
@@ -6,6 +10,7 @@ using StarterAssets;
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Windows;
 using static KrazyKrakenGames.DetectiveGame.Global.MetaConstants;
 
 
@@ -26,6 +31,11 @@ public class ThirdPersonPlayer : MonoBehaviour
     [Header("Nearby interactable object")]
     [SerializeField] private InteractableObject interactableObject;
     [SerializeField] private bool nearbyInteractableObj;
+
+    [Space(5)]
+    [Header("Shooting System References")]
+    [SerializeField] private ShootingSystem shootingSystem;
+
 
     #region Player Locomotion Variables
 
@@ -167,6 +177,8 @@ public class ThirdPersonPlayer : MonoBehaviour
         mainCamera = Camera.main;
         playerManager = GamePlayerManager.instance;
 
+        shootingSystem = GetComponent<ShootingSystem>();    
+
         RegisterEvents();
         
         _hasAnimator = TryGetComponent(out _animator);
@@ -238,8 +250,11 @@ public class ThirdPersonPlayer : MonoBehaviour
             }
             else
             {
-                HandleShootButtonHit();
+                //Shoot mode is activated, drop raycasts here
+                shootingSystem.PreShootRaycasting();
             }
+
+            HandleShootButtonHit();
 
             //TODO: Decide if we want to make game not switch to shooting mode if in detective mode
             ShootInput();
@@ -429,6 +444,8 @@ public class ThirdPersonPlayer : MonoBehaviour
             {
                 playerManager.UpdateMode(GameState.SHOOT);
                 shootInputProcessed = true;
+                
+                shootingSystem.ResetRaycastHit();
             }
         }
         else
@@ -448,7 +465,10 @@ public class ThirdPersonPlayer : MonoBehaviour
     {
         if (_input.rightTrigger)
         {
-            Debug.Log("Player shoot projectile");
+            if(playerManager.gameState == GameState.SHOOT)
+            {
+                shootingSystem.Shoot();
+            }
             _input.rightTrigger = false;
         }
     }
@@ -611,6 +631,18 @@ public class ThirdPersonPlayer : MonoBehaviour
         if (lfAngle < -360f) lfAngle += 360f;
         if (lfAngle > 360f) lfAngle -= 360f;
         return Mathf.Clamp(lfAngle, lfMin, lfMax);
+    }
+
+
+    #endregion
+
+    #region Debugging Section
+    private void OnDrawGizmos()
+    {
+        if (KrakenDebugger.Instance != null)
+        {
+           
+        }
     }
 
     #endregion
