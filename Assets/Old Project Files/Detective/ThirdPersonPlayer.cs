@@ -1,16 +1,13 @@
-using Cinemachine;
 using KrazyKrakenGames;
 using KrazyKrakenGames.DetectiveGame.Gameplay;
 using KrazyKrakenGames.DetectiveGame.Gameplay.Feature.Shooting;
-using KrazyKrakenGames.DetectiveGame.Gameplay.Shooting;
-using KrazyKrakenGames.DetectiveGame.Global;
 using KrazyKrakenGames.DetectiveGame.Managers;
 using KrazyKrakenGames.DetectiveGame.UI;
+using RootMotion.FinalIK;
 using StarterAssets;
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Windows;
 using static KrazyKrakenGames.DetectiveGame.Global.MetaConstants;
 
 
@@ -35,6 +32,11 @@ public class ThirdPersonPlayer : MonoBehaviour
     [Space(5)]
     [Header("Shooting System References")]
     [SerializeField] private ShootingSystem shootingSystem;
+
+    [Space(5)]
+    [Header("IK References")]
+    [SerializeField] private AimIK aimIk;
+    [SerializeField] private LookAtIK lookAtIK;
 
 
     #region Player Locomotion Variables
@@ -189,7 +191,14 @@ public class ThirdPersonPlayer : MonoBehaviour
 #else
 			Debug.LogError( "Starter Assets package is missing dependencies. Please use Tools/Starter Assets/Reinstall Dependencies to fix it");
 #endif
+        lookAtIK = GetComponent<LookAtIK>();
+        lookAtIK.solver.SetIKPositionWeight(0f);
 
+        aimIk = GetComponent<AimIK>();
+        aimIk.solver.SetIKPositionWeight(0f);
+        
+        
+        _animator.SetLayerWeight(1, 0f);
         AssignAnimationIDs();
     }
 
@@ -444,7 +453,11 @@ public class ThirdPersonPlayer : MonoBehaviour
             {
                 playerManager.UpdateMode(GameState.SHOOT);
                 shootInputProcessed = true;
-                
+
+                aimIk.solver.SetIKPositionWeight(1f);
+                lookAtIK.solver.SetIKPositionWeight(1f);
+
+                _animator.SetLayerWeight(1, 1f);
                 shootingSystem.ResetRaycastHit();
             }
         }
@@ -455,6 +468,11 @@ public class ThirdPersonPlayer : MonoBehaviour
                 //Shoot input was detected some time
                 playerManager.UpdateMode(GameState.NORMAL);
                 _input.rightTrigger = false;
+
+                aimIk.solver.SetIKPositionWeight(0f);
+                lookAtIK.solver.SetIKPositionWeight(0f);
+
+                _animator.SetLayerWeight(1, 0f);
             }
 
             shootInputProcessed = false;

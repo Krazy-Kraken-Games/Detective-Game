@@ -1105,6 +1105,8 @@ MonoBehaviour:
   interactableObject: {fileID: 0}
   nearbyInteractableObj: 0
   shootingSystem: {fileID: 0}
+  aimIk: {fileID: 0}
+  lookAtIK: {fileID: 0}
   MoveSpeed: 4
   SprintSpeed: 8
   Gravity: -15
@@ -1167,7 +1169,7 @@ MonoBehaviour:
   camRaycastDistance: 1
   fullBody: {fileID: 3125972931630960226}
   lookAt:
-    ik: {fileID: 3274693798640083050}
+    ik: {fileID: 0}
     lerpSpeed: 5
     weightSpeed: 1
     isPaused: 0
@@ -1659,10 +1661,10 @@ MonoBehaviour:
   fixTransforms: 1
   solver:
     executedInEditor: 0
-    IKPosition: {x: -0.134, y: 2.327328, z: 6.1753187}
+    IKPosition: {x: 0, y: 2.327328, z: -5.224682}
     IKPositionWeight: 1
     root: {fileID: 8909131182938852670}
-    target: {fileID: 0}
+    target: {fileID: 2045583400198856916}
     spine:
     - transform: {fileID: 3926391062989998005}
       weight: 0
@@ -1754,9 +1756,18 @@ MonoBehaviour:
     target: {fileID: 2045583400198856916}
     tolerance: 0
     maxIterations: 4
-    useRotationLimits: 1
+    useRotationLimits: 0
     XY: 0
     bones:
+    - transform: {fileID: 3385171475591635852}
+      weight: 1
+      solverPosition: {x: 0, y: 0, z: 0}
+      solverRotation: {x: 0, y: 0, z: 0, w: 0}
+      defaultLocalPosition: {x: -0, y: 0.9810986, z: -0.01590455}
+      defaultLocalRotation: {x: 0, y: -0, z: -0, w: 1}
+      length: 0
+      sqrMag: 0
+      axis: {x: 0, y: 0, z: 0}
     - transform: {fileID: 3926391062989998005}
       weight: 1
       solverPosition: {x: 0, y: 0, z: 0}
@@ -1772,6 +1783,51 @@ MonoBehaviour:
       solverRotation: {x: 0, y: 0, z: 0, w: 0}
       defaultLocalPosition: {x: -0, y: 0.1034043, z: 0}
       defaultLocalRotation: {x: 0, y: -0, z: -0, w: 1}
+      length: 0
+      sqrMag: 0
+      axis: {x: 0, y: 0, z: 0}
+    - transform: {fileID: 7811893407876758600}
+      weight: 1
+      solverPosition: {x: 0, y: 0, z: 0}
+      solverRotation: {x: 0, y: 0, z: 0, w: 0}
+      defaultLocalPosition: {x: -0, y: 0.1034043, z: 0}
+      defaultLocalRotation: {x: 0, y: -0, z: -0, w: 1}
+      length: 0
+      sqrMag: 0
+      axis: {x: 0, y: 0, z: 0}
+    - transform: {fileID: 3816445832981639117}
+      weight: 1
+      solverPosition: {x: 0, y: 0, z: 0}
+      solverRotation: {x: 0, y: 0, z: 0, w: 0}
+      defaultLocalPosition: {x: 0.0009571358, y: 0.19149381, z: -0.008727803}
+      defaultLocalRotation: {x: 0.99258024, y: -0.04327539, z: -0.113521874, w: 0.004949396}
+      length: 0
+      sqrMag: 0
+      axis: {x: 0, y: 0, z: 0}
+    - transform: {fileID: 892956245158650175}
+      weight: 1
+      solverPosition: {x: 0, y: 0, z: 0}
+      solverRotation: {x: 0, y: 0, z: 0, w: 0}
+      defaultLocalPosition: {x: 0.16743432, y: -0.0000022099182, z: 0.00000012213746}
+      defaultLocalRotation: {x: 0.17870995, y: 0.027966414, z: 0.90344393, w: 0.38867685}
+      length: 0
+      sqrMag: 0
+      axis: {x: 0, y: 0, z: 0}
+    - transform: {fileID: 6197929873048131463}
+      weight: 1
+      solverPosition: {x: 0, y: 0, z: 0}
+      solverRotation: {x: 0, y: 0, z: 0, w: 0}
+      defaultLocalPosition: {x: 0.0000037273983, y: -0.285085, z: -0.00000035927226}
+      defaultLocalRotation: {x: 0.37416065, y: -8.0435996e-17, z: -3.2453267e-17, w: 0.92736393}
+      length: 0
+      sqrMag: 0
+      axis: {x: 0, y: 0, z: 0}
+    - transform: {fileID: 6810860750794817916}
+      weight: 1
+      solverPosition: {x: 0, y: 0, z: 0}
+      solverRotation: {x: 0, y: 0, z: 0, w: 0}
+      defaultLocalPosition: {x: 0.0000014923929, y: -0.24036367, z: 0.0000017856368}
+      defaultLocalRotation: {x: -0.047397237, y: -0.24003562, z: 0.013464749, w: 0.9695128}
       length: 0
       sqrMag: 0
       axis: {x: 0, y: 0, z: 0}
