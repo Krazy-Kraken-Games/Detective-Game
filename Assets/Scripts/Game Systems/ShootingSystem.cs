@@ -12,10 +12,20 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay.Feature.Shooting
         [SerializeField] private Transform projectileSpawnPoint;
         private Vector3 raycastHitPosition = Vector3.zero;
 
+        //Used for IK
+        [SerializeField] private Transform aimTarget;
+
+        private void Update()
+        {
+            SetAimTargetPosition();
+        }
+
         public void ResetRaycastHit()
         {
             raycastHitPosition = Vector3.zero;
         }
+
+        
 
         public void PreShootRaycasting()
         {
@@ -54,6 +64,19 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay.Feature.Shooting
             Projectile projectile = Instantiate(projectilePrefab, projectileSpawnPoint.position, Quaternion.identity).GetComponent<Projectile>();
             projectile.SetDirection(direction);
 
+        }
+
+        private void SetAimTargetPosition()
+        {
+            //Aim target position should have similar math to Shoot logic
+            if (raycastHitPosition != Vector3.zero)
+            {
+                aimTarget.position = raycastHitPosition;
+            }
+            else
+            {
+                //Turn weight offline
+            }
         }
     }
 }
