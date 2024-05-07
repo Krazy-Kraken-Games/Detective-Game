@@ -1735,6 +1735,7 @@ MonoBehaviour:
   projectilePrefab: {fileID: 3915604398533759988, guid: 0815a4b034870104ba8f4abe6b897d93, type: 3}
   projectileSpawnPoint: {fileID: 494307904019183319}
   aimTarget: {fileID: 2045583400198856916}
+  pistol: {fileID: 8166308539370923206}
 --- !u!114 &56120062176744887
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3605,7 +3606,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5068498340597469976
 Transform:
   m_ObjectHideFlags: 0

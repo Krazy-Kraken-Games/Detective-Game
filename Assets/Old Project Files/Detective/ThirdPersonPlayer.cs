@@ -458,7 +458,8 @@ public class ThirdPersonPlayer : MonoBehaviour
                 lookAtIK.solver.SetIKPositionWeight(1f);
 
                 _animator.SetLayerWeight(1, 1f);
-                shootingSystem.ResetRaycastHit();
+
+                shootingSystem.ActivateShootMode();
             }
         }
         else
@@ -473,6 +474,8 @@ public class ThirdPersonPlayer : MonoBehaviour
                 lookAtIK.solver.SetIKPositionWeight(0f);
 
                 _animator.SetLayerWeight(1, 0f);
+
+                shootingSystem.DeactivateShootMode();
             }
 
             shootInputProcessed = false;

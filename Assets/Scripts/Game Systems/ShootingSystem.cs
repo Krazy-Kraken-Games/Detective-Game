@@ -15,6 +15,11 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay.Feature.Shooting
         //Used for IK
         [SerializeField] private Transform aimTarget;
 
+        //Gun references
+        [Space(5)]
+        [Header("Weapon References")]
+        [SerializeField] private GameObject pistol;
+
         private void Update()
         {
             SetAimTargetPosition();
@@ -77,6 +82,18 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay.Feature.Shooting
             {
                 //Turn weight offline
             }
+        }
+
+        public void ActivateShootMode()
+        {
+            ResetRaycastHit();
+            pistol.SetActive(true);
+        }
+
+        public void DeactivateShootMode()
+        {
+            ResetRaycastHit();
+            pistol.SetActive(false);
         }
     }
 }
