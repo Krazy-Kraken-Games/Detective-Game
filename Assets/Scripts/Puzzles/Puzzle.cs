@@ -9,12 +9,19 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay.Puzzles
         public List<PlacementCell> placementCells = new List<PlacementCell>();
         public Dictionary<PlacementCell,bool> responses = new Dictionary<PlacementCell,bool>();
 
+        [SerializeField] private Renderer notifierRenderer;
+
+        [SerializeField] private Material puzzleSolvedMaterial;
+        [SerializeField] private Material puzzleUnsolvedMaterial;
+
         private void Start()
         {
             foreach(var cell in placementCells)
             {
                 cell.OnObjectPlacedEvent += OnPlacementCellUpdateHandler;
             }
+
+            notifierRenderer.material = puzzleUnsolvedMaterial;
         }
 
         private void OnPlacementCellUpdateHandler(PlacementCell cell, bool result)
@@ -44,11 +51,13 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay.Puzzles
                 if (!cell.isCorrectPieceInPlace)
                 {
                     Debug.Log("One wrong check found. Puzzle unsolved");
+                    notifierRenderer.material = puzzleUnsolvedMaterial;
                     return;
                 }
             }
 
             Debug.Log("All checks completed! Puzzle solved");
+            notifierRenderer.material = puzzleSolvedMaterial;
         }
     }
 }

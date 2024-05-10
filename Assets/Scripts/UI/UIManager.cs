@@ -1,8 +1,8 @@
 using Cinemachine;
 using KrazyKrakenGames.DetectiveGame.AI;
+using KrazyKrakenGames.DetectiveGame.Gameplay;
 using KrazyKrakenGames.DetectiveGame.Global;
 using KrazyKrakenGames.DetectiveGame.Managers;
-using UnityEditor;
 using UnityEngine;
 
 namespace KrazyKrakenGames.DetectiveGame.UI
@@ -22,6 +22,9 @@ namespace KrazyKrakenGames.DetectiveGame.UI
         [Header("Dialog System References")]
         [SerializeField] private DialogUISystem dialogSystem;
         [SerializeField] private bool isDialogActive = false;
+        [SerializeField] private DialogInteraction activeDialogInteraction;
+        [SerializeField] private bool showingLastMessage = false;
+        public bool LastMessageShown => showingLastMessage;
 
         [Space(5)]
         [Header("Instruction System References")]
@@ -100,16 +103,33 @@ namespace KrazyKrakenGames.DetectiveGame.UI
 
         #region Dialog System Section
 
-        public void ShowDialog(string _message,NPC_Dialog npc)
+        public void ShowDialog(string _message,NPC_Dialog npc, DialogInteraction _dialogInteraction)
         {
+            activeDialogInteraction = _dialogInteraction;
             dialogSystem.UpdateText(_message);
             dialogSystem.Show();
+
+            showingLastMessage = activeDialogInteraction.LastMessageShown;
 
             currentNpc = npc;
         }
 
+        public void PopNextMessage()
+        {
+            activeDialogInteraction.PopNextMessage();
+        }
+
+        public void UpdateDialog(string _message)
+        {
+            dialogSystem.UpdateText(_message);
+
+            showingLastMessage = activeDialogInteraction.LastMessageShown;
+        }
+
         public void HideDialog()
         {
+            activeDialogInteraction = null;
+
             dialogSystem.Hide();
 
             currentNpc.EndConversation();

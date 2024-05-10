@@ -57,6 +57,10 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay.Feature.Shooting
                     raycastHitPosition = finalDestination;
                 }
             }
+            else
+            {
+                raycastHitPosition = finalDestination;
+            }
         }
 
         public void Shoot()

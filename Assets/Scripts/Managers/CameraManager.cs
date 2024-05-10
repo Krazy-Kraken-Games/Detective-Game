@@ -27,6 +27,8 @@ namespace KrazyKrakenGames.DetectiveGame.Managers
         public CinemachineVirtualCamera PrimaryCamera => primaryCamera;
         public Cinemachine3rdPersonFollow PrimaryFollowComponent => primaryFramingTransposer;
 
+        public CinemachineVirtualCamera SecondaryCamera => secondaryCamera;
+
         public Vector3 middlePoint;
         #region UNITY_METHODS
 
