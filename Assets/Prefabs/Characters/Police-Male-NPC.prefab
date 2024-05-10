@@ -1562,6 +1562,9 @@ MonoBehaviour:
   triggerBox: {fileID: 1938777121381922452}
   interactableObject: {fileID: 0}
   lookAt: {fileID: 2607157160545239704}
+  allMessages: []
+  currentMessageIndex: 0
+  isLastMessage: 0
   npc: {fileID: 1816475968074858139}
 --- !u!114 &1816475968074858139
 MonoBehaviour:
@@ -2174,7 +2177,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6864282991969888146}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0.64135766, z: -0, w: 0.76724213}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.074, y: 0.523, z: -0.02}
   m_LocalScale: {x: 0.80533, y: 1, z: 0.89169}
   m_ConstrainProportionsScale: 0

@@ -14,7 +14,8 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay.Puzzles
         }
 
         private Vector3 defaultPosition;
-        [SerializeField] private float onSelectYPosition;
+        [SerializeField] private float YPostionOffset;
+        [SerializeField] private float InAirYPosition;
 
         [SerializeField] private bool isSelected;
 
@@ -31,6 +32,8 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay.Puzzles
             defaultPosition = transform.position;
 
             rb = GetComponent<Rigidbody>();
+
+            InAirYPosition = transform.position.y + YPostionOffset;
         }
 
         private void Update()
@@ -44,7 +47,7 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay.Puzzles
             rb.isKinematic = true;
 
             transform.position = 
-                new Vector3(transform.position.x,onSelectYPosition, transform.position.z);
+                new Vector3(transform.position.x, InAirYPosition, transform.position.z);
 
             actionController = _actionController;
             _actionController.OnMoveInputEvent += Movement;
@@ -79,7 +82,7 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay.Puzzles
             // Normalize the direction to ensure consistent speed in all directions
             move.Normalize();
 
-            this.transform.Translate(move * Time.deltaTime);
+            this.transform.Translate(move * Time.deltaTime,Space.World);
         }
 
         public void Reset()

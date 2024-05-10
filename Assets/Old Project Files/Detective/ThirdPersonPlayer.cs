@@ -1,7 +1,9 @@
+using KrazyKrakenGames;
 using KrazyKrakenGames.DetectiveGame.Gameplay;
-using KrazyKrakenGames.DetectiveGame.Global;
+using KrazyKrakenGames.DetectiveGame.Gameplay.Feature.Shooting;
 using KrazyKrakenGames.DetectiveGame.Managers;
 using KrazyKrakenGames.DetectiveGame.UI;
+using RootMotion.FinalIK;
 using StarterAssets;
 using System;
 using UnityEngine;
@@ -26,6 +28,16 @@ public class ThirdPersonPlayer : MonoBehaviour
     [Header("Nearby interactable object")]
     [SerializeField] private InteractableObject interactableObject;
     [SerializeField] private bool nearbyInteractableObj;
+
+    [Space(5)]
+    [Header("Shooting System References")]
+    [SerializeField] private ShootingSystem shootingSystem;
+
+    [Space(5)]
+    [Header("IK References")]
+    [SerializeField] private AimIK aimIk;
+    [SerializeField] private LookAtIK lookAtIK;
+
 
     #region Player Locomotion Variables
 
@@ -118,6 +130,8 @@ public class ThirdPersonPlayer : MonoBehaviour
     protected float _verticalVelocity;
     private float _terminalVelocity = 53.0f;
 
+    private bool shootInputProcessed = false;
+
     private bool IsCurrentDeviceMouse
     {
         get
@@ -165,6 +179,8 @@ public class ThirdPersonPlayer : MonoBehaviour
         mainCamera = Camera.main;
         playerManager = GamePlayerManager.instance;
 
+        shootingSystem = GetComponent<ShootingSystem>();    
+
         RegisterEvents();
         
         _hasAnimator = TryGetComponent(out _animator);
@@ -175,7 +191,14 @@ public class ThirdPersonPlayer : MonoBehaviour
 #else
 			Debug.LogError( "Starter Assets package is missing dependencies. Please use Tools/Starter Assets/Reinstall Dependencies to fix it");
 #endif
+        lookAtIK = GetComponent<LookAtIK>();
+        lookAtIK.solver.SetIKPositionWeight(0f);
 
+        aimIk = GetComponent<AimIK>();
+        aimIk.solver.SetIKPositionWeight(0f);
+        
+        
+        _animator.SetLayerWeight(1, 0f);
         AssignAnimationIDs();
     }
 
@@ -226,11 +249,24 @@ public class ThirdPersonPlayer : MonoBehaviour
             EnforceGravity();
             Locomotion();
 
-            //Detective or Focused Mode
-            FocusMode();
+            if (playerManager.gameState != GameState.SHOOT)
+            {
+                //Detective or Focused Mode
+                FocusMode();
 
-            //Interact with environment
-            Interact();
+                //Interact with environment
+                Interact();
+            }
+            else
+            {
+                //Shoot mode is activated, drop raycasts here
+                shootingSystem.PreShootRaycasting();
+            }
+
+            HandleShootButtonHit();
+
+            //TODO: Decide if we want to make game not switch to shooting mode if in detective mode
+            ShootInput();
 
             CancelInputHandling();
         }
@@ -400,12 +436,61 @@ public class ThirdPersonPlayer : MonoBehaviour
     #region Input Handling
     private void FocusMode()
     {
-        if (_input.leftTrigger)
+        if (_input.leftShoulder)
         {
-            _input.leftTrigger = false;
+            _input.leftShoulder = false;
 
             //Logic to handle starting the detective mode
             detectiveMode.StartDetectiveMode();
+        }
+    }
+
+    private void ShootInput()
+    {
+        if (_input.leftTrigger)
+        {
+            if (!shootInputProcessed)
+            {
+                playerManager.UpdateMode(GameState.SHOOT);
+                shootInputProcessed = true;
+
+                aimIk.solver.SetIKPositionWeight(1f);
+                lookAtIK.solver.SetIKPositionWeight(1f);
+
+                _animator.SetLayerWeight(1, 1f);
+
+                shootingSystem.ActivateShootMode();
+            }
+        }
+        else
+        {
+            if (shootInputProcessed)
+            {
+                //Shoot input was detected some time
+                playerManager.UpdateMode(GameState.NORMAL);
+                _input.rightTrigger = false;
+
+                aimIk.solver.SetIKPositionWeight(0f);
+                lookAtIK.solver.SetIKPositionWeight(0f);
+
+                _animator.SetLayerWeight(1, 0f);
+
+                shootingSystem.DeactivateShootMode();
+            }
+
+            shootInputProcessed = false;
+        }
+    }
+
+    private void HandleShootButtonHit()
+    {
+        if (_input.rightTrigger)
+        {
+            if(playerManager.gameState == GameState.SHOOT)
+            {
+                shootingSystem.Shoot();
+            }
+            _input.rightTrigger = false;
         }
     }
 
@@ -567,6 +652,18 @@ public class ThirdPersonPlayer : MonoBehaviour
         if (lfAngle < -360f) lfAngle += 360f;
         if (lfAngle > 360f) lfAngle -= 360f;
         return Mathf.Clamp(lfAngle, lfMin, lfMax);
+    }
+
+
+    #endregion
+
+    #region Debugging Section
+    private void OnDrawGizmos()
+    {
+        if (KrakenDebugger.Instance != null)
+        {
+           
+        }
     }
 
     #endregion

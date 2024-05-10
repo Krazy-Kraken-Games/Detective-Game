@@ -9,6 +9,7 @@ TagManager:
   - TriggerBox
   - PuzzlePiece
   - ScreenCamera
+  - Target
   layers:
   - Default
   - TransparentFX

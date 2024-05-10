@@ -1,4 +1,6 @@
 
+using UnityEngine;
+
 namespace KrazyKrakenGames.DetectiveGame.Global
 {
     public class MetaConstants
@@ -18,7 +20,8 @@ namespace KrazyKrakenGames.DetectiveGame.Global
             NORMAL = 0,
             DETECTIVE = 1,
             VIEWER = 2,
-            PUZZLE = 3
+            PUZZLE = 3,
+            SHOOT = 4
         }
 
         public enum PlayerInputMode
@@ -72,6 +75,14 @@ namespace KrazyKrakenGames.DetectiveGame.Global
         #endregion
     }
 
+    public class GameCameraConstants
+    {
+        public static readonly float FollowCameraDistance = 3f;
+        public static readonly float ShootCameraDistance = 2f;
+
+        public static readonly Vector3 FollowCameraShoulderOffset = new Vector3(3,0,0);
+        public static readonly Vector3 ShootCameraShoulderOffset = new Vector3(1.5f, 0.25f, 0);
+    }
 
     public class PostProcessingConstants
     {
@@ -89,6 +100,9 @@ namespace KrazyKrakenGames.DetectiveGame.Global
         public static readonly string Interact = "Interact";
         public static readonly string Cancel = "Cancel";
         public static readonly string LeftTrigger = "LTriggerOne";
+        public static readonly string LeftTrigger2 = "LTriggerTwo";
+        public static readonly string RightTrigger = "RTriggerOne";
+        public static readonly string RightTrigger2 = "RTriggerTwo";
 
         public enum ActionKey
         {
@@ -98,6 +112,14 @@ namespace KrazyKrakenGames.DetectiveGame.Global
             Interact,
             Cancel,
             LTriggerOne,
+            LTriggerTwo,
+            RTriggerOne,
+            RTriggerTwo
         }
+    }
+
+    public class GamePlayConstants
+    {
+        public static readonly float ProjectileSpeed = 10f;
     }
 }

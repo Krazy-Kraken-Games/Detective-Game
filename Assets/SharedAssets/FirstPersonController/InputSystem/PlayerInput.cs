@@ -16,7 +16,9 @@ namespace StarterAssets
 		public bool sprint;
 		public bool interact;
 		public bool cancel;
+		public bool leftShoulder;
 		public bool leftTrigger;
+		public bool rightTrigger;
 
 
 		public bool kraken; //Only for debugger mode
@@ -132,7 +134,18 @@ namespace StarterAssets
 
 		public void OnLTriggerOne(InputValue value)
 		{
+			LeftShoulderInput(value.isPressed);
+		}
+
+		public void OnLTriggerTwo(InputValue value)
+		{
 			LeftTriggerInput(value.isPressed);
+
+        }
+
+		public void OnRTriggerTwo(InputValue value)
+		{
+			RightTriggerInput(value.isPressed);
 		}
 
 		public void OnRaycaster(InputValue value)
@@ -184,9 +197,19 @@ namespace StarterAssets
 			kraken = newKrakenState;
 		}
 
+		public void LeftShoulderInput(bool newLeftTriggerState)
+		{
+			leftShoulder = newLeftTriggerState;
+		}
+
 		public void LeftTriggerInput(bool newLeftTriggerState)
 		{
 			leftTrigger = newLeftTriggerState;
+		}
+
+		public void RightTriggerInput(bool newRightTriggerState)
+		{
+			rightTrigger = newRightTriggerState;
 		}
 
 

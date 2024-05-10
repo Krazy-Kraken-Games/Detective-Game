@@ -17,6 +17,8 @@ namespace KrazyKrakenGames.DetectiveGame.Player
         [SerializeField] private ThirdPersonPlayer gamePlayer;
         [SerializeField] private StarterAssetsInputs _input;
 
+
+        private Camera mainCamera;
         [SerializeField] private GameState currentGameState;
 
         [SerializeField] private LayerMask pieceLayer = 1 << 15;
@@ -46,6 +48,9 @@ namespace KrazyKrakenGames.DetectiveGame.Player
 
                 OnGameModeChangeEventHandler(playerManager.gameState);
             }
+
+            
+            mainCamera = Camera.main;
         }
 
         private void OnDestroy()
@@ -109,13 +114,28 @@ namespace KrazyKrakenGames.DetectiveGame.Player
                 //Check if dialog box is currently open
                 if (UIManager.instance.DialogActive())
                 {
-                    UIManager.instance.HideDialog();
+                    //Converting this to handle if its last message of conversation
+
+                    if (UIManager.instance.LastMessageShown)
+                    {
+                        UIManager.instance.HideDialog();
+                        SwitchControlBackToPrimaryController();
+                    }
+                    else
+                    {
+                        //Pop next message from queue
+                        UIManager.instance.PopNextMessage();
+                    }
+
+                    return;
                 }
 
                 //Check if instruction box is currently open
                 if (UIManager.instance.InstructionActive())
                 {
                     UIManager.instance.HideInstructionBox();
+
+                    return;
                 }
 
                 if (selectedPuzzlePiece != null)
@@ -189,7 +209,22 @@ namespace KrazyKrakenGames.DetectiveGame.Player
         {
             if(_input.move != Vector2.zero)
             {
-                OnMoveInputEvent?.Invoke( _input.move);
+                Vector3 forward = mainCamera.transform.forward;
+                Vector3 right = mainCamera.transform.right;
+                forward.y = 0;
+                right.y = 0;
+                forward = forward.normalized;
+                right = right.normalized;
+
+                Vector3 forwardRelativeVerticalMovement = _input.move.y * forward;
+                Vector3 rightRelativeHorizontalMovement = _input.move.x * right;
+
+                Vector3 cameraRelativeMovement =
+                            forwardRelativeVerticalMovement + rightRelativeHorizontalMovement;
+
+                Vector2 movementVector = new Vector2(cameraRelativeMovement.x, cameraRelativeMovement.z);
+
+                OnMoveInputEvent?.Invoke(movementVector);
             }
         }
 

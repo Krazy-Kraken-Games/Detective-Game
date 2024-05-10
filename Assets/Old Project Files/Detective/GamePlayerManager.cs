@@ -84,6 +84,13 @@ namespace KrazyKrakenGames.DetectiveGame.Managers
                 _input.cursorLocked = false;
                 _input.SetCursorInGame(_input.cursorLocked);
             }
+            else if(mode == GameState.SHOOT)
+            {
+                _input.cursorLocked = false;
+                _input.SetCursorInGame(_input.cursorLocked);
+
+
+            }
             else
             {
                 _input.cursorLocked = true;
