@@ -51,6 +51,8 @@ namespace KrazyKrakenGames.DetectiveGame.Player
 
             
             mainCamera = Camera.main;
+
+            UIManager.instance.TestToasterMethod();
         }
 
         private void OnDestroy()

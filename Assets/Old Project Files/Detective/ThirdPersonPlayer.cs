@@ -11,7 +11,7 @@ using UnityEngine.InputSystem;
 using static KrazyKrakenGames.DetectiveGame.Global.MetaConstants;
 
 
-[DefaultExecutionOrder(0)]
+[DefaultExecutionOrder(1)]
 public class ThirdPersonPlayer : MonoBehaviour
 {
     [Header("Game Player Manager reference")]

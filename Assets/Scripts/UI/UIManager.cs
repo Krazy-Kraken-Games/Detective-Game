@@ -31,10 +31,16 @@ namespace KrazyKrakenGames.DetectiveGame.UI
         [SerializeField] private InstructionUISystem instructionSystem;
         [SerializeField] private bool isInstructionActive = false;
 
+
+        [Space(5)]
+        [Header("Toaster System References")]
+        [SerializeField] private ToasterSystem toasterSystem;
+
         public bool InstructionActive() => isInstructionActive;
 
         public bool DialogActive() => isDialogActive;
 
+        [Space(5)]
         [SerializeField] private NPC_Dialog currentNpc;
 
         private GamePlayerManager playerManager;
@@ -177,6 +183,24 @@ namespace KrazyKrakenGames.DetectiveGame.UI
             }
         }
 
+        #endregion
+
+
+        #region Toaster System Section
+
+        public void AddToasterMessage(string _message)
+        {
+            toasterSystem.AddToasterMessage(_message);
+        }
+
+
+        public void TestToasterMethod()
+        {
+            AddToasterMessage("Game has now started");
+            AddToasterMessage("Player should win this game!");
+            AddToasterMessage("Can you beat this game solo?");
+            AddToasterMessage("This is my last message player! Good luck!");
+        }
         #endregion
     }
 }
