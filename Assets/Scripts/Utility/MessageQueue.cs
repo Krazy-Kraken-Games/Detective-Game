@@ -41,7 +41,7 @@ namespace KrazyKrakenGames.DetectiveGame.Utility
             }
         }
 
-        public int Count() => queue.Count;
+        public int Count => queue.Count;
 
         public void Clear() => queue.Clear();
     }
