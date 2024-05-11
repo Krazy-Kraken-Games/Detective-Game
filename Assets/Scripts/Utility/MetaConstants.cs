@@ -120,6 +120,17 @@ namespace KrazyKrakenGames.DetectiveGame.Global
 
     public class GamePlayConstants
     {
-        public static readonly float ProjectileSpeed = 10f;
+        public static readonly float ProjectileSpeed = 30f;
+
+        public static readonly string NoShootingAllowedTag = "NoShooting";
+
+        public static readonly string AllowShootingTag = "AllowShooting";
+    }
+
+    public class ToasterMessageTemplates
+    {
+        public static readonly string ShootingLocked = "Shooting has been locked";
+
+        public static readonly string ShootingUnlocked = "Shooting is allowed";
     }
 }

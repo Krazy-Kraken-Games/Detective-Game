@@ -1,5 +1,6 @@
 using Cinemachine;
 using KrazyKrakenGames.DetectiveGame.Gameplay.Shooting;
+using KrazyKrakenGames.DetectiveGame.Global;
 using KrazyKrakenGames.DetectiveGame.UI;
 using UnityEngine;
 
@@ -7,6 +8,11 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay.Feature.Shooting
 {
     public class ShootingSystem : MonoBehaviour
     {
+        [Header("Shooting Mode Variables")]
+        [SerializeField] private bool isShootingAllowed = true;
+        public bool Allowed => isShootingAllowed;
+
+        [Space(5)]
         [Header("Projectile Spawn System")]
         [SerializeField] private GameObject projectilePrefab;
         [SerializeField] private Transform projectileSpawnPoint;
@@ -99,5 +105,28 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay.Feature.Shooting
             ResetRaycastHit();
             pistol.SetActive(false);
         }
+
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.gameObject.tag == GamePlayConstants.NoShootingAllowedTag)
+            {
+                if (!isShootingAllowed) return;
+
+                isShootingAllowed = false;
+
+                UIManager.instance.AddToasterMessage(ToasterMessageTemplates.ShootingLocked);
+
+            }
+            else if(other.gameObject.tag == GamePlayConstants.AllowShootingTag)
+            {
+                if (isShootingAllowed) return;
+
+                isShootingAllowed = true;
+
+                UIManager.instance.AddToasterMessage(ToasterMessageTemplates.ShootingUnlocked);
+            }
+        }
+
     }
 }

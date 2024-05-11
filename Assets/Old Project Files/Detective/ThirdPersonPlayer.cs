@@ -447,7 +447,7 @@ public class ThirdPersonPlayer : MonoBehaviour
 
     private void ShootInput()
     {
-        if (_input.leftTrigger)
+        if (_input.leftTrigger && shootingSystem.Allowed)
         {
             if (!shootInputProcessed)
             {
