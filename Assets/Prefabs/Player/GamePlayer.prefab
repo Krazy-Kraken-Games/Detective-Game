@@ -1732,6 +1732,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80080e16e5e6d4342b7d6a66df5ef59e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isShootingAllowed: 0
+  leftArea: 0
   projectilePrefab: {fileID: 3915604398533759988, guid: 0815a4b034870104ba8f4abe6b897d93, type: 3}
   projectileSpawnPoint: {fileID: 494307904019183319}
   aimTarget: {fileID: 2045583400198856916}

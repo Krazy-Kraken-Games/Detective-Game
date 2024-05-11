@@ -193,14 +193,6 @@ namespace KrazyKrakenGames.DetectiveGame.UI
             toasterSystem.AddToasterMessage(_message);
         }
 
-
-        public void TestToasterMethod()
-        {
-            AddToasterMessage("Game has now started");
-            AddToasterMessage("Player should win this game!");
-            AddToasterMessage("Can you beat this game solo?");
-            AddToasterMessage("This is my last message player! Good luck!");
-        }
         #endregion
     }
 }
