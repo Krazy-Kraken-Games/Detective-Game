@@ -13,10 +13,7 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay.Puzzles
         [SerializeField] private bool hasResponse;
         public bool isCorrectPieceInPlace;
 
-        [SerializeField] private PuzzlePiece placedObject;
-
-        public Action<PlacementCell,bool> OnObjectPlacedEvent;
-
+        [SerializeField] private MoveablePiece placedObject;
 
         private void Start()
         {
@@ -31,7 +28,7 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay.Puzzles
                 {
                     hasResponse = true;
 
-                    placedObject = other.gameObject.GetComponent<PuzzlePiece>();
+                    placedObject = other.gameObject.GetComponent<MoveablePiece>();
 
                     placedObject.SetToPlacedState(this);
 
@@ -40,8 +37,8 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay.Puzzles
                 else
                 {
                     //If a response already exists, and another piece is being added to same 
-                    Debug.Log("Send puzzle piece back");
-                    var tempPiece = other.gameObject.GetComponent<PuzzlePiece>();
+                   
+                    var tempPiece = other.gameObject.GetComponent<MoveablePiece>();
                     tempPiece.Reset();
                 }
             }
@@ -69,16 +66,12 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay.Puzzles
             {
                 if (placedObject == correctResponse)
                 {
-                    Debug.Log("Correct object placed");
                     isCorrectPieceInPlace = true;
-                    //OnObjectPlacedEvent?.Invoke(this,true);
                     puzzleResponse.SetResponse(true);
                 }
                 else
                 {
-                    Debug.Log("Wrong object placed");
                     isCorrectPieceInPlace = false;
-                    //OnObjectPlacedEvent?.Invoke(this,false);
                     puzzleResponse.SetResponse(false);
                 }
             }
