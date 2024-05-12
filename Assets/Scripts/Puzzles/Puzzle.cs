@@ -6,8 +6,8 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay.Puzzles
 {
     public class Puzzle : MonoBehaviour
     {
-        public List<PlacementCell> placementCells = new List<PlacementCell>();
-        public Dictionary<PlacementCell,bool> responses = new Dictionary<PlacementCell,bool>();
+        public List<PuzzleResponse> puzzleResponseReferences = new List<PuzzleResponse>();
+        public Dictionary<PuzzleResponse, bool> responses = new Dictionary<PuzzleResponse, bool>();
 
         [SerializeField] private Renderer notifierRenderer;
 
@@ -16,15 +16,15 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay.Puzzles
 
         private void Start()
         {
-            foreach(var cell in placementCells)
+            foreach(var puzzleResponser in puzzleResponseReferences)
             {
-                cell.OnObjectPlacedEvent += OnPlacementCellUpdateHandler;
+                puzzleResponser.OnResponseRecievedEvent += OnResponseUpdateHandler;
             }
 
             notifierRenderer.material = puzzleUnsolvedMaterial;
         }
 
-        private void OnPlacementCellUpdateHandler(PlacementCell cell, bool result)
+        private void OnResponseUpdateHandler(PuzzleResponse cell, bool result)
         {
             //Update happened on this cell
             if (responses.ContainsKey(cell))
@@ -36,7 +36,7 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay.Puzzles
                 responses.Add(cell, result);
             }
 
-            if(responses.Count == placementCells.Count)
+            if(responses.Count == puzzleResponseReferences.Count)
             {
                 //We got responses from all
                 Debug.Log("Final validation check should happen now!");
@@ -46,9 +46,9 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay.Puzzles
 
         private void FinalValidationCheck()
         {
-            foreach(var cell in placementCells)
+            foreach(var puzzleResponser in puzzleResponseReferences)
             {
-                if (!cell.isCorrectPieceInPlace)
+                if (!puzzleResponser.Response)
                 {
                     Debug.Log("One wrong check found. Puzzle unsolved");
                     notifierRenderer.material = puzzleUnsolvedMaterial;
