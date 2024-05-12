@@ -13,7 +13,6 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay.Puzzles
 
         private Rigidbody rb;
 
-        private ActionController actionController;
 
         [SerializeField] private PlacementCell placedCell;
 
@@ -34,8 +33,7 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay.Puzzles
             transform.position =
                 new Vector3(transform.position.x, InAirYPosition, transform.position.z);
 
-            actionController = _actionController;
-            _actionController.OnMoveInputEvent += Movement;
+            actionController.OnMoveInputEvent += Movement;
 
             if (placedCell != null)
             {

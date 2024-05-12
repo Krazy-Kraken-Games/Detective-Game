@@ -12,14 +12,18 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay.Puzzles
             SELECTED = 1,
             PLACED = 2 //Placed on puzzle
         }
+
         [SerializeField] private bool isSelected;
 
         [SerializeField] protected State state;
+        protected ActionController actionController;
 
         public virtual void Select(ActionController _actionController)
         {
             state = State.SELECTED;
             isSelected = true;
+
+            actionController = _actionController;
         }
 
         public virtual void UnSelect(ActionController _actionController)
@@ -27,6 +31,8 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay.Puzzles
             state = State.UNSELECTED;
 
             isSelected = false;
+
+
         }
     }
 }

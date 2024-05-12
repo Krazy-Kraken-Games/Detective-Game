@@ -1,5 +1,4 @@
 using KrazyKrakenGames.DetectiveGame.Global;
-using System;
 using UnityEngine;
 
 namespace KrazyKrakenGames.DetectiveGame.Gameplay.Puzzles
