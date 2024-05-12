@@ -1,3 +1,4 @@
+using KrazyKrakenGames.DetectiveGame.UI;
 using System.Collections;
 using UnityEngine;
 
@@ -5,6 +6,14 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay.Objects
 {
     public class Door : MonoBehaviour
     {
+        public enum State
+        {
+            OPEN = 0,
+            LOCKED = 1
+        }
+
+        [SerializeField] private State currentState;
+
         private bool open;
         public float smooth = 2.0f;
         public float DoorOpenAngle = 90.0f;
@@ -30,14 +39,14 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay.Objects
 
         private void Update()
         {
-            if (open)
-            {
-                StartCoroutine(OpenDoor());
-            }
-            else
-            {
-                StartCoroutine(CloseDoor());
-            }
+          if (open)
+          {
+             StartCoroutine(OpenDoor());
+          }
+          else
+          {
+             StartCoroutine(CloseDoor());
+          }
         }
 
         private IEnumerator OpenDoor()
@@ -60,7 +69,14 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay.Objects
 
         private void OnInteractionDetected()
         {
-            Invoke("UpdateDoorStatus", 1f);
+            if (currentState == State.OPEN)
+            {
+                Invoke("UpdateDoorStatus", 1f);
+            }
+            else if (currentState == State.LOCKED)
+            {
+                UIManager.instance.AddToasterMessage("Door is locked");
+            }
         }
 
         private void UpdateDoorStatus()
