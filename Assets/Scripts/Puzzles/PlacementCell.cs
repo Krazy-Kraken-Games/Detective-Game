@@ -6,6 +6,8 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay.Puzzles
 {
     public class PlacementCell : MonoBehaviour
     {
+        [SerializeField] private PuzzleResponse puzzleResponse;
+
         [SerializeField] private PuzzlePiece correctResponse;
 
         [SerializeField] private bool hasResponse;
@@ -15,11 +17,10 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay.Puzzles
 
         public Action<PlacementCell,bool> OnObjectPlacedEvent;
 
-        public Action OnTestAction;
 
-        private void Update()
+        private void Start()
         {
-            
+            puzzleResponse = GetComponent<PuzzleResponse>();    
         }
 
         public void OnTriggerEnter(Collider other)
@@ -70,13 +71,15 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay.Puzzles
                 {
                     Debug.Log("Correct object placed");
                     isCorrectPieceInPlace = true;
-                    OnObjectPlacedEvent?.Invoke(this,true);
+                    //OnObjectPlacedEvent?.Invoke(this,true);
+                    puzzleResponse.SetResponse(true);
                 }
                 else
                 {
                     Debug.Log("Wrong object placed");
                     isCorrectPieceInPlace = false;
-                    OnObjectPlacedEvent?.Invoke(this,false);
+                    //OnObjectPlacedEvent?.Invoke(this,false);
+                    puzzleResponse.SetResponse(false);
                 }
             }
             else
