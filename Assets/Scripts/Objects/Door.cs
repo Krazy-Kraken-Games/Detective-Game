@@ -1,4 +1,6 @@
+using KrazyKrakenGames.DetectiveGame.Gameplay.Puzzles;
 using KrazyKrakenGames.DetectiveGame.UI;
+using KrazyKrakenGames.DetectiveGame.Utility;
 using System.Collections;
 using UnityEngine;
 
@@ -6,6 +8,8 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay.Objects
 {
     public class Door : MonoBehaviour
     {
+
+        private MessageQueue<Puzzle> dummyQuue = new MessageQueue<Puzzle>();
         public enum State
         {
             OPEN = 0,
@@ -22,6 +26,7 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay.Objects
 
         public InteractableObject doorKnob;
 
+        [SerializeField] private QuestOutcome questOutcome;
 
         private void Start()
         {
@@ -30,11 +35,23 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay.Objects
             openRot = Quaternion.Euler(defaultRot.eulerAngles + new Vector3(0, DoorOpenAngle, 0));
 
             doorKnob.OnInteractionInitEvent += OnInteractionDetected;
+
+            if(questOutcome != null)
+            {
+                questOutcome.OnOutComeUpdateEvent += OnOutComeUpdateEventHandler;
+
+                OnOutComeUpdateEventHandler(questOutcome.OutCome);
+            }
         }
 
         private void OnDestroy()
         {
             doorKnob.OnInteractionInitEvent -= OnInteractionDetected;
+
+            if (questOutcome != null)
+            {
+                questOutcome.OnOutComeUpdateEvent -= OnOutComeUpdateEventHandler;
+            }
         }
 
         private void Update()
@@ -83,5 +100,23 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay.Objects
         {
             open = !open;
         }
+
+
+
+        #region Quest Condition/Outcome Handling
+
+        private void OnOutComeUpdateEventHandler(bool _updatedOutcome)
+        {
+            if (_updatedOutcome)
+            {
+                currentState = State.OPEN;
+            }
+            else
+            {
+                currentState = State.LOCKED;
+            }
+        }
+
+        #endregion
     }
 }

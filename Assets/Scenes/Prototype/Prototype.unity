@@ -5640,10 +5640,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74de8ec4c176fc64492eecbb437c4933, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentState: 1
+  currentState: 0
   smooth: 2
   DoorOpenAngle: 90
   doorKnob: {fileID: 1479571263}
+  questOutcome: {fileID: 0}
 --- !u!43 &436781508
 Mesh:
   m_ObjectHideFlags: 0
@@ -6942,6 +6943,7 @@ GameObject:
   m_Component:
   - component: {fileID: 567347824}
   - component: {fileID: 567347825}
+  - component: {fileID: 567347826}
   m_Layer: 0
   m_Name: Door
   m_TagString: Untagged
@@ -6983,6 +6985,21 @@ MonoBehaviour:
   smooth: 2
   DoorOpenAngle: 90
   doorKnob: {fileID: 1006362262}
+  questOutcome: {fileID: 567347826}
+--- !u!114 &567347826
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 567347823}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23be5f21e274b7d4bbbbb7efd88f2e36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  condition: {fileID: 1704100610}
+  outcome: 0
 --- !u!1 &623940489
 GameObject:
   m_ObjectHideFlags: 0
@@ -8518,6 +8535,7 @@ MonoBehaviour:
   smooth: 2
   DoorOpenAngle: 90
   doorKnob: {fileID: 763460701}
+  questOutcome: {fileID: 0}
 --- !u!1 &846251106
 GameObject:
   m_ObjectHideFlags: 0
@@ -23499,6 +23517,24 @@ MonoBehaviour:
   rotateOnce: 1
   usePoser: 1
   bones: []
+--- !u!1 &1704100603 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4536264356760717015, guid: 6dbd1d7f5666b4745b05bd2542812d6c, type: 3}
+  m_PrefabInstance: {fileID: 2016507402}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1704100610
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1704100603}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a75a0a483dfebe844aadbc93f9946288, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  condition: 0
 --- !u!1 &1711672110
 GameObject:
   m_ObjectHideFlags: 0
@@ -27511,6 +27547,14 @@ PrefabInstance:
       propertyPath: allMessages.Array.data[2]
       value: Have fun!
       objectReference: {fileID: 0}
+    - target: {fileID: 4350200102324960399, guid: 6dbd1d7f5666b4745b05bd2542812d6c, type: 3}
+      propertyPath: allQuestConditions.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4350200102324960399, guid: 6dbd1d7f5666b4745b05bd2542812d6c, type: 3}
+      propertyPath: allQuestConditions.Array.data[0]
+      value: 
+      objectReference: {fileID: 1704100610}
     - target: {fileID: 4518532481557830666, guid: 6dbd1d7f5666b4745b05bd2542812d6c, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.00000002607704
@@ -28238,7 +28282,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4536264356760717015, guid: 6dbd1d7f5666b4745b05bd2542812d6c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1704100610}
   m_SourcePrefab: {fileID: 100100000, guid: 6dbd1d7f5666b4745b05bd2542812d6c, type: 3}
 --- !u!1 &2024086063
 GameObject:

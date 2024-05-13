@@ -20,6 +20,10 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay
 
         public bool LastMessageShown => isLastMessage;
 
+        [Space(10)]
+        [Header("All Quest Conditions")]
+        [SerializeField] private List<QuestCondition> allQuestConditions = new List<QuestCondition>();
+
         public override void Interact()
         {
             currentMessageIndex = 0;
@@ -28,7 +32,7 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay
 
             if (currentMessageIndex == allMessages.Count - 1)
             {
-                isLastMessage = true;
+                OnLastMessageShown();
             }
 
             CameraManager.instance.SetState(GameCameraState.SECONDARY, lookAt);
@@ -50,10 +54,18 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay
 
             if(currentMessageIndex == allMessages.Count - 1)
             {
-                isLastMessage = true;
+                OnLastMessageShown();
             }
 
             UIManager.instance.UpdateDialog(message);
+        }
+
+        private void OnLastMessageShown()
+        {
+            isLastMessage = true;
+
+            allQuestConditions[0].UpdateCondition(isLastMessage);
+         
         }
     }
 }
