@@ -26,8 +26,6 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay.Objects
 
         public InteractableObject doorKnob;
 
-        [SerializeField] private QuestOutcome questOutcome;
-
         private void Start()
         {
             defaultRot = transform.rotation;
@@ -36,22 +34,12 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay.Objects
 
             doorKnob.OnInteractionInitEvent += OnInteractionDetected;
 
-            if(questOutcome != null)
-            {
-                questOutcome.OnOutComeUpdateEvent += OnOutComeUpdateEventHandler;
-
-                OnOutComeUpdateEventHandler(questOutcome.OutCome);
-            }
         }
 
         private void OnDestroy()
         {
             doorKnob.OnInteractionInitEvent -= OnInteractionDetected;
 
-            if (questOutcome != null)
-            {
-                questOutcome.OnOutComeUpdateEvent -= OnOutComeUpdateEventHandler;
-            }
         }
 
         private void Update()
@@ -101,22 +89,10 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay.Objects
             open = !open;
         }
 
-
-
-        #region Quest Condition/Outcome Handling
-
-        private void OnOutComeUpdateEventHandler(bool _updatedOutcome)
+        public void UnlockDoor()
         {
-            if (_updatedOutcome)
-            {
-                currentState = State.OPEN;
-            }
-            else
-            {
-                currentState = State.LOCKED;
-            }
+            Debug.Log("Door unlocked through questing");
+            currentState = State.OPEN;
         }
-
-        #endregion
     }
 }

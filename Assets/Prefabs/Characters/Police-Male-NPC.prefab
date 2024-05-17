@@ -1562,7 +1562,13 @@ MonoBehaviour:
   triggerBox: {fileID: 1938777121381922452}
   interactableObject: {fileID: 0}
   lookAt: {fileID: 2607157160545239704}
-  allMessages: []
+  allMessages:
+  - Message: Welcome to the game player
+    MessageID: 0
+  - Message: First Dialog intereaction
+    MessageID: 1
+  - Message: Have fun playing the game
+    MessageID: 2
   currentMessageIndex: 0
   isLastMessage: 0
   npc: {fileID: 1816475968074858139}
