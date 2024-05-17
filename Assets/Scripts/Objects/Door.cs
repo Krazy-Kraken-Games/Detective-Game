@@ -1,4 +1,6 @@
+using KrazyKrakenGames.DetectiveGame.Gameplay.Puzzles;
 using KrazyKrakenGames.DetectiveGame.UI;
+using KrazyKrakenGames.DetectiveGame.Utility;
 using System.Collections;
 using UnityEngine;
 
@@ -6,6 +8,8 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay.Objects
 {
     public class Door : MonoBehaviour
     {
+
+        private MessageQueue<Puzzle> dummyQuue = new MessageQueue<Puzzle>();
         public enum State
         {
             OPEN = 0,
@@ -22,7 +26,6 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay.Objects
 
         public InteractableObject doorKnob;
 
-
         private void Start()
         {
             defaultRot = transform.rotation;
@@ -30,11 +33,13 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay.Objects
             openRot = Quaternion.Euler(defaultRot.eulerAngles + new Vector3(0, DoorOpenAngle, 0));
 
             doorKnob.OnInteractionInitEvent += OnInteractionDetected;
+
         }
 
         private void OnDestroy()
         {
             doorKnob.OnInteractionInitEvent -= OnInteractionDetected;
+
         }
 
         private void Update()
@@ -82,6 +87,12 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay.Objects
         private void UpdateDoorStatus()
         {
             open = !open;
+        }
+
+        public void UnlockDoor()
+        {
+            Debug.Log("Door unlocked through questing");
+            currentState = State.OPEN;
         }
     }
 }

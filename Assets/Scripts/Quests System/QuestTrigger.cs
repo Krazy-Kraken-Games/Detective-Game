@@ -1,0 +1,60 @@
+using KrazyKrakenGames.DetectiveGame.Managers;
+using System.Collections.Generic;
+using UnityEngine;
+
+namespace KrazyKrakenGames.DetectiveGame.QuestSystem
+{
+    /// <summary>
+    /// The quest trigger will act as an intermiedate to determine
+    /// when the quest associated will be trigger, what are the condition listeners for it
+    /// and when the quest will be completed
+    /// </summary>
+    /// 
+
+    [DefaultExecutionOrder(2)]
+    public class QuestTrigger : MonoBehaviour
+    {
+        public QuestSO questData;
+
+        public Quest activeQuest;
+
+        public List<QuestSegment> questSegments = new List<QuestSegment>();
+
+        private QuestManager questManager;
+
+        private void Awake()
+        {
+            CreateQuest();
+        }
+
+        public void CreateQuest()
+        {
+            activeQuest =
+               new Quest(questData.ID, questData.Title, questData.Status, this);
+
+            activeQuest.Segments = questSegments;
+
+            questManager = QuestManager.instance;
+        }
+
+        public void QuestSegmentComplete(int _segmentID)
+        {
+            foreach(QuestSegment segment in activeQuest.Segments)
+            {
+                if(segment.SegmentID == _segmentID)
+                {
+                    segment.SegmentComplete();
+                }
+            }
+        }
+
+        public void StartQuest()
+        {
+            if (questManager != null)
+            {
+                questManager.AddQuest(activeQuest);
+            }
+        }
+
+    }
+}
