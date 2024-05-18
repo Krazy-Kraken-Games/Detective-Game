@@ -51,7 +51,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Raycaster",
+                    "name": "PuzzleNavigate",
                     "type": "Value",
                     "id": "48a1a008-b52d-47e9-9dd1-6246cd636152",
                     "expectedControlType": "Vector2",
@@ -100,6 +100,15 @@
                     "type": "Button",
                     "id": "96e933f9-e75a-41ef-ac86-28e2774d93b9",
                     "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "PuzzleConsoleNavigate",
+                    "type": "PassThrough",
+                    "id": "cd94c037-e037-414a-bc78-b95111515912",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -267,18 +276,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "KeyboardMouse",
-                    "action": "Raycaster",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "d459e5cf-aec2-482b-803c-aa6baf268494",
-                    "path": "<Gamepad>/rightStick",
-                    "interactions": "",
-                    "processors": "InvertVector2(invertX=false)",
-                    "groups": "Gamepad",
-                    "action": "Raycaster",
+                    "action": "PuzzleNavigate",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -367,6 +365,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Cycle",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "085ac631-57cb-4ab8-ab38-46b9e3da1708",
+                    "path": "<Gamepad>/rightStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "PuzzleConsoleNavigate",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

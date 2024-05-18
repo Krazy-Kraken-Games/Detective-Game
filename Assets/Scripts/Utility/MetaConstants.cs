@@ -133,4 +133,11 @@ namespace KrazyKrakenGames.DetectiveGame.Global
 
         public static readonly string ShootingUnlocked = "Shooting is allowed";
     }
+
+    public class InputDeviceConstants
+    {
+        public static readonly string XboxControllerLabel = "Xbox Controller";
+
+        public static readonly float GP_RightStickMoveSpeed = 1000f;
+    }
 }

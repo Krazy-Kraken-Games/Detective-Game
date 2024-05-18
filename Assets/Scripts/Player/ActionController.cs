@@ -1,6 +1,9 @@
+using Cinemachine;
 using KrazyKrakenGames.DetectiveGame.Gameplay.Puzzles;
+using KrazyKrakenGames.DetectiveGame.Global;
 using KrazyKrakenGames.DetectiveGame.Managers;
 using KrazyKrakenGames.DetectiveGame.UI;
+using KrazyKrakenGames.DetectiveGame.Utility;
 using StarterAssets;
 using System;
 using UnityEngine;
@@ -16,7 +19,6 @@ namespace KrazyKrakenGames.DetectiveGame.Player
         [SerializeField] private bool isInputAllowed;
         [SerializeField] private ThirdPersonPlayer gamePlayer;
         [SerializeField] private StarterAssetsInputs _input;
-
 
         private Camera mainCamera;
         [SerializeField] private GameState currentGameState;
@@ -181,20 +183,24 @@ namespace KrazyKrakenGames.DetectiveGame.Player
         {
             if (_input != null)
             {
-                Vector2 startPosition = new Vector2(_input.raycaster.x, _input.raycaster.y);
-                Ray ray = Camera.main.ScreenPointToRay(startPosition);
+                Vector3 crossHairWorldPosition = UIManager.instance.CrossHairWorldPosition;
+
+                Camera cam = Camera.main.GetComponent<CinemachineBrain>().OutputCamera;
+               
+                Vector3 direction = crossHairWorldPosition - cam.gameObject.transform.position;
+                Ray ray = new Ray(cam.gameObject.transform.position, direction);
 
                 RaycastHit hit;
 
                 if (Physics.Raycast(ray, out hit, Mathf.Infinity, pieceLayer))
                 {
-                  Debug.Log($"Object interacted with:{hit.collider.gameObject.name}");
+                    Debug.Log($"Object interacted with:{hit.collider.gameObject.name}");
 
-                  if (selectedPuzzlePiece != null)
-                  {
-                    selectedPuzzlePiece.UnSelect(this);
-                    selectedPuzzlePiece = null;
-                  }
+                    if (selectedPuzzlePiece != null)
+                    {
+                       selectedPuzzlePiece.UnSelect(this);
+                       selectedPuzzlePiece = null;
+                    }
                     selectedPuzzlePiece = hit.collider.gameObject.GetComponent<PuzzlePiece>();
                     selectedPuzzlePiece.Select(this);
                 }
@@ -250,11 +256,21 @@ namespace KrazyKrakenGames.DetectiveGame.Player
 
             if(currentGameState == GameState.PUZZLE)
             {
-                Vector2 startPosition = new Vector2(_input.raycaster.x, _input.raycaster.y);
-                Ray ray = Camera.main.ScreenPointToRay(startPosition);
+
+                Vector3 crossHairWorldPosition = UIManager.instance.CrossHairWorldPosition;
+
+                Gizmos.color = Color.black;
+                Gizmos.DrawWireSphere(crossHairWorldPosition, 0.1f);
+
+                Camera cam = Camera.main.GetComponent<CinemachineBrain>().OutputCamera;
+                Gizmos.color = Color.green;
+                Gizmos.DrawWireSphere(cam.gameObject.transform.position, 0.1f);
+
+                Vector3 direction = crossHairWorldPosition - cam.gameObject.transform.position;
+                Ray newRay = new Ray(cam.gameObject.transform.position, direction);
 
                 Gizmos.color = Color.blue;
-                Gizmos.DrawRay(ray);
+                Gizmos.DrawRay(newRay);
             }
         }
 

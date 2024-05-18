@@ -11,7 +11,11 @@ namespace StarterAssets
 		[Header("Character Input Values")]
 		public Vector2 move;
 		public Vector2 look;
-		public Vector2 raycaster;
+		public Vector2 navigate;
+
+		public Vector2 consoleNavigate;
+		public bool isConsoleNavigateActive;
+
 		public bool jump;
 		public bool sprint;
 		public bool interact;
@@ -31,11 +35,14 @@ namespace StarterAssets
 		public bool cursorInputForLook = true;
 
 		public PlayerManager CameraManager;
-		
+
 		private bool m_IgnoreInput;
-		
+
 
 		private static bool m_FocusActionsSetUp;
+
+		[Header("Active Input Device")]
+		[SerializeField] public InputDevice currentDevice;
 
 		private void Start()
 		{
@@ -59,7 +66,29 @@ namespace StarterAssets
 			}
 		}
 
-		private void OnDestroy()
+        private void Update()
+        {
+            foreach (var device in InputSystem.devices)
+            {
+                if (device.wasUpdatedThisFrame)
+                {
+					currentDevice = device;
+                }
+            }
+
+            if (consoleNavigate != Vector2.zero)
+            {
+                isConsoleNavigateActive = true;
+
+            }
+            else
+            {
+                isConsoleNavigateActive = false;
+            }
+
+        }
+
+        private void OnDestroy()
 		{
 			m_FocusActionsSetUp = false;
 		}
@@ -117,6 +146,8 @@ namespace StarterAssets
 			SprintInput(value.isPressed);
 		}
 
+		
+
 		public void OnInteract(InputValue value)
 		{
 			InteractInput(value.isPressed);
@@ -148,15 +179,20 @@ namespace StarterAssets
 			RightTriggerInput(value.isPressed);
 		}
 
-		public void OnRaycaster(InputValue value)
+		public void OnPuzzleNavigate(InputValue value)
 		{
-			RaycasterInput(value.Get<Vector2>());
+			NavigateInput(value.Get<Vector2>());
 
+        }
+
+        public void OnPuzzleConsoleNavigate(InputValue value)
+        {
+			ConsoleNavigateInput(value.Get<Vector2>());
         }
 #endif
 
 
-		public void MoveInput(Vector2 newMoveDirection)
+        public void MoveInput(Vector2 newMoveDirection)
 		{
 			move = newMoveDirection;
 		} 
@@ -166,9 +202,17 @@ namespace StarterAssets
 			look = newLookDirection;
 		}
 
-		public void RaycasterInput(Vector2 newRaycastDirection)
+		public void NavigateInput(Vector2 newNavigationVector)
 		{
-			raycaster = newRaycastDirection;
+			navigate = newNavigationVector;
+		}
+
+		public void ConsoleNavigateInput(Vector2 newNavigationVector)
+		{
+			consoleNavigate = newNavigationVector;
+
+			
+			
 		}
 
 		public void JumpInput(bool newJumpState)

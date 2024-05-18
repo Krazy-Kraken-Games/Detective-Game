@@ -3,7 +3,9 @@ using KrazyKrakenGames.DetectiveGame.AI;
 using KrazyKrakenGames.DetectiveGame.Gameplay;
 using KrazyKrakenGames.DetectiveGame.Global;
 using KrazyKrakenGames.DetectiveGame.Managers;
+using KrazyKrakenGames.DetectiveGame.Utility;
 using UnityEngine;
+using UnityEngine.Windows;
 
 namespace KrazyKrakenGames.DetectiveGame.UI
 {
@@ -62,6 +64,7 @@ namespace KrazyKrakenGames.DetectiveGame.UI
         private void Start()
         {
             playerManager = GamePlayerManager.instance;
+           
 
             if (playerManager != null)
             {
@@ -73,6 +76,14 @@ namespace KrazyKrakenGames.DetectiveGame.UI
         private void OnDestroy()
         {
             UnregisterEvents();
+        }
+
+        private void Update()
+        {
+            if (playerManager != null && playerManager.gameState == MetaConstants.GameState.PUZZLE)
+            {
+                ControllerPuzzleMovement();
+            }
         }
 
         private void LateUpdate()
@@ -171,18 +182,29 @@ namespace KrazyKrakenGames.DetectiveGame.UI
 
         }
 
+        private void ControllerPuzzleMovement()
+        {
+            if (playerManager._input.isConsoleNavigateActive)
+            {
+                Vector2 inputVector = playerManager._input.consoleNavigate.normalized;
+                Vector2 moveVector = new Vector2(inputVector.x, inputVector.y) * InputDeviceConstants.GP_RightStickMoveSpeed * Time.deltaTime;
+                crossHair.anchoredPosition += moveVector;
+            }
+        }
+
         private void PuzzleCrossHairMovement()
         {
-            if (playerManager._input.raycaster != Vector2.zero)
+            if (playerManager._input.navigate != Vector2.zero)
             {
                 //Convert viewport position to screen position
-                Vector3 screenPos = playerManager._input.raycaster;
+                Vector3 screenPos = playerManager._input.navigate;
 
                 // Set the position of the RectTransform
                 crossHair.position = screenPos;
             }
         }
 
+       
         #endregion
 
 
