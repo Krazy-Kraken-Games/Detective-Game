@@ -1,4 +1,6 @@
+using KrazyKrakenGames.DetectiveGame.Conversations;
 using System;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -9,6 +11,9 @@ namespace KrazyKrakenGames.DetectiveGame.UI
     {
         [SerializeField] private GameObject dialogBox;
         [SerializeField] private TextMeshProUGUI messageText;
+
+        [SerializeField] private Transform optionsParent;
+        [SerializeField] private ConvoUI convoOptionPrefab;
 
         public Action<bool> OnDialogStateUpdate;
 
@@ -34,6 +39,19 @@ namespace KrazyKrakenGames.DetectiveGame.UI
         public void UpdateText(string _message)
         {
             messageText.text = _message;
+        }
+
+        public List<ConvoUI> CreateOptions(List<ConvoNodeSO> siblings)
+        {
+            List<ConvoUI> optionList = new List<ConvoUI>();
+            foreach(var sibling in siblings)
+            {
+                var convoUI = Instantiate(convoOptionPrefab, optionsParent);
+                convoUI.ShowMessage(sibling); 
+                optionList.Add(convoUI);
+            }
+
+            return optionList;
         }
     }
 }

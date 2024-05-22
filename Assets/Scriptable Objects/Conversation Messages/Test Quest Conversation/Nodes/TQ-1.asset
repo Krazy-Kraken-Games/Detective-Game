@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 0}
-  m_Name: D-2
+  m_Name: TQ-1
   m_EditorClassIdentifier: Assembly-CSharp::ConvoNodeSO
-  id: 
-  messageData: {fileID: 11400000, guid: 29463dd783eefb44d9bae2fff2535dbb, type: 2}
+  id: 0
+  messageData: {fileID: 11400000, guid: ecafd5dd51808c5478d03e2651463c89, type: 2}
   Children:
-  - {fileID: 11400000, guid: 0171a9cc2a90633479da966d7ad97a85, type: 2}
-  ParentNode: {fileID: 11400000, guid: 273ca881493e2454e93bd20c707aa322, type: 2}
+  - {fileID: 11400000, guid: c7cf8b2127af7e0468a538713cfa7e93, type: 2}
+  ParentNode: {fileID: 0}

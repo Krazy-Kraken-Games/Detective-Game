@@ -75,6 +75,8 @@ namespace KrazyKrakenGames.DetectiveGame.UI
                 var uiElement = questInfos[completedQuest.ID];
                 questInfos.Remove(completedQuest.ID);
 
+                UIManager.instance.AddToasterMessage($"{completedQuest.Title} Quest Completed!");
+
                 Destroy(uiElement.gameObject);
             }
 

@@ -29,6 +29,7 @@ public class SiblingGroup
 
 public class Conversation : MonoBehaviour
 {
+    public ConversationSO conversationSO;
     public List<ConvoNodeSO> allConversationNodes;
 
     public ConvoNodeSO rootNode;
@@ -49,6 +50,7 @@ public class Conversation : MonoBehaviour
 
     private void Start()
     {
+        allConversationNodes = conversationSO.Nodes;
         StartTraversing();
     }
 

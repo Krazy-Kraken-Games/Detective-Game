@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7756d03313f6d6444b0d851bc48c2d6b, type: 3}
-  m_Name: P-4
+  m_Name: TQ-5
   m_EditorClassIdentifier: 
-  speakerName: Pratik
-  message: Oh have you heard XYZ? They are my favorite!
-  MessageType: 4
+  speakerName: Guide
+  message: Great! You found your ID. Go ahead through the next door!
+  MessageType: 3
   QuestSegmentID: 0

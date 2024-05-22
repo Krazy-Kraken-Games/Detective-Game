@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd150a1e7a585cd4e806c948d3ef2cfc, type: 3}
+  m_Name: Test Quest
+  m_EditorClassIdentifier: 
+  nodes:
+  - {fileID: 11400000, guid: e3b6f1dc5d26a0b4e919a12aa8bc8390, type: 2}
+  - {fileID: 11400000, guid: c7cf8b2127af7e0468a538713cfa7e93, type: 2}
+  - {fileID: 11400000, guid: c3989c0f0721b234fa6f7e4d47452f2b, type: 2}
+  - {fileID: 11400000, guid: fc61a65894e9ff9409220a1921a61bb4, type: 2}
+  - {fileID: 11400000, guid: f1b8870fb34c0b64abc62e707a7ae39a, type: 2}
+  questInProgressIndex: 3
+  questCompleteIndex: 4

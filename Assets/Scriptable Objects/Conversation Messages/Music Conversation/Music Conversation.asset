@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd150a1e7a585cd4e806c948d3ef2cfc, type: 3}
+  m_Name: Music Conversation
+  m_EditorClassIdentifier: 
+  nodes:
+  - {fileID: 11400000, guid: 8cbada2a51433d040b478320b186f3fc, type: 2}
+  - {fileID: 11400000, guid: 273ca881493e2454e93bd20c707aa322, type: 2}
+  - {fileID: 11400000, guid: 3ae083739b66f1c46951e8319d3ea421, type: 2}
+  - {fileID: 11400000, guid: 0cd1212d0a039784987e904dce62bade, type: 2}
+  - {fileID: 11400000, guid: b4ad82d48a98061429039c0df4e7ee49, type: 2}
+  - {fileID: 11400000, guid: bf812ef59b606584aa464df6cc800f70, type: 2}
+  - {fileID: 11400000, guid: f59431da178257547817a1173b9e358e, type: 2}
+  - {fileID: 11400000, guid: 0171a9cc2a90633479da966d7ad97a85, type: 2}
+  - {fileID: 11400000, guid: d0f5445e524c77047b4db1803ef1b3d4, type: 2}
+  - {fileID: 11400000, guid: 3f3799fee24c46544a7bd2ccbed60e05, type: 2}
+  - {fileID: 11400000, guid: 848e402e4df724a4db67675f6c4ff259, type: 2}
+  - {fileID: 11400000, guid: bf41566975a944e48a57e8246bd740f7, type: 2}
+  - {fileID: 11400000, guid: f816577781cc620429abd95f969961ea, type: 2}

@@ -370,7 +370,7 @@ Transform:
   m_GameObject: {fileID: 681912147}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -11.440585, y: 5.4311156, z: -72.232254}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -388,19 +388,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0a79c3081ca75a46852e6011e2357fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allConversationNodes:
-  - {fileID: 11400000, guid: 8cbada2a51433d040b478320b186f3fc, type: 2}
-  - {fileID: 11400000, guid: 3ae083739b66f1c46951e8319d3ea421, type: 2}
-  - {fileID: 11400000, guid: 0cd1212d0a039784987e904dce62bade, type: 2}
-  - {fileID: 11400000, guid: b4ad82d48a98061429039c0df4e7ee49, type: 2}
-  - {fileID: 11400000, guid: bf812ef59b606584aa464df6cc800f70, type: 2}
-  - {fileID: 11400000, guid: f59431da178257547817a1173b9e358e, type: 2}
-  - {fileID: 11400000, guid: 0171a9cc2a90633479da966d7ad97a85, type: 2}
-  - {fileID: 11400000, guid: d0f5445e524c77047b4db1803ef1b3d4, type: 2}
-  - {fileID: 11400000, guid: 3f3799fee24c46544a7bd2ccbed60e05, type: 2}
-  - {fileID: 11400000, guid: 848e402e4df724a4db67675f6c4ff259, type: 2}
-  - {fileID: 11400000, guid: bf41566975a944e48a57e8246bd740f7, type: 2}
-  - {fileID: 11400000, guid: f816577781cc620429abd95f969961ea, type: 2}
+  conversationSO: {fileID: 11400000, guid: 96102f7ca1c09e847b019d0fd558c902, type: 2}
+  allConversationNodes: []
   rootNode: {fileID: 0}
   Levels: 0
   currentLevel: 0

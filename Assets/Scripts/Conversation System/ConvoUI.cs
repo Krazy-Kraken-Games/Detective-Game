@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace KrazyKrakenGames.DetectiveGame.Conversations
@@ -23,6 +24,25 @@ namespace KrazyKrakenGames.DetectiveGame.Conversations
             conversation = _conversation;
             data = _nodeData;
             message.text = $"{_nodeData.messageData.speakerName}:{_nodeData.messageData.message}";
+        }
+
+        public void ShowMessage(ConvoNodeSO _nodeData)
+        {
+            data = _nodeData;
+            message.text = $"{_nodeData.messageData.speakerName}:{_nodeData.messageData.message}";
+        }
+
+        public void Highlighted()
+        {
+            button.Select();
+
+            button.OnSelect(null);
+        }
+
+        public void UnHighlight()
+        {
+            EventSystem.current.SetSelectedGameObject(null);
+            button.OnDeselect(null);
         }
 
         public void OnButtonClicked()
