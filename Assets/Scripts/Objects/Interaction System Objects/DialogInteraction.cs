@@ -148,8 +148,6 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay
                 case MessageType.QUESTENDED:
 
                     Debug.Log("Active quest segment has ended");
-                    
-
                     break;
             }
         }

@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 0}
+  m_Name: P-6
+  m_EditorClassIdentifier: Assembly-CSharp::ConvoNodeSO
+  id: 
+  messageData: {fileID: 11400000, guid: 402dcc75556da7a43b064125823cef48, type: 2}
+  Children:
+  - {fileID: 11400000, guid: bf41566975a944e48a57e8246bd740f7, type: 2}
+  - {fileID: 11400000, guid: f816577781cc620429abd95f969961ea, type: 2}
+  ParentNode: {fileID: 11400000, guid: 0cd1212d0a039784987e904dce62bade, type: 2}

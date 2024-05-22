@@ -1,11 +1,11 @@
 using Cinemachine;
 using KrazyKrakenGames.DetectiveGame.AI;
+using KrazyKrakenGames.DetectiveGame.Conversations;
 using KrazyKrakenGames.DetectiveGame.Gameplay;
 using KrazyKrakenGames.DetectiveGame.Global;
 using KrazyKrakenGames.DetectiveGame.Managers;
-using KrazyKrakenGames.DetectiveGame.Utility;
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Windows;
 
 namespace KrazyKrakenGames.DetectiveGame.UI
 {
@@ -25,6 +25,7 @@ namespace KrazyKrakenGames.DetectiveGame.UI
         [SerializeField] private DialogUISystem dialogSystem;
         [SerializeField] private bool isDialogActive = false;
         [SerializeField] private DialogInteraction activeDialogInteraction;
+        [SerializeField] private ConversationInteraction activeConvoInteraction;
         [SerializeField] private bool showingLastMessage = false;
         public bool LastMessageShown => showingLastMessage;
 
@@ -131,20 +132,48 @@ namespace KrazyKrakenGames.DetectiveGame.UI
             currentNpc = npc;
         }
 
+        public void ConvoShowDialog(string _message, NPC_Dialog npc, ConversationInteraction _dialogInteraction)
+        {
+            activeConvoInteraction = _dialogInteraction;
+            activeConvoInteraction.isActive = true;
+            dialogSystem.UpdateText(_message);
+            dialogSystem.Show();
+
+            showingLastMessage = activeConvoInteraction.LastMessageShown;
+
+            currentNpc = npc;
+        }
+
+        public List<ConvoUI> ShowOptions(List<ConvoNodeSO> convoNodes)
+        {
+             return dialogSystem.CreateOptions(convoNodes);
+        }
+
         public void PopNextMessage()
         {
-            activeDialogInteraction.PopNextMessage();
+            if (activeDialogInteraction == null)
+            {
+                activeConvoInteraction.PopNextMessage();
+            }
+            else
+            {
+                activeDialogInteraction.PopNextMessage();
+            }
         }
 
         public void UpdateDialog(string _message)
         {
             dialogSystem.UpdateText(_message);
+        }
 
-            showingLastMessage = activeDialogInteraction.LastMessageShown;
+        public void SetLastMessageStatus(bool _value)
+        {
+            showingLastMessage = _value;
         }
 
         public void HideDialog()
         {
+            activeConvoInteraction.isActive = false;
             activeDialogInteraction = null;
 
             dialogSystem.Hide();

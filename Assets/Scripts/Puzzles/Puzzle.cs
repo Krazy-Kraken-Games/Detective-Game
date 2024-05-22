@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.Events;
 
 namespace KrazyKrakenGames.DetectiveGame.Gameplay.Puzzles
 {
@@ -13,6 +13,8 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay.Puzzles
 
         [SerializeField] private Material puzzleSolvedMaterial;
         [SerializeField] private Material puzzleUnsolvedMaterial;
+
+        public UnityEvent OnPuzzleSolved;
 
         private void Start()
         {
@@ -58,6 +60,8 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay.Puzzles
 
             Debug.Log("All checks completed! Puzzle solved");
             notifierRenderer.material = puzzleSolvedMaterial;
+
+            OnPuzzleSolved?.Invoke();
         }
     }
 }

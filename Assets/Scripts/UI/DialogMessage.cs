@@ -6,7 +6,8 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay
         DEFAULT = 0,
         QUESTGIVER = 1,
         QUESTACTIVE = 2,
-        QUESTENDED = 3  //After firing the given segment ends
+        QUESTENDED = 3, //After firing the given segment ends
+        ENDER = 4
     }
 
     [System.Serializable]

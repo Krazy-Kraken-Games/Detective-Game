@@ -1,9 +1,7 @@
 using Cinemachine;
 using KrazyKrakenGames.DetectiveGame.Gameplay.Puzzles;
-using KrazyKrakenGames.DetectiveGame.Global;
 using KrazyKrakenGames.DetectiveGame.Managers;
 using KrazyKrakenGames.DetectiveGame.UI;
-using KrazyKrakenGames.DetectiveGame.Utility;
 using StarterAssets;
 using System;
 using UnityEngine;
@@ -14,6 +12,8 @@ namespace KrazyKrakenGames.DetectiveGame.Player
     [DefaultExecutionOrder(2)]
     public class ActionController : MonoBehaviour
     {
+        public static ActionController Instance = null;
+
         [Header("Game Player Manager reference")]
         [SerializeField] private GamePlayerManager playerManager;
         [SerializeField] private bool isInputAllowed;
@@ -33,6 +33,18 @@ namespace KrazyKrakenGames.DetectiveGame.Player
         public Action<Vector2> OnMoveInputEvent;
 
         #region Unity Methods
+
+        private void Awake()
+        {
+            if(Instance == null)
+            {
+                Instance = this;
+            }
+            else
+            {
+                Destroy(this);
+            }
+        }
 
         private void Start()
         {
@@ -107,7 +119,7 @@ namespace KrazyKrakenGames.DetectiveGame.Player
         #endregion
 
 
-        private void CancelInputHandling()
+        public void CancelInputHandling()
         {
             if (_input.cancel)
             {

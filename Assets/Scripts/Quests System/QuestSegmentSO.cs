@@ -9,7 +9,8 @@ namespace KrazyKrakenGames.DetectiveGame.QuestSystem
     {
         DEFAULT = 0,
         COLLECT = 1,
-        DIALOG = 2
+        DIALOG = 2,
+        PUZZLE = 3
     }
 
 

@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 0}
+  m_Name: TQ-2
+  m_EditorClassIdentifier: Assembly-CSharp::ConvoNodeSO
+  id: 1
+  messageData: {fileID: 11400000, guid: 69880e39f5809ab479b212caaaced109, type: 2}
+  Children:
+  - {fileID: 11400000, guid: c3989c0f0721b234fa6f7e4d47452f2b, type: 2}
+  ParentNode: {fileID: 11400000, guid: e3b6f1dc5d26a0b4e919a12aa8bc8390, type: 2}
