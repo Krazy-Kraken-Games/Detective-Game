@@ -6,6 +6,7 @@ using KrazyKrakenGames.DetectiveGame.Global;
 using KrazyKrakenGames.DetectiveGame.Managers;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace KrazyKrakenGames.DetectiveGame.UI
 {
@@ -17,6 +18,7 @@ namespace KrazyKrakenGames.DetectiveGame.UI
         [Header("Cross-Hair Reference")]
         public RectTransform crossHair;
         private Vector3 crossHairWorldPos;
+        private Vector2 crossHairDefaultPosition;
 
         public Vector3 CrossHairWorldPosition => crossHairWorldPos;
 
@@ -65,13 +67,15 @@ namespace KrazyKrakenGames.DetectiveGame.UI
         private void Start()
         {
             playerManager = GamePlayerManager.instance;
-           
 
-            if (playerManager != null)
-            {
-                Debug.Log("Game player manager found");
-            }
+            crossHairDefaultPosition = crossHair.anchoredPosition;
+
             RegisterEvents();
+
+            if(playerManager != null)
+            {
+                OnGameStateChangedEventHandler(playerManager.gameState);
+            }
         }
 
         private void OnDestroy()
@@ -107,6 +111,11 @@ namespace KrazyKrakenGames.DetectiveGame.UI
             dialogSystem.OnDialogStateUpdate += (bool _value) => isDialogActive = _value;
 
             instructionSystem.OnInstructionStateUpdate += (bool _value) => isInstructionActive = _value;
+
+            if (playerManager != null)
+            {
+                playerManager.OnGameStateChangedEvent += OnGameStateChangedEventHandler;
+            }
         }
 
         private void UnregisterEvents()
@@ -114,6 +123,31 @@ namespace KrazyKrakenGames.DetectiveGame.UI
             dialogSystem.OnDialogStateUpdate -= (bool _value) => isDialogActive = _value;
 
             instructionSystem.OnInstructionStateUpdate -= (bool _value) => isInstructionActive = _value;
+
+            if (playerManager != null)
+            {
+                playerManager.OnGameStateChangedEvent -= OnGameStateChangedEventHandler;
+            }
+
+        }
+
+        private void OnGameStateChangedEventHandler(MetaConstants.GameState _newState)
+        {
+            if(_newState == MetaConstants.GameState.NORMAL)
+            {
+                //Hide crosshair
+                HideCrossHair();
+            }
+            else if(_newState == MetaConstants.GameState.SHOOT)
+            {
+                //Show crosshair for shoot
+                ShowCrossHair();
+            }
+            else if(_newState == MetaConstants.GameState.PUZZLE)
+            {
+                //Show crosshair for puzzle
+                ShowCrossHair();
+            }
         }
 
         #endregion
@@ -204,6 +238,17 @@ namespace KrazyKrakenGames.DetectiveGame.UI
 
         #region Cross-Hair Update Handling Section 
 
+        private void HideCrossHair()
+        {
+            crossHair.gameObject.SetActive(false);
+            crossHair.anchoredPosition = crossHairDefaultPosition;
+        }
+
+        private void ShowCrossHair()
+        {
+            crossHair.gameObject.SetActive(true);
+            crossHair.anchoredPosition = crossHairDefaultPosition;
+        }
         private void SetCrossHairWorldPosition()
         {
             Camera cam = Camera.main.GetComponent<CinemachineBrain>().OutputCamera;
