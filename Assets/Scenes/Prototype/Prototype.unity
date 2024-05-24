@@ -7163,6 +7163,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pickup-Object-Base (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 1618192804475809777, guid: d2c8a04c45fd8bc4f92f86d8d737ac6d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8645178999229502572, guid: d2c8a04c45fd8bc4f92f86d8d737ac6d, type: 3}
       propertyPath: objectData
       value: 
