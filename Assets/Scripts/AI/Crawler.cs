@@ -1,5 +1,6 @@
 using KrazyKrakenGames.DetectiveGame.Gameplay.Shooting;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -31,8 +32,13 @@ namespace KrazyKrakenGames.DetectiveGame.AI
 
         [SerializeField] private LineRenderer pathRenderer;
         public int currentPathIndex = 0;
+
         //TO BE REMOVED:
         [SerializeField] private Transform targetLocation;
+
+
+        [SerializeField] private List<Transform> waypoints;
+        [SerializeField] private int currentWaypointIndex;
 
         private void Start()
         {
@@ -42,8 +48,7 @@ namespace KrazyKrakenGames.DetectiveGame.AI
 
             SetState(EnemyState.IDLE);
 
-            if(targetLocation != null)
-            SetDestination(targetLocation.position);
+            SetDestination(waypoints[0].position);
         }
 
         private void OnDestroy()
@@ -53,11 +58,7 @@ namespace KrazyKrakenGames.DetectiveGame.AI
 
         private void Update()
         {
-            if (currentPath != null)
-            {
-
-                AgentRotation(agent.nextPosition);
-            }
+            WaypointSystem();
         }
 
         public void SetState(EnemyState _state)
@@ -97,51 +98,48 @@ namespace KrazyKrakenGames.DetectiveGame.AI
         private void SetDestination(Vector3 _targetLocation)
         {
             targetDestination = _targetLocation;
-            NavMeshPath path = agent.path;
-           
-            agent.CalculatePath(_targetLocation, path);
-
-            currentPath = path;
-            
-
-            agent.path = path;
-
-            pathRenderer.positionCount = agent.path.corners.Length;
-
-            pathRenderer.SetPosition(0, transform.position);
-            pathRenderer.SetPositions(agent.path.corners);
 
             agent.SetDestination(targetDestination);
+
+            SetState(EnemyState.PATROL);
 
         }
         #endregion
 
 
-        private void AgentRotation(Vector3 _nextPosition)
+        #region Waypoint System Section
+
+        private Vector3 NextWaypointPosition()
         {
-            //Vector3 direction = targetDestination - transform.position;
-
-            //Quaternion rotation = Quaternion.LookRotation(direction);
-            
-
-            //transform.rotation = rotation;
-
-            //
+           
+            Debug.Log($"Go to: {waypoints[currentWaypointIndex].position}");
+            return waypoints[currentWaypointIndex].position;
         }
 
-        Vector3 GetNextPosition(NavMeshAgent agent)
+        private void TraverseToNextWaypoint()
         {
-            NavMeshPath path = agent.path;
-            if (path.corners.Length > 1)
+            currentWaypointIndex++;
+
+            if(currentWaypointIndex >= waypoints.Count)
             {
-                // Return the next corner in the path
-                return path.corners[1];
+                currentWaypointIndex = 0;
             }
-            else
+
+            Vector3 targetPos = NextWaypointPosition();
+
+            SetDestination(targetPos);
+        }
+
+        private void WaypointSystem()
+        {
+            if(Vector3.Distance(targetDestination,transform.position) < 1f)
             {
-                // If there are no corners, return the agent's current position
-                return agent.transform.position;
+                //Switch to next target
+                TraverseToNextWaypoint();
             }
         }
+
+        #endregion
+
     }
 }
