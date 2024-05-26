@@ -1,5 +1,6 @@
 using KrazyKrakenGames.DetectiveGame.Gameplay.Shooting;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -83,11 +84,12 @@ namespace KrazyKrakenGames.DetectiveGame.AI
             {
                 if(target != null)
                 {
-                    if (Vector3.Distance(transform.position, target.transform.position) < 1f)
+                    if (Vector3.Distance(transform.position, target.transform.position) < 2f)
                     {
                         //Go to attack state
                         SetState(EnemyState.ATTACK);
                         agent.destination = transform.position;
+                        StartCoroutine(JumpToTarget(target.transform.position, 1f));
                     }
                     else
                     {
@@ -99,9 +101,10 @@ namespace KrazyKrakenGames.DetectiveGame.AI
             {
                 if (target != null)
                 {
-                    if (Vector3.Distance(transform.position, target.transform.position) < 1f)
+                    if (Vector3.Distance(transform.position, target.transform.position) < 2f)
                     {
                         //Chance to attack again based on threshold
+                       
                     }
                     else
                     {
@@ -207,6 +210,38 @@ namespace KrazyKrakenGames.DetectiveGame.AI
                 //Switch to next target
                 TraverseToNextWaypoint();
             }
+        }
+
+        #endregion
+
+        #region Attack Section
+
+        [SerializeField] private bool isJumping = false;
+
+        /// <summary>
+        /// AI jumps to the target
+        /// </summary>
+        /// <param name="target"></param>
+        /// <param name="duration"></param>
+        /// <returns></returns>
+        IEnumerator JumpToTarget(Vector3 target, float duration)
+        {
+            target.y += 0.8f;
+            isJumping = true;
+            Vector3 startPosition = transform.position;
+            float elapsedTime = 0f;
+
+            while (elapsedTime < duration)
+            {
+                transform.position = Vector3.Lerp(startPosition, target, elapsedTime / duration);
+                transform.LookAt(target);
+                elapsedTime += Time.deltaTime;
+                yield return null;
+            }
+
+            transform.position = target;
+            transform.LookAt(target);
+            isJumping = false;
         }
 
         #endregion
