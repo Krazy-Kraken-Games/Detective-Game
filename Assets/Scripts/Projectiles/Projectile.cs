@@ -1,5 +1,6 @@
 using KrazyKrakenGames.DetectiveGame.AI;
 using KrazyKrakenGames.DetectiveGame.Global;
+using KrazyKrakenGames.DetectiveGame.QuestSystem;
 using System.IO.Pipes;
 using Unity.IO.LowLevel.Unsafe;
 using UnityEngine;
@@ -53,7 +54,14 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay.Shooting
             var collidedWith = collision.gameObject;
             if (collidedWith.tag == "Target")
             {
-                Destroy(collidedWith);
+                if (collidedWith.TryGetComponent<QuestTarget>(out var questTarget))
+                {
+                    questTarget.KillSelf();
+                }
+                else
+                {
+                    Destroy(collidedWith);
+                }
             }
             else if(collidedWith.tag == "Enemy")
             {
