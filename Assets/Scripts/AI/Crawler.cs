@@ -22,7 +22,10 @@ namespace KrazyKrakenGames.DetectiveGame.AI
     {
         [SerializeField] private NavMeshAgent agent;
         [SerializeField] private NavMeshPath currentPath;
+        [SerializeField] private GameObject target; //This generally refers to player
         [SerializeField] private Vector3 targetDestination;
+
+        [SerializeField] private float speed;
 
         [SerializeField] private EnemyState state;
         public EnemyState State => state;
@@ -40,25 +43,73 @@ namespace KrazyKrakenGames.DetectiveGame.AI
         [SerializeField] private List<Transform> waypoints;
         [SerializeField] private int currentWaypointIndex;
 
+        [SerializeField] private PlayerDetectionTrigger playerDetectionTrigger;
+
         private void Start()
         {
             agent = GetComponent<NavMeshAgent>();
+
+            agent.speed = speed;
 
             OnStateChangedEvent += OnLocalStateChangedHandler;
 
             SetState(EnemyState.IDLE);
 
-            SetDestination(waypoints[0].position);
+            SetDestination(waypoints[0].position, EnemyState.PATROL);
+
+            if(playerDetectionTrigger != null)
+            {
+                playerDetectionTrigger.OnPlayerDetectedEvent += OnPlayerDetectedEventHandler;
+            }
         }
 
         private void OnDestroy()
         {
             OnStateChangedEvent -= OnLocalStateChangedHandler;
+
+            if (playerDetectionTrigger != null)
+            {
+                playerDetectionTrigger.OnPlayerDetectedEvent -= OnPlayerDetectedEventHandler;
+            }
         }
 
         private void Update()
         {
-            WaypointSystem();
+            if (state == EnemyState.PATROL)
+            {
+                WaypointSystem();
+            }
+            else if(state == EnemyState.FOLLOW)
+            {
+                if(target != null)
+                {
+                    if (Vector3.Distance(transform.position, target.transform.position) < 1f)
+                    {
+                        //Go to attack state
+                        SetState(EnemyState.ATTACK);
+                        agent.destination = transform.position;
+                    }
+                    else
+                    {
+                        SetDestination(target.transform.position, EnemyState.FOLLOW);
+                    }
+                }
+            }
+            else if(state == EnemyState.ATTACK)
+            {
+                if (target != null)
+                {
+                    if (Vector3.Distance(transform.position, target.transform.position) < 1f)
+                    {
+                        //Chance to attack again based on threshold
+                    }
+                    else
+                    {
+                        //Switch back to follow mode
+                        SetState(EnemyState.FOLLOW);
+                    }
+                }
+            }
         }
 
         public void SetState(EnemyState _state)
@@ -74,6 +125,16 @@ namespace KrazyKrakenGames.DetectiveGame.AI
                 Debug.Log("Destroying myself");
 
                 Destroy(gameObject);
+            }
+        }
+
+        private void OnPlayerDetectedEventHandler(GameObject playerObject)
+        {
+            if(state == EnemyState.IDLE || state == EnemyState.PATROL)
+            {
+                Debug.Log("On player in area detected");
+
+                SetPlayerAsTarget(playerObject);
             }
         }
 
@@ -95,13 +156,24 @@ namespace KrazyKrakenGames.DetectiveGame.AI
 
         #region AI Navigation Section
 
-        private void SetDestination(Vector3 _targetLocation)
+        private void SetPlayerAsTarget(GameObject _target)
+        {
+            if(_target != null)
+            {
+                target = _target;
+
+                SetDestination(target.transform.position, EnemyState.FOLLOW);
+                
+            }
+        }
+
+        private void SetDestination(Vector3 _targetLocation, EnemyState _state)
         {
             targetDestination = _targetLocation;
 
             agent.SetDestination(targetDestination);
 
-            SetState(EnemyState.PATROL);
+            SetState(_state);
 
         }
         #endregion
@@ -111,8 +183,6 @@ namespace KrazyKrakenGames.DetectiveGame.AI
 
         private Vector3 NextWaypointPosition()
         {
-           
-            Debug.Log($"Go to: {waypoints[currentWaypointIndex].position}");
             return waypoints[currentWaypointIndex].position;
         }
 
@@ -127,7 +197,7 @@ namespace KrazyKrakenGames.DetectiveGame.AI
 
             Vector3 targetPos = NextWaypointPosition();
 
-            SetDestination(targetPos);
+            SetDestination(targetPos, EnemyState.PATROL);
         }
 
         private void WaypointSystem()

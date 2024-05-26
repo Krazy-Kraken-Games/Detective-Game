@@ -35252,6 +35252,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: AI-Parent
       objectReference: {fileID: 0}
+    - target: {fileID: 5136799796345718297, guid: e5713f8bf9564ed41939f082b29314bb, type: 3}
+      propertyPath: m_Speed
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5783132461766971049, guid: e5713f8bf9564ed41939f082b29314bb, type: 3}
+      propertyPath: speed
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5783132461766971049, guid: e5713f8bf9564ed41939f082b29314bb, type: 3}
       propertyPath: pathRenderer
       value: 
@@ -35262,7 +35270,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7811076074734850871, guid: e5713f8bf9564ed41939f082b29314bb, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.37
       objectReference: {fileID: 0}
     - target: {fileID: 7811076074734850871, guid: e5713f8bf9564ed41939f082b29314bb, type: 3}
       propertyPath: m_LocalPosition.z
