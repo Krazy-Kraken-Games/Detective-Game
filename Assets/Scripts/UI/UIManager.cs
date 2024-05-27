@@ -209,12 +209,15 @@ namespace KrazyKrakenGames.DetectiveGame.UI
         {
             activeConvoInteraction.isActive = false;
             activeDialogInteraction = null;
+            activeConvoInteraction.Reset();
 
             dialogSystem.Hide();
 
-            currentNpc.EndConversation();
-            currentNpc = null;
-
+            if (currentNpc != null)
+            {
+                currentNpc.EndConversation();
+                currentNpc = null;
+            }
         }
 
         #endregion

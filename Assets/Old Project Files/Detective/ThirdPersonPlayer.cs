@@ -296,6 +296,11 @@ public class ThirdPersonPlayer : MonoBehaviour
         {
             //This will stop the 3rd person player motion script from taking input
             isInputAllowed = false;
+
+            if (_animator != null)
+            {
+                _animator.SetFloat(_animIDSpeed, 0.0f);
+            }
         }
     }
 

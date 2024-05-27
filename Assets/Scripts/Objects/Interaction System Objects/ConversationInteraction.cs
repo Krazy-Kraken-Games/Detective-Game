@@ -23,6 +23,12 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay
 
         [Space(15)]
         [Header("Conversation Related Variables")]
+
+        //Conversation is player's own thoughts?
+        [Tooltip("Conversation is player's own thoughts")]
+        [SerializeField] private bool isSelfConversation;
+
+        [Space(3)]
         [SerializeField] private ConversationSO conversationSO;
         [SerializeField] private List<ConvoNodeSO> allConversationNodes;
         [SerializeField] private ConvoNodeSO rootNode;
@@ -95,7 +101,12 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay
             //Conversation is started from here!
             OnLastMessageShown(false);
 
-            CameraManager.instance.SetState(GameCameraState.SECONDARY, lookAt);
+            if (!isSelfConversation)
+            {
+                CameraManager.instance.SetState(GameCameraState.SECONDARY, lookAt);
+                
+            }
+
             GamePlayerManager.instance.UpdateInputMode(PlayerInputMode.SECONDARY);
 
             ConversationLogic();
@@ -136,7 +147,12 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay
         private void StartConversation()
         {
             isActive = true;
-            npc.StartConversation();
+
+            if (npc != null)
+            {
+                npc.StartConversation();
+            }
+
             UIManager.instance.ConvoShowDialog(activeConvoNode.messageData.message, npc, this);
             HandlingQuestBasedOnMessageType(activeConvoNode);
         }
@@ -317,7 +333,7 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay
             if (!allowChange) return;
             allowChange = false;
 
-            if (_move.x > 0)
+            if (_move.x < 0)
             {
                 SelectPreviousOption();
             }
@@ -363,6 +379,12 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay
         private void AllowInputChange()
         {
             allowChange = true;
+        }
+
+        public void Reset()
+        {
+            isLastMessage = false;
+            activeConvoNode = rootNode;
         }
 
 
