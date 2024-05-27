@@ -32068,6 +32068,7 @@ GameObject:
   - component: {fileID: 2037777240}
   - component: {fileID: 2037777241}
   - component: {fileID: 2037777242}
+  - component: {fileID: 2037777243}
   m_Layer: 0
   m_Name: Thought-Convo-Trigger
   m_TagString: Untagged
@@ -32123,8 +32124,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 522c64787e19d1747ae7cd1d7d53c703, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  conversationInteraction: {fileID: 0}
   showMultiple: 0
   hasShown: 0
+--- !u!114 &2037777243
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2037777239}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bd710532526c0547a175b469fb75dbd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Type: 3
+  triggerBox: {fileID: 0}
+  interactableObject: {fileID: 0}
+  isActive: 0
+  lookAt: {fileID: 0}
+  isSelfConversation: 1
+  conversationSO: {fileID: 11400000, guid: 96102f7ca1c09e847b019d0fd558c902, type: 2}
+  allConversationNodes: []
+  rootNode: {fileID: 0}
+  processingParentNode: {fileID: 0}
+  currentGroup:
+    Parent: {fileID: 0}
+    Siblings: []
+  activeConvoNode: {fileID: 0}
+  isLastMessage: 0
+  npc: {fileID: 0}
+  questTrigger: {fileID: 0}
+  IsQuestRunning: 0
+  WaitingForUserResponse: 0
 --- !u!1 &2041788343
 GameObject:
   m_ObjectHideFlags: 0
@@ -36622,6 +36655,7 @@ MonoBehaviour:
   interactableObject: {fileID: 0}
   isActive: 0
   lookAt: {fileID: 825168905988931353}
+  isSelfConversation: 0
   conversationSO: {fileID: 11400000, guid: 703707e105d49824295cf151ae8b017e, type: 2}
   allConversationNodes: []
   rootNode: {fileID: 0}
