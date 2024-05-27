@@ -307,7 +307,15 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay
             if (siblingsList.Count > 0)
             {
                 SiblingGroup sibGroup = new SiblingGroup(siblingsList, processingParentNode);
-                allConvoSiblings.Add(processingParentNode, sibGroup);
+
+                if (!allConvoSiblings.ContainsKey(processingParentNode))
+                {
+                    allConvoSiblings.Add(processingParentNode, sibGroup);
+                }
+                else
+                {
+                    allConvoSiblings[processingParentNode] = sibGroup;
+                }
 
                 foreach (var sibling in siblingsList)
                 {
