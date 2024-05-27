@@ -209,6 +209,7 @@ namespace KrazyKrakenGames.DetectiveGame.UI
         {
             activeConvoInteraction.isActive = false;
             activeDialogInteraction = null;
+            activeConvoInteraction.Reset();
 
             dialogSystem.Hide();
 

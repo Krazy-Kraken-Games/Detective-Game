@@ -333,7 +333,7 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay
             if (!allowChange) return;
             allowChange = false;
 
-            if (_move.x > 0)
+            if (_move.x < 0)
             {
                 SelectPreviousOption();
             }
@@ -379,6 +379,12 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay
         private void AllowInputChange()
         {
             allowChange = true;
+        }
+
+        public void Reset()
+        {
+            isLastMessage = false;
+            activeConvoNode = rootNode;
         }
 
 

@@ -32125,7 +32125,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   conversationInteraction: {fileID: 0}
-  showMultiple: 0
+  showMultiple: 1
   hasShown: 0
 --- !u!114 &2037777243
 MonoBehaviour:

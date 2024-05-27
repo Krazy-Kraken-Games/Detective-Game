@@ -26,6 +26,8 @@ public class ConversationTrigger : MonoBehaviour
                 Debug.Log("Start own thought convo");
 
                 hasShown = true;
+
+                conversationInteraction.Interact();
             }
         }
         else
