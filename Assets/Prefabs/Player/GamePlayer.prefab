@@ -975,7 +975,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   move: {x: 0, y: 0}
   look: {x: 0, y: 0}
-  raycaster: {x: 0, y: 0}
+  navigate: {x: 0, y: 0}
+  consoleNavigate: {x: 0, y: 0}
+  isConsoleNavigateActive: 0
   jump: 0
   sprint: 0
   interact: 0
@@ -1733,7 +1735,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isShootingAllowed: 0
-  leftArea: 0
   projectilePrefab: {fileID: 3915604398533759988, guid: 0815a4b034870104ba8f4abe6b897d93, type: 3}
   projectileSpawnPoint: {fileID: 494307904019183319}
   aimTarget: {fileID: 2045583400198856916}

@@ -12,6 +12,7 @@ TagManager:
   - Target
   - NoShooting
   - AllowShooting
+  - Enemy
   layers:
   - Default
   - TransparentFX

@@ -1,4 +1,6 @@
+using KrazyKrakenGames.DetectiveGame.AI;
 using KrazyKrakenGames.DetectiveGame.Global;
+using KrazyKrakenGames.DetectiveGame.QuestSystem;
 using System.IO.Pipes;
 using Unity.IO.LowLevel.Unsafe;
 using UnityEngine;
@@ -49,9 +51,24 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay.Shooting
 
         private void OnCollisionEnter(Collision collision)
         {
-            if(collision.gameObject.tag == "Target")
+            var collidedWith = collision.gameObject;
+            if (collidedWith.tag == "Target")
             {
-                Destroy(collision.gameObject);
+                if (collidedWith.TryGetComponent<QuestTarget>(out var questTarget))
+                {
+                    questTarget.KillSelf();
+                }
+                else
+                {
+                    Destroy(collidedWith);
+                }
+            }
+            else if(collidedWith.tag == "Enemy")
+            {
+                if (collidedWith.TryGetComponent<Crawler>(out var crawler))
+                {
+                    crawler.OnCollisionWithProjectile(this);
+                }
             }
 
             Destroy(gameObject);

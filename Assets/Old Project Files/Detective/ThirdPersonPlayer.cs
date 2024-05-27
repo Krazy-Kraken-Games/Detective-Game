@@ -1,4 +1,5 @@
 using KrazyKrakenGames;
+using KrazyKrakenGames.DetectiveGame.AI;
 using KrazyKrakenGames.DetectiveGame.Gameplay;
 using KrazyKrakenGames.DetectiveGame.Gameplay.Feature.Shooting;
 using KrazyKrakenGames.DetectiveGame.Managers;
@@ -615,6 +616,18 @@ public class ThirdPersonPlayer : MonoBehaviour
 
 
     #region Collision and Triggers Detection Section
+
+    private void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        var collidedWith = hit.gameObject;
+        if (collidedWith.tag == "Enemy")
+        {
+            if (collidedWith.TryGetComponent<Crawler>(out var crawler))
+            {
+                crawler.OnCollisionWithPlayer();
+            }
+        }
+    }
 
     private void OnTriggerEnter(Collider other)
     {

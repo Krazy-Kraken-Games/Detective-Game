@@ -10,7 +10,8 @@ namespace KrazyKrakenGames.DetectiveGame.QuestSystem
         DEFAULT = 0,
         COLLECT = 1,
         DIALOG = 2,
-        PUZZLE = 3
+        PUZZLE = 3,
+        KILL = 4        //This could refer to killing AI beings, destroying objects in game
     }
 
 
