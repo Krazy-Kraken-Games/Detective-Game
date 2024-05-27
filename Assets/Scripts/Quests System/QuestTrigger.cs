@@ -1,3 +1,4 @@
+using KrazyKrakenGames.DetectiveGame.Global;
 using KrazyKrakenGames.DetectiveGame.Managers;
 using System.Collections.Generic;
 using UnityEngine;
@@ -53,6 +54,19 @@ namespace KrazyKrakenGames.DetectiveGame.QuestSystem
             if (questManager != null)
             {
                 questManager.AddQuest(activeQuest);
+            }
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            var collidedWith = other.gameObject;
+
+            if(activeQuest.Status == QuestStatus.INACTIVE 
+                && collidedWith.tag == MetaConstants.PlayerTag)
+            {
+                //Activate the quest if and only if the quest is inactive
+                Debug.Log($"Starting quest:{activeQuest.Title}");
+                StartQuest();
             }
         }
 

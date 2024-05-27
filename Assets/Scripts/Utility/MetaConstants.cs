@@ -7,6 +7,8 @@ namespace KrazyKrakenGames.DetectiveGame.Global
     {
         #region Gameplay Feature Constants
 
+        public static string PlayerTag = "Player";
+
         #region Detective Mode
 
         public static readonly float TimeToActivate = 3.5f;
