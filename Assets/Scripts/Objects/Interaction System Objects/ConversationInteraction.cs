@@ -183,6 +183,7 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay
                     //Multiple choices present
                     WaitingForUserResponse = true;
                     var siblings = allConversationNodes.Where(item => item.ParentNode == activeConvoNode).ToList();
+                    UIManager.instance.UpdateDialog(activeConvoNode.messageData.message);
                     currentOptions = UIManager.instance.ShowOptions(siblings);
                     selectedIndex = 0;
                     lastIndex = currentOptions.Count - 1;
