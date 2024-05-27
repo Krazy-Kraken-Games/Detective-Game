@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speakerName: Pratik
   message: Ahh sorry! I dont listen to romantic music as such
-  MessageType: 4
+  MessageType: 0
   QuestSegmentID: 0

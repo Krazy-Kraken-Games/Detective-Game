@@ -40,7 +40,7 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay
         private ConvoUI selectedOption;
         private int selectedIndex;
         private int lastIndex;
-        private float valueChangeThreshold = 0.250f; //Allows the value to be changed after every threshold seconds/frames
+        private float valueChangeThreshold = 0.50f; //Allows the value to be changed after every threshold seconds/frames
         private bool allowChange = true;
         [SerializeField] private bool isLastMessage = false;
 

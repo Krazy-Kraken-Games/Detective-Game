@@ -26,3 +26,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 848e402e4df724a4db67675f6c4ff259, type: 2}
   - {fileID: 11400000, guid: bf41566975a944e48a57e8246bd740f7, type: 2}
   - {fileID: 11400000, guid: f816577781cc620429abd95f969961ea, type: 2}
+  - {fileID: 11400000, guid: 0262d46eb33f71a4f9eb65c5a1121241, type: 2}
+  questInProgressIndex: 0
+  questCompleteIndex: 0

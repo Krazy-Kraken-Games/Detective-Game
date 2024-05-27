@@ -10,10 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 0}
-  m_Name: P-7
+  m_Name: Final-Music-Node
   m_EditorClassIdentifier: Assembly-CSharp::ConvoNodeSO
   id: 
-  messageData: {fileID: 11400000, guid: 563e15a4b82dd0643ba3dd32ade2cf77, type: 2}
-  Children:
-  - {fileID: 11400000, guid: 0262d46eb33f71a4f9eb65c5a1121241, type: 2}
-  ParentNode: {fileID: 11400000, guid: b4ad82d48a98061429039c0df4e7ee49, type: 2}
+  messageData: {fileID: 11400000, guid: 9348947fcc487174b8f84c6a1a8a9d8c, type: 2}
+  Children: []
+  ParentNode: {fileID: 11400000, guid: 3f3799fee24c46544a7bd2ccbed60e05, type: 2}
