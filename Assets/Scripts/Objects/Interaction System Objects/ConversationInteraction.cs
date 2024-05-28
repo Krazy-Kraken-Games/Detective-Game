@@ -131,6 +131,7 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay
                 }
                 else if (questStatus == QuestStatus.INPROGRESS)
                 {
+                    //Also need to check which quest segment is completed
                     int index = conversationSO.questInProgressIndex;
                     activeConvoNode = conversationSO.Nodes[index];
                 }
@@ -166,7 +167,6 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay
                     //Conversation Enders
                     Debug.Log("Leaf node, end conversation");
                     OnLastMessageShown(true);
-                    //ActionController.Instance.CancelInputHandling();
                 }
                 else if (activeConvoNode.Children.Count == 1)
                 {
@@ -270,7 +270,7 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay
 
         }
 
-        private void OnQuestStatusChangeHandler(QuestStatus _newStatus)
+        private void OnQuestStatusChangeHandler(Quest _quest, QuestStatus _newStatus)
         {
             Debug.Log($"Quest status changed to: {_newStatus}");
 

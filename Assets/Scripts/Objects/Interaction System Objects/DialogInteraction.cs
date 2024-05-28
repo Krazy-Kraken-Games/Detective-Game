@@ -157,7 +157,7 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay
 
         }
 
-        private void OnQuestStatusChangeHandler(QuestStatus _newStatus)
+        private void OnQuestStatusChangeHandler(Quest _quest,QuestStatus _newStatus)
         {
             Debug.Log($"Quest status changed to: {_newStatus}");
 
