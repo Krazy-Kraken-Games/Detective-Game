@@ -40,7 +40,7 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay
         private ConvoUI selectedOption;
         private int selectedIndex;
         private int lastIndex;
-        private float valueChangeThreshold = 0.50f; //Allows the value to be changed after every threshold seconds/frames
+        private float valueChangeThreshold = 0.250f; //Allows the value to be changed after every threshold seconds/frames
         private bool allowChange = true;
         [SerializeField] private bool isLastMessage = false;
 
@@ -342,7 +342,8 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay
             if (!allowChange) return;
             allowChange = false;
 
-            if (_move.x < 0)
+            //NOTE: IF OPTION CYCLE SEEMS TO FAIL,DO CHECK THIS LOGIC OUT AGAIN
+            if (_move.x > 0)
             {
                 SelectPreviousOption();
             }
@@ -358,7 +359,6 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay
         {
             if(selectedIndex < lastIndex)
             {
-                Debug.Log("Next option avail");
                 selectedIndex += 1;
             }
             else
@@ -373,7 +373,6 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay
         {
             if (selectedIndex > 0)
             {
-                Debug.Log("Prev option avail");
                 selectedIndex -= 1;
             }
             else
