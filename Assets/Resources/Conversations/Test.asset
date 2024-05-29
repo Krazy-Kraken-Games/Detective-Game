@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebc6249a6db2ed84da68e021ebe1037b, type: 3}
+  m_Name: Test
+  m_EditorClassIdentifier: 
+  links:
+  - BaseNodeGuid: cb05fbf3-eeff-440e-8064-32b4b0a81d2e
+    PortName: Output
+    TargetNodeGuid: c045e901-e264-4520-8e3e-d1f7cb8de024
+  - BaseNodeGuid: c045e901-e264-4520-8e3e-d1f7cb8de024
+    PortName: Choice 2
+    TargetNodeGuid: 4bc581e6-8450-414d-a866-a642a77fdb77
+  nodes:
+  - ID: 4bc581e6-8450-414d-a866-a642a77fdb77
+    Message: Hello World
+    Position: {x: 615.2, y: 553.60004}
+  - ID: c045e901-e264-4520-8e3e-d1f7cb8de024
+    Message: Hello World
+    Position: {x: 232, y: 428.80002}
