@@ -48,6 +48,7 @@ public class ConversationWindow : EditorWindow
         textField.SetValueWithoutNotify(fileName);
         textField.MarkDirtyRepaint();
         textField.RegisterValueChangedCallback(OnFileNameTextFieldUpdated);
+        toolbar.Add(textField);
 
         var nodeCreateButton = new Button(() =>
         {
@@ -57,12 +58,28 @@ public class ConversationWindow : EditorWindow
         nodeCreateButton.text = "Create Node";
         toolbar.Add(nodeCreateButton);
 
+        toolbar.Add(new Button(() => SaveData()) { text = "Create Objects" });
+
         rootVisualElement.Add(toolbar);
     }
 
     private void OnFileNameTextFieldUpdated(ChangeEvent<string> evt)
     {
         fileName = evt.newValue;
+    }
+
+    private void SaveData()
+    {
+        if (string.IsNullOrEmpty(fileName))
+        {
+            EditorUtility.DisplayDialog("Invalid File", "File doesnt exist", "Okay");
+            return;
+        }
+        else
+        {
+            var graphSaveUtility = ConversationContainer.GetInstance(graphView);
+            graphSaveUtility.SaveGraph(fileName);
+        }
     }
 
 }

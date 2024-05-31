@@ -1,18 +1,9 @@
 using KrazyKrakenGames.DetectiveGame.Conversations;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
-
-[CreateAssetMenu(fileName = "ConvoNode", menuName = "Conversation System/Convo Node")]
-public class ConvoNodeSO : ScriptableObject
-{
-    public string id;
-    public ConvoMessageSO messageData;
-    public List<ConvoNodeSO> Children;
-
-    public ConvoNodeSO ParentNode;
-}
 
 [System.Serializable]
 public class SiblingGroup

@@ -9,9 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd150a1e7a585cd4e806c948d3ef2cfc, type: 3}
-  m_Name: Test
+  m_Script: {fileID: 11500000, guid: d693ad349da2d9344a780b08f5defc11, type: 3}
+  m_Name: E
   m_EditorClassIdentifier: 
-  nodes: []
-  questInProgressIndex: 0
-  questCompleteIndex: 0
+  NodeID: E
+  id: aeaa2c54-ffa4-40d0-be5b-491e27648d8b
+  messageData: {fileID: 11400000, guid: a269af7298ef958499903b76464a7e3a, type: 2}
+  Children: []
+  ParentNode: {fileID: 0}

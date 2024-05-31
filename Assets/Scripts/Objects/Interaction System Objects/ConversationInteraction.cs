@@ -226,10 +226,10 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay
         {
             switch (dialogMessage.messageData.MessageType)
             {
-                case MessageType.DEFAULT:
+                case DialogMessageType.DEFAULT:
                     break;
 
-                case MessageType.QUESTGIVER:
+                case DialogMessageType.QUESTGIVER:
 
                     Debug.Log("Starting a new quest from dialog");
 
@@ -248,17 +248,17 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay
 
                     break;
 
-                case MessageType.QUESTACTIVE:
+                case DialogMessageType.QUESTACTIVE:
                     OnLastMessageShown(true);
                     break;
 
-                case MessageType.QUESTENDED:
+                case DialogMessageType.QUESTENDED:
 
                     Debug.Log("Active quest segment has ended");
                     OnLastMessageShown(true);
                     break;
 
-                case MessageType.ENDER:
+                case DialogMessageType.ENDER:
                     Debug.Log("last message of convo shown");
                     OnLastMessageShown(true);
                     break;

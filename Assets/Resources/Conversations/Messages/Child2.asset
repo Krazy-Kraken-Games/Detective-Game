@@ -9,9 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd150a1e7a585cd4e806c948d3ef2cfc, type: 3}
-  m_Name: Test
+  m_Script: {fileID: 11500000, guid: 7756d03313f6d6444b0d851bc48c2d6b, type: 3}
+  m_Name: Child2
   m_EditorClassIdentifier: 
-  nodes: []
-  questInProgressIndex: 0
-  questCompleteIndex: 0
+  speakerName: Child2
+  message: Extremely Rainy
+  MessageType: 0
+  QuestSegmentID: 0

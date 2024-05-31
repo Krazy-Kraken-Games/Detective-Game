@@ -40,7 +40,7 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay
                 questTrigger.activeQuest.OnQuestStatusChange += OnQuestStatusChangeHandler;
             }
 
-            List<MessageType> allowedType = new List<MessageType>() { MessageType.DEFAULT, MessageType.QUESTGIVER };
+            List<DialogMessageType> allowedType = new List<DialogMessageType>() { DialogMessageType.DEFAULT, DialogMessageType.QUESTGIVER };
             GatherAvailableMessages(allowedType);
         }
 
@@ -56,7 +56,7 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay
             }
         }
 
-        private void GatherAvailableMessages(List<MessageType> allowedType)
+        private void GatherAvailableMessages(List<DialogMessageType> allowedType)
         {
             availableMessages.Clear();
             foreach (var message in allMessages)
@@ -121,10 +121,10 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay
         {
             switch(dialogMessage.MessageType)
             {
-                case MessageType.DEFAULT:
+                case DialogMessageType.DEFAULT:
                     break;
 
-                case MessageType.QUESTGIVER:
+                case DialogMessageType.QUESTGIVER:
 
                     Debug.Log("Starting a new quest from dialog");
 
@@ -141,11 +141,11 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay
 
                     break;
 
-                case MessageType.QUESTACTIVE:
+                case DialogMessageType.QUESTACTIVE:
 
                    break;
 
-                case MessageType.QUESTENDED:
+                case DialogMessageType.QUESTENDED:
 
                     Debug.Log("Active quest segment has ended");
                     break;
@@ -165,12 +165,12 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay
 
             if(_newStatus == QuestStatus.INPROGRESS)
             {
-                List<MessageType> allowedType = new List<MessageType>() { MessageType.QUESTACTIVE };
+                List<DialogMessageType> allowedType = new List<DialogMessageType>() { DialogMessageType.QUESTACTIVE };
                 GatherAvailableMessages(allowedType);
             }
             else if(_newStatus == QuestStatus.COMPLETED)
             {
-                List<MessageType> allowedType = new List<MessageType>() { MessageType.QUESTENDED };
+                List<DialogMessageType> allowedType = new List<DialogMessageType>() { DialogMessageType.QUESTENDED };
                 GatherAvailableMessages(allowedType);
             }
         }

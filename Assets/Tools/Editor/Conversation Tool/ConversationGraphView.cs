@@ -3,6 +3,7 @@ using UnityEditor.Experimental.GraphView;
 using UnityEngine.UIElements;
 using UnityEngine;
 using System.Collections.Generic;
+using System.Linq;
 
 public class ConversationGraphView : GraphView
 {
@@ -49,9 +50,9 @@ public class ConversationGraphView : GraphView
     {
         var Node = new ConversationNode(Guid.NewGuid().ToString());
 
-        var generatePort = GeneratePort(Node, Direction.Output);
-        generatePort.portName = "Output";
-        Node.outputContainer.Add(generatePort);
+        //var generatePort = GeneratePort(Node, Direction.Output);
+        //generatePort.portName = "Output";
+        //Node.outputContainer.Add(generatePort);
 
 
         Node.RefreshExpandedState();
@@ -69,6 +70,10 @@ public class ConversationGraphView : GraphView
     private ConversationNode CreateConvoNode(string _message)
     {
         var Node = new ConversationNode(Guid.NewGuid().ToString());
+
+        //var generatePort = GeneratePort(Node, Direction.Output,Port.Capacity.Multi);
+        //generatePort.portName = "Output";
+        //Node.outputContainer.Add(generatePort);
 
         Node.RefreshExpandedState();
         Node.RefreshPorts();
@@ -113,7 +118,14 @@ public class ConversationGraphView : GraphView
         {
             Debug.Log($"Connected {outputNode.Message} to {inputNode.Message}");
 
-            inputNode.SetParentNode(outputNode);
+            if(nodes.Contains(inputNode) && nodes.Contains(outputNode))
+            {
+                var _inNode = nodes.Where(x => x == inputNode).First() as ConversationNode;
+                var _outNode = nodes.Where(x => x == outputNode).First() as ConversationNode;
+                _inNode.SetParentNode(_outNode);
+
+                _outNode.AddChildren(_inNode);
+            }
         }
     }
 
@@ -126,7 +138,15 @@ public class ConversationGraphView : GraphView
         {
             Debug.Log($"Disconnected {outputNode.title} from {inputNode.title}");
 
-            inputNode.SetParentNode(null);
+            if (nodes.Contains(inputNode) && nodes.Contains(outputNode))
+            {
+                var _inNode = nodes.Where(x => x == inputNode).First() as ConversationNode;
+                var _outNode = nodes.Where(x => x == outputNode).First() as ConversationNode;
+
+                _inNode.SetParentNode(null);
+
+                _outNode.RemoveChild(_inNode);
+            }
         }
     }
 }
