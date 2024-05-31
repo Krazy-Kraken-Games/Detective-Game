@@ -131,6 +131,7 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay
                 }
                 else if (questStatus == QuestStatus.INPROGRESS)
                 {
+                    //Also need to check which quest segment is completed
                     int index = conversationSO.questInProgressIndex;
                     activeConvoNode = conversationSO.Nodes[index];
                 }
@@ -166,7 +167,6 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay
                     //Conversation Enders
                     Debug.Log("Leaf node, end conversation");
                     OnLastMessageShown(true);
-                    //ActionController.Instance.CancelInputHandling();
                 }
                 else if (activeConvoNode.Children.Count == 1)
                 {
@@ -226,10 +226,10 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay
         {
             switch (dialogMessage.messageData.MessageType)
             {
-                case MessageType.DEFAULT:
+                case DialogMessageType.DEFAULT:
                     break;
 
-                case MessageType.QUESTGIVER:
+                case DialogMessageType.QUESTGIVER:
 
                     Debug.Log("Starting a new quest from dialog");
 
@@ -248,17 +248,17 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay
 
                     break;
 
-                case MessageType.QUESTACTIVE:
+                case DialogMessageType.QUESTACTIVE:
                     OnLastMessageShown(true);
                     break;
 
-                case MessageType.QUESTENDED:
+                case DialogMessageType.QUESTENDED:
 
                     Debug.Log("Active quest segment has ended");
                     OnLastMessageShown(true);
                     break;
 
-                case MessageType.ENDER:
+                case DialogMessageType.ENDER:
                     Debug.Log("last message of convo shown");
                     OnLastMessageShown(true);
                     break;
@@ -270,7 +270,7 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay
 
         }
 
-        private void OnQuestStatusChangeHandler(QuestStatus _newStatus)
+        private void OnQuestStatusChangeHandler(Quest _quest, QuestStatus _newStatus)
         {
             Debug.Log($"Quest status changed to: {_newStatus}");
 
@@ -342,7 +342,8 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay
             if (!allowChange) return;
             allowChange = false;
 
-            if (_move.x < 0)
+            //NOTE: IF OPTION CYCLE SEEMS TO FAIL,DO CHECK THIS LOGIC OUT AGAIN
+            if (_move.x > 0)
             {
                 SelectPreviousOption();
             }
@@ -358,7 +359,6 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay
         {
             if(selectedIndex < lastIndex)
             {
-                Debug.Log("Next option avail");
                 selectedIndex += 1;
             }
             else
@@ -373,7 +373,6 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay
         {
             if (selectedIndex > 0)
             {
-                Debug.Log("Prev option avail");
                 selectedIndex -= 1;
             }
             else

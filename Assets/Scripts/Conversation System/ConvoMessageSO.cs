@@ -1,6 +1,8 @@
 using KrazyKrakenGames.DetectiveGame.Gameplay;
+using System;
 using UnityEngine;
 
+[Serializable]
 [CreateAssetMenu(fileName = "ConvoMessage",menuName = "Conversation System/Convo Message")]
 public class ConvoMessageSO : ScriptableObject
 {
@@ -8,7 +10,7 @@ public class ConvoMessageSO : ScriptableObject
     public string message;
 
     //Check if it has associated quest with it
-    public MessageType MessageType;
+    public DialogMessageType MessageType;
 
     public int QuestSegmentID; //Check with message type, and populate message accordingly
 

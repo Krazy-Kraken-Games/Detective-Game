@@ -1,7 +1,7 @@
 
 namespace KrazyKrakenGames.DetectiveGame.Gameplay
 {
-    public enum MessageType
+    public enum DialogMessageType
     {
         DEFAULT = 0,
         QUESTGIVER = 1,
@@ -17,7 +17,7 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay
         public int MessageID;
 
         //Check if it has associated quest with it
-        public MessageType MessageType;
+        public DialogMessageType MessageType;
         public int QuestID;
         public int QuestSegmentID; //Check with message type, and populate message accordingly
 

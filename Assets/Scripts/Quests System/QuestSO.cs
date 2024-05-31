@@ -34,7 +34,7 @@ namespace KrazyKrakenGames.DetectiveGame.QuestSystem
 
         [SerializeField] private int SegmentsCompleted;
 
-        public Action<QuestStatus> OnQuestStatusChange;
+        public Action<Quest,QuestStatus> OnQuestStatusChange;
         public UnityEvent<Quest> OnQuestCompleteEvent = new UnityEvent<Quest>();
 
         public Quest(int _ID, string _title, QuestStatus _status, QuestTrigger _questTrigger)
@@ -48,7 +48,7 @@ namespace KrazyKrakenGames.DetectiveGame.QuestSystem
         private void SetQuestState(QuestStatus _newStatus)
         {
             Status = _newStatus;
-            OnQuestStatusChange?.Invoke(Status);
+            OnQuestStatusChange?.Invoke(this,Status);
         }
 
         public void StartingQuest()

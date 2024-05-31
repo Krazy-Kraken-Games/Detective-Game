@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ConvoNodeSO
   id: 
   messageData: {fileID: 11400000, guid: 563e15a4b82dd0643ba3dd32ade2cf77, type: 2}
-  Children: []
+  Children:
+  - {fileID: 11400000, guid: 0262d46eb33f71a4f9eb65c5a1121241, type: 2}
   ParentNode: {fileID: 11400000, guid: b4ad82d48a98061429039c0df4e7ee49, type: 2}

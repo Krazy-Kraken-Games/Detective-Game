@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speakerName: D
   message: ABC
-  MessageType: 4
+  MessageType: 0
   QuestSegmentID: 0
