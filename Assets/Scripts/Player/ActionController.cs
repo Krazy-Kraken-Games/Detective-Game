@@ -90,6 +90,8 @@ namespace KrazyKrakenGames.DetectiveGame.Player
 
             CancelInputHandling();
 
+            HandleInventoryInputButton();
+
             InteractionInputHandling();
 
             MovementInputHandling();
@@ -118,7 +120,15 @@ namespace KrazyKrakenGames.DetectiveGame.Player
 
         #endregion
 
+        private void HandleInventoryInputButton()
+        {
+            if (_input.inventory)
+            {
+                UIManager.instance.ToggleInventory();
 
+                _input.inventory = false;
+            }
+        }
         public void CancelInputHandling()
         {
             if (_input.cancel)

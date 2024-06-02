@@ -7,6 +7,7 @@ using KrazyKrakenGames.DetectiveGame.Managers;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
+using static KrazyKrakenGames.DetectiveGame.Global.MetaConstants;
 
 namespace KrazyKrakenGames.DetectiveGame.UI
 {
@@ -14,6 +15,9 @@ namespace KrazyKrakenGames.DetectiveGame.UI
     public class UIManager : MonoBehaviour
     {
         public static UIManager instance = null;
+
+        [Header("Manager References")]
+        [SerializeField] private CameraManager cameraManager;
 
         [Header("Cross-Hair Reference")]
         public RectTransform crossHair;
@@ -41,6 +45,13 @@ namespace KrazyKrakenGames.DetectiveGame.UI
         [Header("Toaster System References")]
         [SerializeField] private ToasterSystem toasterSystem;
 
+        [Space(5)]
+        [Header("Inventory UI")]
+        [SerializeField] private GameObject inventoryUI;
+        private bool isInventoryActive;
+
+        public bool InventoryActive => isInventoryActive;
+
         public bool InstructionActive() => isInstructionActive;
 
         public bool DialogActive() => isDialogActive;
@@ -67,6 +78,7 @@ namespace KrazyKrakenGames.DetectiveGame.UI
         private void Start()
         {
             playerManager = GamePlayerManager.instance;
+            cameraManager = CameraManager.instance;
 
             crossHairDefaultPosition = crossHair.anchoredPosition;
 
@@ -76,6 +88,8 @@ namespace KrazyKrakenGames.DetectiveGame.UI
             {
                 OnGameStateChangedEventHandler(playerManager.gameState);
             }
+
+            HideInventory();
         }
 
         private void OnDestroy()
@@ -116,6 +130,11 @@ namespace KrazyKrakenGames.DetectiveGame.UI
             {
                 playerManager.OnGameStateChangedEvent += OnGameStateChangedEventHandler;
             }
+
+            if(cameraManager != null)
+            {
+                cameraManager.OnStateChangeEvent += OnCameraStateUpdatedHandler;
+            }
         }
 
         private void UnregisterEvents()
@@ -127,6 +146,11 @@ namespace KrazyKrakenGames.DetectiveGame.UI
             if (playerManager != null)
             {
                 playerManager.OnGameStateChangedEvent -= OnGameStateChangedEventHandler;
+            }
+
+            if (cameraManager != null)
+            {
+                cameraManager.OnStateChangeEvent += OnCameraStateUpdatedHandler;
             }
 
         }
@@ -147,6 +171,21 @@ namespace KrazyKrakenGames.DetectiveGame.UI
             {
                 //Show crosshair for puzzle
                 ShowCrossHair();
+            }
+        }
+
+        private void OnCameraStateUpdatedHandler(GameCameraState _newCameraState)
+        {
+            if(_newCameraState == GameCameraState.INVENTORY)
+            {
+                //Activate inventory
+                Debug.Log("Activate inventory");
+                
+            }
+            else
+            {
+                //Hide inventory
+                Debug.Log("Hide inventory");
             }
         }
 
@@ -291,6 +330,42 @@ namespace KrazyKrakenGames.DetectiveGame.UI
         {
             toasterSystem.AddToasterMessage(_message);
         }
+
+        #endregion
+
+        #region Inventory Section
+
+        public void ToggleInventory()
+        {
+            if (!isInventoryActive)
+            {
+                ShowInventory();
+            }
+            else
+            {
+                HideInventory();
+            }
+        }
+
+        private void ShowInventory()
+        {
+            inventoryUI.SetActive(true);
+            CameraManager.instance.SetState(GameCameraState.INVENTORY);
+            playerManager.UpdateInputMode(PlayerInputMode.SECONDARY);
+
+            isInventoryActive = true;
+        }
+
+        private void HideInventory() 
+        {
+            CameraManager.instance.SetState(GameCameraState.PRIMARY);
+            playerManager.UpdateInputMode(PlayerInputMode.PRIMARY);
+
+
+            inventoryUI.SetActive(false);
+            isInventoryActive = false;
+        }
+
 
         #endregion
     }

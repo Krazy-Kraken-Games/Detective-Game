@@ -23,6 +23,7 @@ namespace StarterAssets
 		public bool leftShoulder;
 		public bool leftTrigger;
 		public bool rightTrigger;
+		public bool inventory;
 
 
 		public bool kraken; //Only for debugger mode
@@ -153,6 +154,11 @@ namespace StarterAssets
 			InteractInput(value.isPressed);
         }
 
+		public void OnInventory(InputValue value)
+		{
+			InventoryButtonInput(value.isPressed);
+		}
+
 		public void OnCancel(InputValue value)
 		{
 			CancelInput(value.isPressed);
@@ -230,7 +236,13 @@ namespace StarterAssets
 			interact = newInteractState;
 		}
 
-		public void CancelInput(bool newCancelState)
+		public void InventoryButtonInput(bool newInventoryButtonState)
+		{
+			inventory = newInventoryButtonState;
+		}
+
+
+        public void CancelInput(bool newCancelState)
 		{
             cancel = newCancelState;
 

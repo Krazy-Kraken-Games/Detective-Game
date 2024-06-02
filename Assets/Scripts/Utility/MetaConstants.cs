@@ -37,6 +37,7 @@ namespace KrazyKrakenGames.DetectiveGame.Global
         {
             PRIMARY = 0,
             SECONDARY = 1,
+            INVENTORY = 2
         }
 
         #endregion
