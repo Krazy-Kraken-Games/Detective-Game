@@ -23,7 +23,8 @@ namespace KrazyKrakenGames.DetectiveGame.Global
             DETECTIVE = 1,
             VIEWER = 2,
             PUZZLE = 3,
-            SHOOT = 4
+            SHOOT = 4,
+            INVENTORY = 5
         }
 
         public enum PlayerInputMode
@@ -73,6 +74,7 @@ namespace KrazyKrakenGames.DetectiveGame.Global
 
         #region UI Messages and Constants
 
+        public static readonly float InvestigationSliderMaxValue = 3f;
         public static readonly string CancelMessage = "Press X to Skip";
 
         #endregion

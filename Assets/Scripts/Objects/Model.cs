@@ -1,4 +1,4 @@
-using KrazyKrakenGames.ThesisProject.InputHandling;
+using KrazyKrakenGames.DetectiveGame.Player;
 using UnityEngine;
 
 
@@ -6,18 +6,15 @@ namespace KrazyKrakenGames.ThesisProject.GameModel
 {
     public class Model : MonoBehaviour
     {
-        [SerializeField] private PlayerController playerController;
+        [SerializeField] private ActionController playerController;
 
         [SerializeField] private float rotationSpeed;
-
-        [SerializeField] private GameObject uiInfoPanel;
 
         private void Start()
         {
             if(playerController != null)
             {
-                playerController.OnRotateModelInput += OnRotateInputEventHandler;
-                playerController.OnShowModelInfoInput += OnShowInfoInputHandler;
+                playerController.OnMoveInputEvent += OnRotateInputEventHandler;
             }
         }
 
@@ -25,8 +22,7 @@ namespace KrazyKrakenGames.ThesisProject.GameModel
         {
             if (playerController != null)
             {
-                playerController.OnRotateModelInput -= OnRotateInputEventHandler;
-                playerController.OnShowModelInfoInput -= OnShowInfoInputHandler;
+                playerController.OnMoveInputEvent -= OnRotateInputEventHandler;
             }
         }
 
@@ -44,11 +40,6 @@ namespace KrazyKrakenGames.ThesisProject.GameModel
                 // Rotate around x-axis (right in Unity) based on vertical input
                 transform.Rotate(Vector3.right, _rotation.y * rotationSpeed * Time.deltaTime,Space.World);
             }
-        }
-
-        private void OnShowInfoInputHandler(bool _showInfo)
-        {
-            uiInfoPanel.SetActive(_showInfo);
         }
     }
 }

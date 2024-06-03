@@ -24,6 +24,9 @@ namespace KrazyKrakenGames.DetectiveGame.Player
         [SerializeField] private GameState currentGameState;
 
         [SerializeField] private LayerMask pieceLayer = 1 << 15;
+        [SerializeField] private LayerMask investigateClueLayer = 1 << 16;
+        [SerializeField] private LayerMask investigateObjectLayer = 1 << 17;
+        [SerializeField] private LayerMask combinedLayerMask;
 
 
         //TO BE MOVED INTO PUZZLE MANAGER
@@ -93,6 +96,11 @@ namespace KrazyKrakenGames.DetectiveGame.Player
             HandleInventoryInputButton();
 
             InteractionInputHandling();
+
+            if(playerManager.gameState == GameState.INVENTORY)
+            {
+                InvestigationRaycastHandling();
+            }
 
             MovementInputHandling();
         }
@@ -200,6 +208,41 @@ namespace KrazyKrakenGames.DetectiveGame.Player
         }
 
         #region Raycast Input Handling
+
+        private void InvestigationRaycastHandling()
+        {
+            if(_input != null)
+            {
+                Vector3 crossHairWorldPosition = UIManager.instance.CrossHairWorldPosition;
+
+                Camera cam = Camera.main.GetComponent<CinemachineBrain>().OutputCamera;
+
+                Vector3 direction = crossHairWorldPosition - cam.gameObject.transform.position;
+                Ray ray = new Ray(cam.gameObject.transform.position, direction);
+
+                RaycastHit hit;
+
+                combinedLayerMask = investigateClueLayer | investigateObjectLayer;
+                if (Physics.Raycast(ray, out hit, Mathf.Infinity, combinedLayerMask))
+                {
+                    int layerIndex = hit.collider.gameObject.layer;
+                    if ((investigateClueLayer.value & (1 << layerIndex)) != 0)
+                    {
+                        Debug.Log("We nailed a clue!");
+                        UIManager.instance.OnInvestigationClueHit();
+                    }
+                    else if ((investigateObjectLayer.value & (1 << layerIndex)) != 0)
+                    {
+                        Debug.Log("We hit on an object");
+                        UIManager.instance.ResetInvestigationSliderValue();
+                    }
+                }
+                else
+                {
+                    UIManager.instance.ResetInvestigationSliderValue();
+                }
+            }
+        }
 
         private void LookInputHandling()
         {

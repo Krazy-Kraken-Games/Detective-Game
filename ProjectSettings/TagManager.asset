@@ -13,6 +13,7 @@ TagManager:
   - NoShooting
   - AllowShooting
   - Enemy
+  - InvestigatePiece
   layers:
   - Default
   - TransparentFX
@@ -30,8 +31,8 @@ TagManager:
   - Environment
   - Ignore
   - PuzzlePiece
-  - InventoryUI
-  - 
+  - InvestigateClue
+  - InvestigationObject
   - 
   - 
   - 

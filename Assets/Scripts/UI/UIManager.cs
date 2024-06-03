@@ -6,6 +6,7 @@ using KrazyKrakenGames.DetectiveGame.Global;
 using KrazyKrakenGames.DetectiveGame.Managers;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.UIElements;
 using static KrazyKrakenGames.DetectiveGame.Global.MetaConstants;
 
@@ -23,6 +24,11 @@ namespace KrazyKrakenGames.DetectiveGame.UI
         public RectTransform crossHair;
         private Vector3 crossHairWorldPos;
         private Vector2 crossHairDefaultPosition;
+
+        [Header("Investigation Slider Reference")]
+        [SerializeField] private UnityEngine.UI.Slider investigationSlider;
+        [SerializeField] private float investigationSliderMaxValue;
+        private float investigationSliderValue;
 
         public Vector3 CrossHairWorldPosition => crossHairWorldPos;
 
@@ -82,6 +88,16 @@ namespace KrazyKrakenGames.DetectiveGame.UI
 
             crossHairDefaultPosition = crossHair.anchoredPosition;
 
+            if (investigationSlider != null)
+            {
+                investigationSliderMaxValue = MetaConstants.InvestigationSliderMaxValue;
+                investigationSlider.maxValue = investigationSliderMaxValue;
+            }
+            else
+            {
+                Debug.LogWarning("Missing Investigation Slider", gameObject);
+            }
+
             RegisterEvents();
 
             if(playerManager != null)
@@ -109,7 +125,8 @@ namespace KrazyKrakenGames.DetectiveGame.UI
         {
             SetCrossHairWorldPosition();
 
-            if (playerManager != null && playerManager.gameState == MetaConstants.GameState.PUZZLE)
+            if (playerManager != null && 
+                (playerManager.gameState == GameState.PUZZLE) || (playerManager.gameState == GameState.INVENTORY))
             {
                 PuzzleCrossHairMovement();
             }
@@ -157,19 +174,23 @@ namespace KrazyKrakenGames.DetectiveGame.UI
 
         private void OnGameStateChangedEventHandler(MetaConstants.GameState _newState)
         {
-            if(_newState == MetaConstants.GameState.NORMAL)
+            if(_newState == GameState.NORMAL)
             {
                 //Hide crosshair
                 HideCrossHair();
             }
-            else if(_newState == MetaConstants.GameState.SHOOT)
+            else if(_newState == GameState.SHOOT)
             {
                 //Show crosshair for shoot
                 ShowCrossHair();
             }
-            else if(_newState == MetaConstants.GameState.PUZZLE)
+            else if(_newState == GameState.PUZZLE)
             {
                 //Show crosshair for puzzle
+                ShowCrossHair();
+            }
+            else if(_newState == GameState.INVENTORY)
+            {
                 ShowCrossHair();
             }
         }
@@ -352,6 +373,7 @@ namespace KrazyKrakenGames.DetectiveGame.UI
             inventoryUI.SetActive(true);
             CameraManager.instance.SetState(GameCameraState.INVENTORY);
             playerManager.UpdateInputMode(PlayerInputMode.SECONDARY);
+            playerManager.UpdateMode(GameState.INVENTORY);
 
             isInventoryActive = true;
         }
@@ -360,12 +382,44 @@ namespace KrazyKrakenGames.DetectiveGame.UI
         {
             CameraManager.instance.SetState(GameCameraState.PRIMARY);
             playerManager.UpdateInputMode(PlayerInputMode.PRIMARY);
+            playerManager.UpdateMode(GameState.NORMAL);
 
 
             inventoryUI.SetActive(false);
             isInventoryActive = false;
         }
 
+
+        #endregion
+
+        #region Investigation UI Section
+
+        public void OnInvestigationClueHit()
+        {
+            investigationSlider.gameObject.SetActive(true);
+            investigationSliderValue += Time.deltaTime;
+            UpdateInvestigationSliderValue(investigationSliderValue);
+        }
+
+        private void UpdateInvestigationSliderValue(float value)
+        {
+            if(value >= investigationSliderMaxValue)
+            {
+                Debug.Log("Max value reached, clue solved");
+            }
+            else
+            {
+                investigationSlider.value = value;
+            }
+            
+        }
+
+        public void ResetInvestigationSliderValue()
+        {
+            investigationSliderValue = 0;
+            investigationSlider.value = investigationSliderValue;
+            investigationSlider.gameObject.SetActive(false);
+        }
 
         #endregion
     }
