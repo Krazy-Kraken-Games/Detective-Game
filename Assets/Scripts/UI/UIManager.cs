@@ -2,6 +2,7 @@ using Cinemachine;
 using KrazyKrakenGames.DetectiveGame.AI;
 using KrazyKrakenGames.DetectiveGame.Conversations;
 using KrazyKrakenGames.DetectiveGame.Gameplay;
+using KrazyKrakenGames.DetectiveGame.Gameplay.Puzzles;
 using KrazyKrakenGames.DetectiveGame.Global;
 using KrazyKrakenGames.DetectiveGame.Managers;
 using System.Collections.Generic;
@@ -29,6 +30,7 @@ namespace KrazyKrakenGames.DetectiveGame.UI
         [SerializeField] private UnityEngine.UI.Slider investigationSlider;
         [SerializeField] private float investigationSliderMaxValue;
         private float investigationSliderValue;
+        [SerializeField] private InvestigationClue currentClue;
 
         public Vector3 CrossHairWorldPosition => crossHairWorldPos;
 
@@ -394,18 +396,23 @@ namespace KrazyKrakenGames.DetectiveGame.UI
 
         #region Investigation UI Section
 
-        public void OnInvestigationClueHit()
+        public void OnInvestigationClueHit(InvestigationClue _clue)
         {
             investigationSlider.gameObject.SetActive(true);
             investigationSliderValue += Time.deltaTime;
             UpdateInvestigationSliderValue(investigationSliderValue);
+
+            currentClue = _clue;
         }
 
         private void UpdateInvestigationSliderValue(float value)
         {
             if(value >= investigationSliderMaxValue)
             {
-                Debug.Log("Max value reached, clue solved");
+                if(currentClue != null)
+                {
+                    currentClue.ClueFound();
+                }
             }
             else
             {
@@ -419,6 +426,7 @@ namespace KrazyKrakenGames.DetectiveGame.UI
             investigationSliderValue = 0;
             investigationSlider.value = investigationSliderValue;
             investigationSlider.gameObject.SetActive(false);
+            currentClue = null;
         }
 
         #endregion

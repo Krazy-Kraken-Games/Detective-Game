@@ -228,12 +228,18 @@ namespace KrazyKrakenGames.DetectiveGame.Player
                     int layerIndex = hit.collider.gameObject.layer;
                     if ((investigateClueLayer.value & (1 << layerIndex)) != 0)
                     {
-                        Debug.Log("We nailed a clue!");
-                        UIManager.instance.OnInvestigationClueHit();
+                        var clueObject = hit.collider.gameObject.GetComponent<InvestigationClue>();
+
+                        if(clueObject != null)
+                        {
+                            if(clueObject.Status == InvestigationClueStatus.HIDDEN)
+                            {
+                                UIManager.instance.OnInvestigationClueHit(clueObject);
+                            }
+                        }
                     }
                     else if ((investigateObjectLayer.value & (1 << layerIndex)) != 0)
                     {
-                        Debug.Log("We hit on an object");
                         UIManager.instance.ResetInvestigationSliderValue();
                     }
                 }
