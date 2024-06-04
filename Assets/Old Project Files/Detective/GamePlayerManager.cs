@@ -79,7 +79,7 @@ namespace KrazyKrakenGames.DetectiveGame.Managers
         {
             gameState = mode;
 
-            if(mode == GameState.PUZZLE)
+            if(mode == GameState.PUZZLE || mode == GameState.INVENTORY)
             {
                 _input.cursorLocked = false;
                 _input.SetCursorInGame(_input.cursorLocked);

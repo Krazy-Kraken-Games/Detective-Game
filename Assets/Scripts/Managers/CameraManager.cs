@@ -22,12 +22,16 @@ namespace KrazyKrakenGames.DetectiveGame.Managers
 
         [SerializeField] private CinemachineVirtualCamera secondaryCamera;
 
+        [SerializeField] private CinemachineVirtualCamera inventoryCamera;
+
         public Action<GameCameraState> OnStateChangeEvent;
 
         public CinemachineVirtualCamera PrimaryCamera => primaryCamera;
         public Cinemachine3rdPersonFollow PrimaryFollowComponent => primaryFramingTransposer;
 
         public CinemachineVirtualCamera SecondaryCamera => secondaryCamera;
+
+        public CinemachineVirtualCamera InventoryCamera => inventoryCamera; 
 
         public Vector3 middlePoint;
         #region UNITY_METHODS
@@ -96,17 +100,26 @@ namespace KrazyKrakenGames.DetectiveGame.Managers
                 case GameCameraState.PRIMARY:
                     primaryCamera.gameObject.SetActive(true);
                     secondaryCamera.gameObject.SetActive(false);
+                    inventoryCamera.gameObject.SetActive(false);
                     break;
 
                 case GameCameraState.SECONDARY:
                     primaryCamera.gameObject.SetActive(false);
                     secondaryCamera.gameObject.SetActive(true);
+                    inventoryCamera.gameObject.SetActive(false);
 
-                    if(lookAt != null)
+                    if (lookAt != null)
                     {
                         Debug.Log("We have a pivot point");
                         secondaryCamera.m_LookAt = lookAt;
                     }
+                    break;
+
+                case GameCameraState.INVENTORY:
+                    primaryCamera.gameObject.SetActive(false);
+                    secondaryCamera.gameObject.SetActive(false);
+                    inventoryCamera.gameObject.SetActive(true);
+
                     break;
             }
         }

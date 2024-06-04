@@ -2,11 +2,14 @@ using Cinemachine;
 using KrazyKrakenGames.DetectiveGame.AI;
 using KrazyKrakenGames.DetectiveGame.Conversations;
 using KrazyKrakenGames.DetectiveGame.Gameplay;
+using KrazyKrakenGames.DetectiveGame.Gameplay.Puzzles;
 using KrazyKrakenGames.DetectiveGame.Global;
 using KrazyKrakenGames.DetectiveGame.Managers;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.UIElements;
+using static KrazyKrakenGames.DetectiveGame.Global.MetaConstants;
 
 namespace KrazyKrakenGames.DetectiveGame.UI
 {
@@ -15,10 +18,19 @@ namespace KrazyKrakenGames.DetectiveGame.UI
     {
         public static UIManager instance = null;
 
+        [Header("Manager References")]
+        [SerializeField] private CameraManager cameraManager;
+
         [Header("Cross-Hair Reference")]
         public RectTransform crossHair;
         private Vector3 crossHairWorldPos;
         private Vector2 crossHairDefaultPosition;
+
+        [Header("Investigation Slider Reference")]
+        [SerializeField] private UnityEngine.UI.Slider investigationSlider;
+        [SerializeField] private float investigationSliderMaxValue;
+        private float investigationSliderValue;
+        [SerializeField] private InvestigationClue currentClue;
 
         public Vector3 CrossHairWorldPosition => crossHairWorldPos;
 
@@ -40,6 +52,13 @@ namespace KrazyKrakenGames.DetectiveGame.UI
         [Space(5)]
         [Header("Toaster System References")]
         [SerializeField] private ToasterSystem toasterSystem;
+
+        [Space(5)]
+        [Header("Inventory UI")]
+        [SerializeField] private GameObject inventoryUI;
+        private bool isInventoryActive;
+
+        public bool InventoryActive => isInventoryActive;
 
         public bool InstructionActive() => isInstructionActive;
 
@@ -67,8 +86,19 @@ namespace KrazyKrakenGames.DetectiveGame.UI
         private void Start()
         {
             playerManager = GamePlayerManager.instance;
+            cameraManager = CameraManager.instance;
 
             crossHairDefaultPosition = crossHair.anchoredPosition;
+
+            if (investigationSlider != null)
+            {
+                investigationSliderMaxValue = MetaConstants.InvestigationSliderMaxValue;
+                investigationSlider.maxValue = investigationSliderMaxValue;
+            }
+            else
+            {
+                Debug.LogWarning("Missing Investigation Slider", gameObject);
+            }
 
             RegisterEvents();
 
@@ -76,6 +106,8 @@ namespace KrazyKrakenGames.DetectiveGame.UI
             {
                 OnGameStateChangedEventHandler(playerManager.gameState);
             }
+
+            HideInventory();
         }
 
         private void OnDestroy()
@@ -95,7 +127,8 @@ namespace KrazyKrakenGames.DetectiveGame.UI
         {
             SetCrossHairWorldPosition();
 
-            if (playerManager != null && playerManager.gameState == MetaConstants.GameState.PUZZLE)
+            if (playerManager != null && 
+                (playerManager.gameState == GameState.PUZZLE) || (playerManager.gameState == GameState.INVENTORY))
             {
                 PuzzleCrossHairMovement();
             }
@@ -116,6 +149,11 @@ namespace KrazyKrakenGames.DetectiveGame.UI
             {
                 playerManager.OnGameStateChangedEvent += OnGameStateChangedEventHandler;
             }
+
+            if(cameraManager != null)
+            {
+                cameraManager.OnStateChangeEvent += OnCameraStateUpdatedHandler;
+            }
         }
 
         private void UnregisterEvents()
@@ -129,24 +167,48 @@ namespace KrazyKrakenGames.DetectiveGame.UI
                 playerManager.OnGameStateChangedEvent -= OnGameStateChangedEventHandler;
             }
 
+            if (cameraManager != null)
+            {
+                cameraManager.OnStateChangeEvent += OnCameraStateUpdatedHandler;
+            }
+
         }
 
         private void OnGameStateChangedEventHandler(MetaConstants.GameState _newState)
         {
-            if(_newState == MetaConstants.GameState.NORMAL)
+            if(_newState == GameState.NORMAL)
             {
                 //Hide crosshair
                 HideCrossHair();
             }
-            else if(_newState == MetaConstants.GameState.SHOOT)
+            else if(_newState == GameState.SHOOT)
             {
                 //Show crosshair for shoot
                 ShowCrossHair();
             }
-            else if(_newState == MetaConstants.GameState.PUZZLE)
+            else if(_newState == GameState.PUZZLE)
             {
                 //Show crosshair for puzzle
                 ShowCrossHair();
+            }
+            else if(_newState == GameState.INVENTORY)
+            {
+                ShowCrossHair();
+            }
+        }
+
+        private void OnCameraStateUpdatedHandler(GameCameraState _newCameraState)
+        {
+            if(_newCameraState == GameCameraState.INVENTORY)
+            {
+                //Activate inventory
+                Debug.Log("Activate inventory");
+                
+            }
+            else
+            {
+                //Hide inventory
+                Debug.Log("Hide inventory");
             }
         }
 
@@ -290,6 +352,82 @@ namespace KrazyKrakenGames.DetectiveGame.UI
         public void AddToasterMessage(string _message)
         {
             toasterSystem.AddToasterMessage(_message);
+        }
+
+        #endregion
+
+        #region Inventory Section
+
+        public void ToggleInventory()
+        {
+            if (!isInventoryActive)
+            {
+                ShowInventory();
+            }
+            else
+            {
+                HideInventory();
+            }
+        }
+
+        private void ShowInventory()
+        {
+            inventoryUI.SetActive(true);
+            CameraManager.instance.SetState(GameCameraState.INVENTORY);
+            playerManager.UpdateInputMode(PlayerInputMode.SECONDARY);
+            playerManager.UpdateMode(GameState.INVENTORY);
+
+            isInventoryActive = true;
+        }
+
+        private void HideInventory() 
+        {
+            CameraManager.instance.SetState(GameCameraState.PRIMARY);
+            playerManager.UpdateInputMode(PlayerInputMode.PRIMARY);
+            playerManager.UpdateMode(GameState.NORMAL);
+
+
+            inventoryUI.SetActive(false);
+            isInventoryActive = false;
+        }
+
+
+        #endregion
+
+        #region Investigation UI Section
+
+        public void OnInvestigationClueHit(InvestigationClue _clue)
+        {
+            investigationSlider.gameObject.SetActive(true);
+            investigationSliderValue += Time.deltaTime;
+            UpdateInvestigationSliderValue(investigationSliderValue);
+
+            currentClue = _clue;
+        }
+
+        private void UpdateInvestigationSliderValue(float value)
+        {
+            if(value >= investigationSliderMaxValue)
+            {
+                if(currentClue != null)
+                {
+                    currentClue.ClueFound();
+                    investigationSlider.gameObject.SetActive(false);
+                }
+            }
+            else
+            {
+                investigationSlider.value = value;
+            }
+            
+        }
+
+        public void ResetInvestigationSliderValue()
+        {
+            investigationSliderValue = 0;
+            investigationSlider.value = investigationSliderValue;
+            investigationSlider.gameObject.SetActive(false);
+            currentClue = null;
         }
 
         #endregion

@@ -7,6 +7,7 @@ using KrazyKrakenGames.DetectiveGame.UI;
 using RootMotion.FinalIK;
 using StarterAssets;
 using System;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using static KrazyKrakenGames.DetectiveGame.Global.MetaConstants;
@@ -266,6 +267,8 @@ public class ThirdPersonPlayer : MonoBehaviour
 
             HandleShootButtonHit();
 
+            HandleInventoryButton();
+
             //TODO: Decide if we want to make game not switch to shooting mode if in detective mode
             ShootInput();
 
@@ -497,6 +500,23 @@ public class ThirdPersonPlayer : MonoBehaviour
                 shootingSystem.Shoot();
             }
             _input.rightTrigger = false;
+        }
+    }
+
+    private void HandleInventoryButton()
+    {
+        if (_input.inventory)
+        {
+            //Inventory button is pressed, toggle mode and screen
+
+            if (isDetectiveModeInProcess || isDetectiveModeActive)
+            {
+                detectiveMode.EndDetectiveMode();
+            }
+
+            UIManager.instance.ToggleInventory();
+
+            _input.inventory = false;
         }
     }
 
