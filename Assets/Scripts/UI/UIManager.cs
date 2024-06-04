@@ -412,6 +412,7 @@ namespace KrazyKrakenGames.DetectiveGame.UI
                 if(currentClue != null)
                 {
                     currentClue.ClueFound();
+                    investigationSlider.gameObject.SetActive(false);
                 }
             }
             else

@@ -1,3 +1,4 @@
+using KrazyKrakenGames.DetectiveGame.UI;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -35,6 +36,7 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay.Puzzles
             if(cluesSolved.Count == cluesToSolve.Count)
             {
                 Debug.Log("Investigation complete");
+                UIManager.instance.AddToasterMessage("Investigation Complete");
             }
         }
     }
