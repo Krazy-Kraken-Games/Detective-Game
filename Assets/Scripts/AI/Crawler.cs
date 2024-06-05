@@ -1,3 +1,4 @@
+using KrazyKrakenGames.DetectiveGame.Gameplay.AI;
 using KrazyKrakenGames.DetectiveGame.Gameplay.Shooting;
 using System;
 using System.Collections;
@@ -46,6 +47,9 @@ namespace KrazyKrakenGames.DetectiveGame.AI
 
         [SerializeField] private PlayerDetectionTrigger playerDetectionTrigger;
 
+        [Header("AI Group Detection Section")]
+        [SerializeField] private AIGroupDetection detectionGroup;
+
         private void Start()
         {
             agent = GetComponent<NavMeshAgent>();
@@ -89,7 +93,10 @@ namespace KrazyKrakenGames.DetectiveGame.AI
                         //Go to attack state
                         SetState(EnemyState.ATTACK);
                         agent.destination = transform.position;
-                        StartCoroutine(JumpToTarget(target.transform.position, 1f));
+
+                        //Notify Ai Group detector of attack state
+                        detectionGroup.AddAttacker(this);
+
                     }
                     else
                     {
@@ -138,7 +145,16 @@ namespace KrazyKrakenGames.DetectiveGame.AI
                 Debug.Log("On player in area detected");
 
                 SetPlayerAsTarget(playerObject);
+
+                //Notify detection Group that I have detected the player
+                detectionGroup.AddAgent(this);
             }
+        }
+
+        public void OnPlayerLeftTriggerAreaHandler()
+        {
+            //Notify detection Group that I detected player has left area
+            detectionGroup.RemoveAgent(this);   
         }
 
         #region Collision Detection Section
@@ -217,6 +233,12 @@ namespace KrazyKrakenGames.DetectiveGame.AI
         #region Attack Section
 
         [SerializeField] private bool isJumping = false;
+
+        public void PerformAttack()
+        {
+            Debug.Log($"{name} is attacking!");
+            StartCoroutine(JumpToTarget(target.transform.position, 1f));
+        }
 
         /// <summary>
         /// AI jumps to the target

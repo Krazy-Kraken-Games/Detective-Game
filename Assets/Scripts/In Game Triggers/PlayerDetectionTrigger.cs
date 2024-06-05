@@ -1,3 +1,4 @@
+using KrazyKrakenGames.DetectiveGame.AI;
 using System;
 using UnityEngine;
 
@@ -6,7 +7,10 @@ public class PlayerDetectionTrigger : MonoBehaviour
     [SerializeField] private bool readyForUse = true;
     [SerializeField] private SphereCollider sphereCollider;
 
+    [SerializeField] private Crawler aiEnemy;
+
     public Action<GameObject> OnPlayerDetectedEvent;
+   
 
     private void Start()
     {
@@ -46,6 +50,7 @@ public class PlayerDetectionTrigger : MonoBehaviour
         if (collidedWith.tag == "Player")
         {
             readyForUse = true;
+            aiEnemy.OnPlayerLeftTriggerAreaHandler();
         }
     }
 }
