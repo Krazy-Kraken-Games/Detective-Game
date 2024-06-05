@@ -45,6 +45,7 @@ public class ConversationWindow : EditorWindow
         var toolbar = new Toolbar();
 
         var textField = new TextField("Conversation Name");
+        textField.style.width = 300f;
         textField.SetValueWithoutNotify(fileName);
         textField.MarkDirtyRepaint();
         textField.RegisterValueChangedCallback(OnFileNameTextFieldUpdated);

@@ -65,8 +65,6 @@ public class ConversationNode : Node
         {
             Debug.Log($"{Message} setting parent node to: {node.Message}");
         }
-
-        
     }
 
     public void AddChildrenNodes(List<ConversationNode> nodes)
