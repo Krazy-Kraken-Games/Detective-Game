@@ -7,6 +7,8 @@ using System.Linq;
 
 public class ConversationGraphView : GraphView
 {
+    private List<ConversationNode> copiedNodes = new List<ConversationNode>();
+
     public ConversationGraphView()
     {
         SetupZoom(ContentZoomer.DefaultMinScale, ContentZoomer.DefaultMaxScale);
@@ -14,6 +16,8 @@ public class ConversationGraphView : GraphView
         this.AddManipulator(new ContentDragger());
         this.AddManipulator(new SelectionDragger());
         this.AddManipulator(new RectangleSelector());
+
+        this.AddManipulator(new ContextualMenuManipulator(BuildContextMenu));
 
         var gridBackground = new GridBackground();
         gridBackground.StretchToParentSize();
@@ -26,34 +30,70 @@ public class ConversationGraphView : GraphView
 
     }
 
-    private Port GeneratePort(ConversationNode _node, Direction _portDirection, Port.Capacity _capacity = Port.Capacity.Single)
+    #region Context Menu Manipulation
+
+    private void BuildContextMenu(ContextualMenuPopulateEvent evt)
     {
-        return _node.InstantiatePort(Orientation.Horizontal, _portDirection, _capacity, typeof(float));
+        evt.menu.AppendAction("Create Node", action => CreateNodeWithPosition("Dialog Node", action.eventInfo.mousePosition));
+        evt.menu.AppendAction("Copy Node", action => CopyNode(), ShouldBeCopied);
+        evt.menu.AppendAction("Paste Node", action => PasteNodes(action.eventInfo.mousePosition), ShouldBePasted);
+        
+    
     }
 
-    public override List<Port> GetCompatiblePorts(Port startPort, NodeAdapter nodeAdapter)
+    private bool CanCopy()
     {
-        var compatiblePorts = new List<Port>();
+        return selection.Count > 0;
+    }
 
-        ports.ForEach(port =>
+    private DropdownMenuAction.Status ShouldBeCopied(DropdownMenuAction _action)
+    {
+        return CanCopy() ? DropdownMenuAction.Status.Normal : DropdownMenuAction.Status.Disabled;
+
+    }
+
+    private void CopyNode()
+    {
+        copiedNodes.Clear();
+
+        foreach(var node in selection)
         {
-            if (startPort != port && startPort.node != port.node)
+            if(node is ConversationNode selectedNode)
             {
-                compatiblePorts.Add(port);
+                copiedNodes.Add(selectedNode);
             }
-        });
-
-        return compatiblePorts;
+        }
     }
 
+
+    private bool CanPaste()
+    {
+        return copiedNodes.Count > 0;
+    }
+
+    private DropdownMenuAction.Status ShouldBePasted(DropdownMenuAction _action)
+    {
+        return CanPaste() ? DropdownMenuAction.Status.Normal: DropdownMenuAction.Status.Disabled;
+    }
+
+    private void PasteNodes(Vector2 mousePosition)
+    {
+        float inBetweenNodeWidth = 350;
+
+        for(int i = 0; i < copiedNodes.Count; i++)
+        {
+            Vector2 nextPosition = new Vector2(mousePosition.x + (i * inBetweenNodeWidth),mousePosition.y);
+
+            CreateNodeWithPosition("Pasted Node", nextPosition);
+        }
+    }
+
+    #endregion
+
+    #region Node Creation
     public ConversationNode CreateRootNode()
     {
         var Node = new ConversationNode(Guid.NewGuid().ToString());
-
-        //var generatePort = GeneratePort(Node, Direction.Output);
-        //generatePort.portName = "Output";
-        //Node.outputContainer.Add(generatePort);
-
 
         Node.RefreshExpandedState();
         Node.RefreshPorts();
@@ -71,10 +111,6 @@ public class ConversationGraphView : GraphView
     {
         var Node = new ConversationNode(Guid.NewGuid().ToString());
 
-        //var generatePort = GeneratePort(Node, Direction.Output,Port.Capacity.Multi);
-        //generatePort.portName = "Output";
-        //Node.outputContainer.Add(generatePort);
-
         Node.RefreshExpandedState();
         Node.RefreshPorts();
 
@@ -83,7 +119,23 @@ public class ConversationGraphView : GraphView
         return Node;
     }
 
+    private void CreateNodeWithPosition(string _message, Vector2 position)
+    {
+        var node = new ConversationNode(Guid.NewGuid().ToString());
 
+        node.RefreshExpandedState();
+        node.RefreshPorts();
+
+        node.SetPosition(new Rect(position.x, position.y, 300, 150));
+
+        Debug.Log($"Node Created at: {position}");
+
+        AddElement(node);
+    }
+
+    #endregion
+
+    #region Graph Change
     private GraphViewChange GraphViewChanged(GraphViewChange graphViewChange)
     {
         Debug.Log("Something new is added!");
@@ -108,8 +160,26 @@ public class ConversationGraphView : GraphView
 
         return graphViewChange;
     }
+    #endregion
 
-    private void OnPortConnected(Edge edge)
+    #region Port Connections
+
+    public override List<Port> GetCompatiblePorts(Port startPort, NodeAdapter nodeAdapter)
+    {
+        var compatiblePorts = new List<Port>();
+
+        ports.ForEach(port =>
+        {
+            if (startPort != port && startPort.node != port.node)
+            {
+                compatiblePorts.Add(port);
+            }
+        });
+
+        return compatiblePorts;
+    }
+
+        private void OnPortConnected(Edge edge)
     {
         var inputNode = edge.input.node as ConversationNode;
         var outputNode = edge.output.node as ConversationNode;
@@ -149,4 +219,6 @@ public class ConversationGraphView : GraphView
             }
         }
     }
+
+    #endregion
 }
