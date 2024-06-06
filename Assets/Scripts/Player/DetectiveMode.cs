@@ -11,6 +11,9 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay
 {
     public class DetectiveMode : MonoBehaviour
     {
+        [SerializeField] private bool isModeAllowed = true;
+        public bool Allowed => isModeAllowed;
+
         [Header("Post Processing Manager and References")]
         [SerializeField] private PostProcessingManager postProcessManager;
 
@@ -30,6 +33,8 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay
         public Action OnDetectiveModeDeactivated;
 
         private Coroutine activeCoroutine;
+
+        public bool IsModeActive => isDetectiveModeActive;
 
         private void Start()
         {

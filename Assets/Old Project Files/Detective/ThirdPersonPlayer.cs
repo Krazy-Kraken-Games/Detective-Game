@@ -449,8 +449,16 @@ public class ThirdPersonPlayer : MonoBehaviour
         {
             _input.leftShoulder = false;
 
-            //Logic to handle starting the detective mode
-            detectiveMode.StartDetectiveMode();
+            if (detectiveMode.Allowed)
+            {
+
+                //Logic to handle starting the detective mode
+                detectiveMode.StartDetectiveMode();
+            }
+            else
+            {
+                Debug.Log("Detective Mode is not allowed!");
+            }
         }
     }
 
