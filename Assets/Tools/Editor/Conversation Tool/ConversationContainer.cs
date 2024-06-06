@@ -1,5 +1,6 @@
 using KrazyKrakenGames.DetectiveGame.Conversations;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using UnityEditor;
 using UnityEditor.Experimental.GraphView;
@@ -23,10 +24,18 @@ public class ConversationContainer : MonoBehaviour
 
     public void SaveGraph(string fileName)
     {
-        if (!Edges.Any()) return;
+        if (!Edges.Any()) 
+        {
+            EditorUtility.DisplayDialog("Invalid Graph", "Graph Doesnt Have Any Edges", "Okay");
+            return;
+        }
 
         ConversationSO conversationSO;
         string convoPath = $"Conversations/{fileName}";
+
+        string filePath = $"Assets/Resources/Conversations/{fileName}";
+
+        CheckIfFolderExists(filePath);
 
         if (CheckIfConvoAssetExists(convoPath))
         {
@@ -35,17 +44,28 @@ public class ConversationContainer : MonoBehaviour
         else
         {
             conversationSO = new ConversationSO();
-            AssetDatabase.CreateAsset(conversationSO, $"Assets/Resources/Conversations/{fileName}.asset");
+            AssetDatabase.CreateAsset(conversationSO, $"Assets/Resources/Conversations/{fileName}/{fileName}.asset");
         }
-
         cachedConvoNodes.Clear();
+
+        //Check or create related Messages and Node Folder
+
+        //Message Folder
+        string messageFilePath = $"Assets/Resources/Conversations/{fileName}/Messages";
+        CheckIfFolderExists(messageFilePath);
+
+        //Nodes Folder
+        string nodeFilePath = $"Assets/Resources/Conversations/{fileName}/Nodes";
+        CheckIfFolderExists(nodeFilePath);
+
+
         //For loop to create all nodes and messages
         foreach (var node in Nodes)
         {
             ConvoMessageSO messageSO;
             ConvoNodeSO nodeSO;
-            string messagePath = $"Conversations/Messages/{node.NodeID}";
-            string nodePath = $"Conversations/Nodes/{node.NodeID}";
+            string messagePath = $"Conversations/{fileName}/Messages/{node.NodeID}";
+            string nodePath = $"Conversations/{fileName}/Nodes/{node.NodeID}";
 
             if (CheckIfMessageAssetExists(messagePath))
             {
@@ -61,7 +81,7 @@ public class ConversationContainer : MonoBehaviour
                 messageSO.speakerName = node.title;
                 messageSO.MessageType = node.Type;
 
-                AssetDatabase.CreateAsset(messageSO, $"Assets/Resources/Conversations/Messages/{node.NodeID}.asset");
+                AssetDatabase.CreateAsset(messageSO, $"Assets/Resources/Conversations/{fileName}/Messages/{node.NodeID}.asset");
             }
 
             if (CheckIfAssetExists(nodePath))
@@ -120,7 +140,7 @@ public class ConversationContainer : MonoBehaviour
                 }
 
 
-                AssetDatabase.CreateAsset(nodeSO, $"Assets/Resources/Conversations/Nodes/{nodeSO.NodeID}.asset");
+                AssetDatabase.CreateAsset(nodeSO, $"Assets/Resources/Conversations/{fileName}/Nodes/{nodeSO.NodeID}.asset");
 
             }
 
@@ -141,12 +161,12 @@ public class ConversationContainer : MonoBehaviour
                 {
                     if (cachedConvoNodes.ContainsKey(node.ParentNode.NodeID))
                     {
-                        ConvoNodeSO parentNode = Resources.Load<ConvoNodeSO>($"Conversations/Nodes/{node.ParentNode.NodeID}");
+                        ConvoNodeSO parentNode = Resources.Load<ConvoNodeSO>($"Conversations/{fileName}/Nodes/{node.ParentNode.NodeID}");
                         if (parentNode != null)
                         {
                             //Parent Node SO has been created
 
-                            ConvoNodeSO asset = Resources.Load<ConvoNodeSO>($"Conversations/Nodes/{node.NodeID}");
+                            ConvoNodeSO asset = Resources.Load<ConvoNodeSO>($"Conversations/{fileName}/Nodes/{node.NodeID}");
                             asset.ParentNode = parentNode;
                         }
                     }
@@ -163,13 +183,13 @@ public class ConversationContainer : MonoBehaviour
                         {
                             if (cachedConvoNodes.ContainsKey(child.NodeID))
                             {
-                                ConvoNodeSO childNode = Resources.Load<ConvoNodeSO>($"Conversations/Nodes/{child.NodeID}");
+                                ConvoNodeSO childNode = Resources.Load<ConvoNodeSO>($"Conversations/{fileName}/Nodes/{child.NodeID}");
 
                                 if (childNode != null)
                                 {
                                     //Child node has been created
 
-                                    ConvoNodeSO asset = Resources.Load<ConvoNodeSO>($"Conversations/Nodes/{node.NodeID}");
+                                    ConvoNodeSO asset = Resources.Load<ConvoNodeSO>($"Conversations/{fileName}/Nodes/{node.NodeID}");
 
                                     if (asset.Children == null)
                                     {
@@ -216,6 +236,26 @@ public class ConversationContainer : MonoBehaviour
         }
 
         return true;
+    }
+
+    /// <summary>
+    /// Helper function to check if folder exists at filepath. Create a folder if it doesnt
+    /// </summary>
+    /// <param name="filePath"></param>
+    private void CheckIfFolderExists(string filePath)
+    {
+        if (Directory.Exists(filePath))
+        {
+            Debug.Log("Folder path exists");
+        }
+        else
+        {
+            Debug.Log("Folder path doesnt exist");
+
+            Directory.CreateDirectory(filePath);
+
+            Debug.Log("Folder path now created. Please check");
+        }
     }
 
     private bool CheckIfMessageAssetExists(string path)

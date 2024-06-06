@@ -45,6 +45,7 @@ public class ConversationWindow : EditorWindow
         var toolbar = new Toolbar();
 
         var textField = new TextField("Conversation Name");
+        textField.style.width = 300f;
         textField.SetValueWithoutNotify(fileName);
         textField.MarkDirtyRepaint();
         textField.RegisterValueChangedCallback(OnFileNameTextFieldUpdated);
@@ -58,7 +59,7 @@ public class ConversationWindow : EditorWindow
         nodeCreateButton.text = "Create Node";
         toolbar.Add(nodeCreateButton);
 
-        toolbar.Add(new Button(() => SaveData()) { text = "Create Objects" });
+        toolbar.Add(new Button(() => SaveData()) { text = "Create Assets" });
 
         rootVisualElement.Add(toolbar);
     }

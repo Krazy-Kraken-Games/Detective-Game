@@ -19,6 +19,9 @@ public class ConversationNode : Node
     public Port Input;
     public Port Output;
 
+    public TextField MessageTextField = new TextField();
+    public EnumField TypeEnumField;
+
 
     public ConversationNode(string _ID)
     {
@@ -36,16 +39,16 @@ public class ConversationNode : Node
         var label = new Label("Message");
         contentContainer.Add(label);
 
-        var messageTextField = new TextField();
-        messageTextField.RegisterValueChangedCallback(evt => Message = evt.newValue);
-        contentContainer.Add(messageTextField);
+
+        MessageTextField.RegisterValueChangedCallback(evt => Message = evt.newValue);
+        contentContainer.Add(MessageTextField);
 
         var typeLabel = new Label("Type");
         mainContainer.Add(typeLabel);
 
-        var enumTypeField = new EnumField("Message Type", Type);
-        enumTypeField.RegisterValueChangedCallback(OnTypeFieldValueChanged);
-        mainContainer.Add(enumTypeField);
+        TypeEnumField = new EnumField("Message Type", Type);
+        TypeEnumField.RegisterValueChangedCallback(OnTypeFieldValueChanged);
+        mainContainer.Add(TypeEnumField);
 
         Input = Port.Create<Edge>(Orientation.Horizontal, Direction.Input, Port.Capacity.Multi, typeof(float));
         Input.portName = "Input";
@@ -65,8 +68,6 @@ public class ConversationNode : Node
         {
             Debug.Log($"{Message} setting parent node to: {node.Message}");
         }
-
-        
     }
 
     public void AddChildrenNodes(List<ConversationNode> nodes)
