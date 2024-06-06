@@ -84,7 +84,12 @@ public class ConversationGraphView : GraphView
         {
             Vector2 nextPosition = new Vector2(mousePosition.x + (i * inBetweenNodeWidth),mousePosition.y);
 
-            CreateNodeWithPosition("Pasted Node", nextPosition);
+            var createdNode = CreateNodeWithPosition("Pasted Node", nextPosition);
+
+            
+            createdNode.MessageTextField.value = copiedNodes[i].Message;
+
+            createdNode.TypeEnumField.value = copiedNodes[i].Type;
         }
     }
 
@@ -119,7 +124,7 @@ public class ConversationGraphView : GraphView
         return Node;
     }
 
-    private void CreateNodeWithPosition(string _message, Vector2 position)
+    private ConversationNode CreateNodeWithPosition(string _message, Vector2 position)
     {
         var node = new ConversationNode(Guid.NewGuid().ToString());
 
@@ -131,6 +136,8 @@ public class ConversationGraphView : GraphView
         Debug.Log($"Node Created at: {position}");
 
         AddElement(node);
+
+        return node;
     }
 
     #endregion

@@ -59,7 +59,7 @@ public class ConversationWindow : EditorWindow
         nodeCreateButton.text = "Create Node";
         toolbar.Add(nodeCreateButton);
 
-        toolbar.Add(new Button(() => SaveData()) { text = "Create Objects" });
+        toolbar.Add(new Button(() => SaveData()) { text = "Create Assets" });
 
         rootVisualElement.Add(toolbar);
     }

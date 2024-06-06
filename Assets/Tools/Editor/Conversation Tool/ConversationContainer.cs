@@ -24,7 +24,11 @@ public class ConversationContainer : MonoBehaviour
 
     public void SaveGraph(string fileName)
     {
-        if (!Edges.Any()) return;
+        if (!Edges.Any()) 
+        {
+            EditorUtility.DisplayDialog("Invalid Graph", "Graph Doesnt Have Any Edges", "Okay");
+            return;
+        }
 
         ConversationSO conversationSO;
         string convoPath = $"Conversations/{fileName}";
