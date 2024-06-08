@@ -71,7 +71,15 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay
 
             allConversationNodes = conversationSO.Nodes;
 
-            TraverseConversation();
+            if(allConversationNodes.Count > 0)
+            {
+                TraverseConversation();
+            }
+            else
+            {
+                Debug.LogWarning($"Conversation has no nodes",gameObject);
+            }
+         
 
             if (ActionController.Instance != null)
             {

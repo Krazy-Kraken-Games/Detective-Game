@@ -15,5 +15,6 @@ MonoBehaviour:
   NodeID: BDE
   id: 366d9e59-e519-4088-94ee-a12caba067d7
   messageData: {fileID: 11400000, guid: 2537ed0b5935e00499f6bd848bc30c23, type: 2}
-  Children: []
-  ParentNode: {fileID: 0}
+  Children:
+  - {fileID: 11400000, guid: 462c7f8f2df7d50489d1a7bec7536a35, type: 2}
+  ParentNode: {fileID: 11400000, guid: 1e1b49c4fbde3044885b4e486b1a119e, type: 2}

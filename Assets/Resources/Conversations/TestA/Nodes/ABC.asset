@@ -15,5 +15,6 @@ MonoBehaviour:
   NodeID: ABC
   id: f24582c0-573d-42aa-9130-c5b5734b8d6d
   messageData: {fileID: 11400000, guid: d0fcc8cf5dce2ae4d95a7cdf51d695c9, type: 2}
-  Children: []
+  Children:
+  - {fileID: 11400000, guid: 088b6f8ed4856154d9b95b6716f534a6, type: 2}
   ParentNode: {fileID: 0}

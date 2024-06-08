@@ -12,6 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd150a1e7a585cd4e806c948d3ef2cfc, type: 3}
   m_Name: TestA
   m_EditorClassIdentifier: 
-  nodes: []
+  nodes:
+  - {fileID: 11400000, guid: 1e1b49c4fbde3044885b4e486b1a119e, type: 2}
+  - {fileID: 11400000, guid: 088b6f8ed4856154d9b95b6716f534a6, type: 2}
+  - {fileID: 11400000, guid: 462c7f8f2df7d50489d1a7bec7536a35, type: 2}
   questInProgressIndex: 0
   questCompleteIndex: 0
