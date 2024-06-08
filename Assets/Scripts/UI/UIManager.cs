@@ -217,7 +217,7 @@ namespace KrazyKrakenGames.DetectiveGame.UI
 
         #region Dialog System Section
 
-        public void ShowDialog(string _message,NPC_Dialog npc, DialogInteraction _dialogInteraction)
+        public void ShowDialog(ConvoMessageSO _message,NPC_Dialog npc, DialogInteraction _dialogInteraction)
         {
             activeDialogInteraction = _dialogInteraction;
             dialogSystem.UpdateText(_message);
@@ -228,7 +228,7 @@ namespace KrazyKrakenGames.DetectiveGame.UI
             currentNpc = npc;
         }
 
-        public void ConvoShowDialog(string _message, NPC_Dialog npc, ConversationInteraction _dialogInteraction)
+        public void ConvoShowDialog(ConvoMessageSO _message, NPC_Dialog npc, ConversationInteraction _dialogInteraction)
         {
             activeConvoInteraction = _dialogInteraction;
             activeConvoInteraction.isActive = true;
@@ -257,7 +257,7 @@ namespace KrazyKrakenGames.DetectiveGame.UI
             }
         }
 
-        public void UpdateDialog(string _message)
+        public void UpdateDialog(ConvoMessageSO _message)
         {
             dialogSystem.UpdateText(_message);
         }

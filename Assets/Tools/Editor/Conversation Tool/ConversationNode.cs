@@ -10,6 +10,7 @@ public class ConversationNode : Node
 {
     public string NodeID;
     public string ID;
+    public string SpeakerName;
     public string Message;
     public DialogMessageType Type;
     public List<ConversationNode> NextNodes;
@@ -19,6 +20,7 @@ public class ConversationNode : Node
     public Port Input;
     public Port Output;
 
+    public TextField SpeakerNameTextField = new TextField();
     public TextField MessageTextField = new TextField();
     public EnumField TypeEnumField;
 
@@ -36,9 +38,14 @@ public class ConversationNode : Node
         nodeIdInputField.RegisterValueChangedCallback(OnIDValueChanged);
         contentContainer.Add(nodeIdInputField);
 
-        var label = new Label("Message");
+        var label = new Label("Speaker");
         contentContainer.Add(label);
 
+        SpeakerNameTextField.RegisterValueChangedCallback(evt => SpeakerName = evt.newValue);
+        contentContainer.Add(SpeakerNameTextField);
+
+        var messageLabel = new Label("Message");
+        contentContainer.Add(messageLabel);
 
         MessageTextField.RegisterValueChangedCallback(evt => Message = evt.newValue);
         contentContainer.Add(MessageTextField);

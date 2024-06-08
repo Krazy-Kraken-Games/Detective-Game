@@ -10,6 +10,7 @@ namespace KrazyKrakenGames.DetectiveGame.UI
     public class DialogUISystem : MonoBehaviour
     {
         [SerializeField] private GameObject dialogBox;
+        [SerializeField] private TextMeshProUGUI speakerText;
         [SerializeField] private TextMeshProUGUI messageText;
 
         [SerializeField] private Transform optionsParent;
@@ -36,9 +37,10 @@ namespace KrazyKrakenGames.DetectiveGame.UI
             OnDialogStateUpdate?.Invoke(false);
         }
 
-        public void UpdateText(string _message)
+        public void UpdateText(ConvoMessageSO _convoMessage)
         {
-            messageText.text = _message;
+            speakerText.text = _convoMessage.speakerName;
+            messageText.text = _convoMessage.message;
         }
 
         public List<ConvoUI> CreateOptions(List<ConvoNodeSO> siblings)

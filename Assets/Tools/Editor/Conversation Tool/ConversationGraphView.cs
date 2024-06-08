@@ -37,8 +37,6 @@ public class ConversationGraphView : GraphView
         evt.menu.AppendAction("Create Node", action => CreateNodeWithPosition("Dialog Node", action.eventInfo.mousePosition));
         evt.menu.AppendAction("Copy Node", action => CopyNode(), ShouldBeCopied);
         evt.menu.AppendAction("Paste Node", action => PasteNodes(action.eventInfo.mousePosition), ShouldBePasted);
-        
-    
     }
 
     private bool CanCopy()
