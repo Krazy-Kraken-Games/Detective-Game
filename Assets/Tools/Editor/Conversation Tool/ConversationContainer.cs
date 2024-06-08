@@ -71,14 +71,14 @@ public class ConversationContainer : MonoBehaviour
             {
                 messageSO = Resources.Load<ConvoMessageSO>(messagePath);
                 messageSO.message = node.Message;
-                messageSO.speakerName = node.title;
+                messageSO.speakerName = node.SpeakerName;
                 messageSO.MessageType = node.Type;
             }
             else
             {
                 messageSO = new ConvoMessageSO();
                 messageSO.message = node.Message;
-                messageSO.speakerName = node.title;
+                messageSO.speakerName = node.SpeakerName;
                 messageSO.MessageType = node.Type;
 
                 AssetDatabase.CreateAsset(messageSO, $"Assets/Resources/Conversations/{fileName}/Messages/{node.NodeID}.asset");

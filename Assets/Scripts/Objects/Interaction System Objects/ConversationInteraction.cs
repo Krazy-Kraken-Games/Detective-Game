@@ -130,7 +130,7 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay
                 npc.StartConversation();
             }
 
-            UIManager.instance.ConvoShowDialog(activeConvoNode.messageData.message, npc, this);
+            UIManager.instance.ConvoShowDialog(activeConvoNode.messageData, npc, this);
             HandlingQuestBasedOnMessageType(activeConvoNode);
         }
 
@@ -148,7 +148,7 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay
                 {
                     //One child, flow of conversation
                     activeConvoNode = activeConvoNode.Children[0];
-                    UIManager.instance.UpdateDialog(activeConvoNode.messageData.message);
+                    UIManager.instance.UpdateDialog(activeConvoNode.messageData);
                 }
                 else if (activeConvoNode.Children.Count > 1)
                 {
@@ -159,7 +159,7 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay
                     //Multiple choices present
                     WaitingForUserResponse = true;
                     var siblings = allConversationNodes.Where(item => item.ParentNode == activeConvoNode).ToList();
-                    UIManager.instance.UpdateDialog(activeConvoNode.messageData.message);
+                    UIManager.instance.UpdateDialog(activeConvoNode.messageData);
                     currentOptions = UIManager.instance.ShowOptions(siblings);
                     selectedIndex = 0;
                     lastIndex = currentOptions.Count - 1;

@@ -90,7 +90,7 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay
         private void StartConversation()
         {
             npc.StartConversation();
-            UIManager.instance.ShowDialog(currentMessage.Message,npc,this);
+           // UIManager.instance.ShowDialog(currentMessage,npc,this);
         }
 
         public void PopNextMessage()
@@ -105,7 +105,7 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay
 
             HandlingQuestBasedOnMessageType(currentMessage);
 
-            UIManager.instance.UpdateDialog(currentMessage.Message);
+           // UIManager.instance.UpdateDialog(currentMessage.Message);
         }
 
         private void OnLastMessageShown()
