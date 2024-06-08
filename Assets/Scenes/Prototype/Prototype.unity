@@ -16240,7 +16240,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1602702010}
-  - {fileID: 1181884198}
   - {fileID: 479401854}
   - {fileID: 1147968677}
   - {fileID: 1112016499}
@@ -16926,6 +16925,20 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+        - m_Target: {fileID: 8814945637274338612}
+          m_TargetAssemblyTypeName: KrazyKrakenGames.DetectiveGame.Gameplay.ConversationInteraction,
+            Assembly-CSharp
+          m_MethodName: InitializeConversation
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 11400000, guid: 481e0ab452933f746998681bcfb28412, type: 2}
+            m_ObjectArgumentAssemblyTypeName: KrazyKrakenGames.DetectiveGame.Conversations.ConversationSO,
+              Assembly-CSharp
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
   - SegmentID: 2
     Title: Cognitive Puzzle
     Type: 3
@@ -16940,6 +16953,20 @@ MonoBehaviour:
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 8814945637274338612}
+          m_TargetAssemblyTypeName: KrazyKrakenGames.DetectiveGame.Gameplay.ConversationInteraction,
+            Assembly-CSharp
+          m_MethodName: InitializeConversation
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 11400000, guid: fea19d1020af7624ca3a4dd35179535d, type: 2}
+            m_ObjectArgumentAssemblyTypeName: KrazyKrakenGames.DetectiveGame.Conversations.ConversationSO,
+              Assembly-CSharp
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: 
@@ -22304,7 +22331,7 @@ Transform:
   - {fileID: 131912393587425482}
   - {fileID: 1850972172}
   - {fileID: 1967080136}
-  m_Father: {fileID: 979965880}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1184694070
 GameObject:
@@ -41802,6 +41829,7 @@ SceneRoots:
   - {fileID: 438226194}
   - {fileID: 806531887}
   - {fileID: 1651409644}
+  - {fileID: 1181884198}
   - {fileID: 979965880}
   - {fileID: 222570447}
   - {fileID: 351766391}

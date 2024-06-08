@@ -69,17 +69,9 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay
                 questTrigger.activeQuest.OnQuestStatusChange += OnQuestStatusChangeHandler;
             }
 
-            allConversationNodes = conversationSO.Nodes;
+            InitializeConversation(conversationSO);
 
-            if(allConversationNodes.Count > 0)
-            {
-                TraverseConversation();
-            }
-            else
-            {
-                Debug.LogWarning($"Conversation has no nodes",gameObject);
-            }
-         
+
 
             if (ActionController.Instance != null)
             {
@@ -122,33 +114,9 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay
 
         private void ConversationLogic()
         {
-            if (questTrigger == null)
-            {
-                activeConvoNode = rootNode;
-            }
-            else
-            {
-                //Check quest's status and then determine from where should the convo start
-
-                var questStatus = questTrigger.activeQuest.Status;
-
-                if(questStatus == QuestStatus.INACTIVE)
-                {
-                    //No need to jump nodes, we start from top
-                    activeConvoNode = rootNode;
-                }
-                else if (questStatus == QuestStatus.INPROGRESS)
-                {
-                    //Also need to check which quest segment is completed
-                    int index = conversationSO.questInProgressIndex;
-                    activeConvoNode = conversationSO.Nodes[index];
-                }
-                else if(questStatus == QuestStatus.COMPLETED)
-                {
-                    int index = conversationSO.questCompleteIndex;
-                    activeConvoNode = conversationSO.Nodes[index];
-                }
-            }
+            //Currently we are directly changing the conversation tree based on events happening in game
+            //Hence the active node would always be the root node of the conversation
+            activeConvoNode = rootNode;
 
             Invoke("StartConversation", 0.8f);
         }
@@ -336,6 +304,20 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay
             else
             {
                 return;
+            }
+        }
+
+        public void InitializeConversation(ConversationSO _conversationSO)
+        {
+            allConversationNodes = _conversationSO.Nodes;
+
+            if (allConversationNodes.Count > 0)
+            {
+                TraverseConversation();
+            }
+            else
+            {
+                Debug.LogWarning($"Conversation has no nodes", gameObject);
             }
         }
 
