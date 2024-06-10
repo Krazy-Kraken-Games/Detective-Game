@@ -550,7 +550,7 @@ GameObject:
   m_Component:
   - component: {fileID: 24898089}
   m_Layer: 0
-  m_Name: Inventory-UI
+  m_Name: Background-Parent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4549,7 +4549,7 @@ GameObject:
   - component: {fileID: 272223651}
   - component: {fileID: 272223650}
   m_Layer: 0
-  m_Name: Inventory-Canvas
+  m_Name: Inventory-Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6850,6 +6850,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraManager: {fileID: 0}
+  gameCanvas: {fileID: 4623406432416099059}
+  inventoryCanvas: {fileID: 4623406432416099058}
   crossHair: {fileID: 721940642}
   investigationSlider: {fileID: 4623406432416099057}
   investigationSliderMaxValue: 0
@@ -23406,7 +23408,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1228150537
 RectTransform:
   m_ObjectHideFlags: 0
@@ -40200,6 +40202,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &4623406432416099058 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2350006526670267337, guid: 6ee158fe3ed0a88449f7862dacd63072, type: 3}
+  m_PrefabInstance: {fileID: 4623406432416099056}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &4623406432416099059 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 408102273937744045, guid: 6ee158fe3ed0a88449f7862dacd63072, type: 3}
+  m_PrefabInstance: {fileID: 4623406432416099056}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &4787853358360836712
 GameObject:
   m_ObjectHideFlags: 0

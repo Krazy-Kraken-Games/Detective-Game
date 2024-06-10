@@ -21,6 +21,10 @@ namespace KrazyKrakenGames.DetectiveGame.UI
         [Header("Manager References")]
         [SerializeField] private CameraManager cameraManager;
 
+        [Header("UI Mode References")]
+        [SerializeField] private GameObject gameCanvas;
+        [SerializeField] private GameObject inventoryCanvas;
+
         [Header("Cross-Hair Reference")]
         public RectTransform crossHair;
         private Vector3 crossHairWorldPos;
@@ -201,14 +205,16 @@ namespace KrazyKrakenGames.DetectiveGame.UI
         {
             if(_newCameraState == GameCameraState.INVENTORY)
             {
-                //Activate inventory
-                Debug.Log("Activate inventory");
-                
+                //Show only inventory UI
+
+                ActivateInventory();
+
+
             }
             else
             {
                 //Hide inventory
-                Debug.Log("Hide inventory");
+                DeactivateInventory();
             }
         }
 
@@ -428,6 +434,26 @@ namespace KrazyKrakenGames.DetectiveGame.UI
             investigationSlider.value = investigationSliderValue;
             investigationSlider.gameObject.SetActive(false);
             currentClue = null;
+        }
+
+        #endregion
+
+        #region Handle Inventory Section
+
+        private void ActivateInventory()
+        {
+            Debug.Log("Activate inventory");
+
+            gameCanvas.SetActive(false);
+            inventoryCanvas.SetActive(true);
+        }
+
+        private void DeactivateInventory()
+        {
+            Debug.Log("Deactivate inventory");
+
+            gameCanvas.SetActive(true);
+            inventoryCanvas.SetActive(false);
         }
 
         #endregion
