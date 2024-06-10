@@ -5,6 +5,7 @@ using KrazyKrakenGames.DetectiveGame.Gameplay;
 using KrazyKrakenGames.DetectiveGame.Gameplay.Puzzles;
 using KrazyKrakenGames.DetectiveGame.Global;
 using KrazyKrakenGames.DetectiveGame.Managers;
+using KrazyKrakenGames.ThesisProject.GameModel;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -59,6 +60,7 @@ namespace KrazyKrakenGames.DetectiveGame.UI
 
         [Space(5)]
         [Header("Inventory UI")]
+        [SerializeField] private Model modelParent;
         [SerializeField] private GameObject inventoryUI;
         private bool isInventoryActive;
 
@@ -439,6 +441,11 @@ namespace KrazyKrakenGames.DetectiveGame.UI
         #endregion
 
         #region Handle Inventory Section
+
+        public void SetInvestigationModel(InvestigationObject _object)
+        {
+            modelParent.SetNewActiveModel(_object);
+        }
 
         private void ActivateInventory()
         {
