@@ -629,7 +629,7 @@ GameObject:
   - component: {fileID: 324878138248486752}
   m_Layer: 5
   m_Name: Cross-Hair
-  m_TagString: Untagged
+  m_TagString: Crosshair
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
