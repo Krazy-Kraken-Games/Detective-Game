@@ -1,23 +1,13 @@
-using KrazyKrakenGames.DetectiveGame.Gameplay.Puzzles;
+using KrazyKrakenGames.DetectiveGame.Global;
 using KrazyKrakenGames.DetectiveGame.UI;
-using KrazyKrakenGames.DetectiveGame.Utility;
 using System.Collections;
 using UnityEngine;
+using static KrazyKrakenGames.DetectiveGame.Global.MetaConstants;
 
 namespace KrazyKrakenGames.DetectiveGame.Gameplay.Objects
 {
-    public class Door : MonoBehaviour
+    public class Door : MonoBehaviour,IObjectState
     {
-
-        private MessageQueue<Puzzle> dummyQuue = new MessageQueue<Puzzle>();
-        public enum State
-        {
-            OPEN = 0,
-            LOCKED = 1
-        }
-
-        [SerializeField] private State currentState;
-
         private bool open;
         public float smooth = 2.0f;
         public float DoorOpenAngle = 90.0f;
@@ -26,6 +16,12 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay.Objects
 
         public InteractableObject doorKnob;
 
+        public ObjectState State { get ; set ; }
+
+        [Tooltip("Just a visual showcaser for local state")]
+        [SerializeField] private ObjectState localState;
+
+       
         private void Start()
         {
             defaultRot = transform.rotation;
@@ -42,18 +38,6 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay.Objects
 
         }
 
-        private void Update()
-        {
-          if (open)
-          {
-             StartCoroutine(OpenDoor());
-          }
-          else
-          {
-             StartCoroutine(CloseDoor());
-          }
-        }
-
         private IEnumerator OpenDoor()
         {
             while (Quaternion.Angle(transform.rotation, openRot) > 0.01f)
@@ -61,6 +45,8 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay.Objects
                 transform.rotation = Quaternion.Slerp(transform.rotation, openRot, Time.deltaTime * smooth);
                 yield return null;
             }
+
+            SetState(ObjectState.OPEN);
         }
 
         private IEnumerator CloseDoor()
@@ -70,29 +56,42 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay.Objects
                 transform.rotation = Quaternion.Slerp(transform.rotation, defaultRot, Time.deltaTime * smooth);
                 yield return null;
             }
+
+            SetState(ObjectState.CLOSED);
         }
 
         private void OnInteractionDetected()
         {
-            if (currentState == State.OPEN)
+            if (State == ObjectState.CLOSED)
             {
-                Invoke("UpdateDoorStatus", 1f);
+                Open();
             }
-            else if (currentState == State.LOCKED)
+            else if (State == ObjectState.OPEN)
             {
-                UIManager.instance.AddToasterMessage("Door is locked");
+                UIManager.instance.AddToasterMessage("Door is already open");
             }
-        }
-
-        private void UpdateDoorStatus()
-        {
-            open = !open;
         }
 
         public void UnlockDoor()
         {
             Debug.Log("Door unlocked through questing");
-            currentState = State.OPEN;
+            SetState(ObjectState.OPEN);
+        }
+
+        public void Close()
+        {
+            StartCoroutine(CloseDoor());
+        }
+
+        public void Open()
+        {
+            StartCoroutine(OpenDoor());
+        }
+
+        public void SetState(ObjectState state)
+        {
+            State = state;
+            localState = State;
         }
     }
 }
