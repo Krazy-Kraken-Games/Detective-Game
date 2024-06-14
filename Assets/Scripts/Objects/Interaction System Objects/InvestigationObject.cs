@@ -36,6 +36,8 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay.Puzzles
             if(cluesSolved.Count == cluesToSolve.Count)
             {
                 Debug.Log("Investigation complete");
+
+                state = PuzzleState.SOLVED;
                 UIManager.instance.AddToasterMessage("Investigation Complete");
             }
         }

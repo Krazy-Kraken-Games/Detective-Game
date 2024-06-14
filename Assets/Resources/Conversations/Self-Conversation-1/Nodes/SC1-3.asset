@@ -15,5 +15,6 @@ MonoBehaviour:
   NodeID: SC1-3
   id: a6e80982-8c78-4746-87b9-49c80b9d473d
   messageData: {fileID: 11400000, guid: 7d99b1971f4afd74fa527cc58edf2dd4, type: 2}
-  Children: []
-  ParentNode: {fileID: 0}
+  Children:
+  - {fileID: 11400000, guid: cf68841b2b30b924eace21dd2150bd6a, type: 2}
+  ParentNode: {fileID: 11400000, guid: 89052fd87103eaa40bd4b1783d95fa01, type: 2}

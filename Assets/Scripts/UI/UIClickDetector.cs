@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class UIClickDetector : MonoBehaviour
 {
@@ -24,8 +25,16 @@ public class UIClickDetector : MonoBehaviour
             // Process the raycast results
             foreach (var result in raycastResults)
             {
-                Debug.Log("Clicked on: " + result.gameObject.name);
-                // Add your custom logic here, e.g., call a method on the clicked object
+                if(result.gameObject.tag != "Crosshair")
+                {
+                    Debug.Log("Clicked on: " + result.gameObject.name);
+
+                    if(result.gameObject.TryGetComponent<Button>(out var button))
+                    {
+                        button.onClick.Invoke();
+                    }
+                }
+                
             }
         }
     }

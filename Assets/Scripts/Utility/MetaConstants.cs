@@ -54,6 +54,18 @@ namespace KrazyKrakenGames.DetectiveGame.Global
             DIALOG = 3 // Denotes player is interacting with an NPC
         }
 
+        public enum ObjectState
+        {
+            CLOSED = 0,
+            OPEN = 1
+        }
+
+        public enum LockState
+        {
+            LOCKED = 0,
+            UNLOCKED = 1
+        }
+
         #endregion
 
         #region Puzzle Related Constants
