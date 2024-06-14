@@ -280,4 +280,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf51d9f5f87cdd441b08ef4276373e88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  investigationObjectPrefab: {fileID: 6865257376750263777, guid: 10864042086da764dbbcf1cc1531fe1e, type: 3}
+  modelData: {fileID: 0}
+  investigationObjectPrefab: {fileID: 0}
+  labelNameText: {fileID: 7365767472615480742}

@@ -555,36 +555,6 @@ public class ThirdPersonPlayer : MonoBehaviour
                     detectiveMode.EndDetectiveMode();
                 }
 
-                #region TO BE DELETED SECTION
-                //if (interactableObject.type == InteractableType.PUZZLE)
-                //{
-                //    Debug.Log("Go into secondary");
-                //    CameraManager.instance.SetState(GameCameraState.SECONDARY, lookAt);
-                //    playerManager.UpdateInputMode(PlayerInputMode.SECONDARY);
-                //}
-
-                //else if (interactableObject.type == InteractableType.PROCEDURAL || interactableObject.type == InteractableType.PICKUP)
-                //{
-                //    if (interactableObject != null)
-                //    {
-                //        interactableObject.Interact();
-                //    }
-                //}
-
-                //else if(interactableObject.type == InteractableType.DIALOG)
-                //{
-                //    Debug.Log("Dialog interaction started with an NPC");
-
-                //    if (interactableObject != null)
-                //    {
-                //        interactableObject.Interact();
-                //    }
-
-                //    GamePlayerManager.instance.UpdateInputMode(MetaConstants.PlayerInputMode.PRIMARY);
-                //}
-
-                #endregion
-
                 if (interactableObject != null)
                 {
                     interactableObject.Interact();

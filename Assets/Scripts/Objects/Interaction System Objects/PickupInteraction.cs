@@ -1,3 +1,4 @@
+using KrazyKrakenGames.DetectiveGame.Managers;
 using KrazyKrakenGames.DetectiveGame.UI;
 using UnityEngine;
 using UnityEngine.Events;
@@ -7,6 +8,7 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay
     public class PickupInteraction : InteractableObject
     {
         [SerializeField] private StoryObjectSO objectData;
+        [SerializeField] private InvestigationModelSO investigationData;
         public UnityEvent OnPickupComplete;
         
         public override void Interact()
@@ -24,6 +26,11 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay
             {
                 var message = $"{objectData.ObjectName} has been picked up";
                 UIManager.instance.AddToasterMessage(message);
+
+                if (investigationData != null)
+                {
+                    InventoryManager.Instance.AddModelData(investigationData);
+                }
             }
             else
             {
