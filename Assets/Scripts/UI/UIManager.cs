@@ -8,8 +8,6 @@ using KrazyKrakenGames.DetectiveGame.Managers;
 using KrazyKrakenGames.ThesisProject.GameModel;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.UIElements;
 using static KrazyKrakenGames.DetectiveGame.Global.MetaConstants;
 
 namespace KrazyKrakenGames.DetectiveGame.UI
@@ -22,9 +20,8 @@ namespace KrazyKrakenGames.DetectiveGame.UI
         [Header("Manager References")]
         [SerializeField] private CameraManager cameraManager;
 
-        [Header("UI Mode References")]
-        [SerializeField] private GameObject gameCanvas;
-        [SerializeField] private GameObject inventoryCanvas;
+        [Header("UI Screen References")]
+        [SerializeField] private UIScreenSwitcher mainScreens;
 
         [Header("Cross-Hair Reference")]
         public RectTransform crossHair;
@@ -63,6 +60,13 @@ namespace KrazyKrakenGames.DetectiveGame.UI
         [SerializeField] private Model modelParent;
         [SerializeField] private GameObject inventoryUI;
         private bool isInventoryActive;
+
+        [Space(5)]
+        [Header("Message Screen")]
+        [SerializeField] private UIMessageScreen messageScreen;
+        [SerializeField] private bool isMessageActive;
+
+        public bool MessageScreenActive => isMessageActive;
 
         public bool InventoryActive => isInventoryActive;
 
@@ -114,6 +118,8 @@ namespace KrazyKrakenGames.DetectiveGame.UI
             }
 
             HideInventory();
+
+            //ToggleMessageScreen();
         }
 
         private void OnDestroy()
@@ -205,19 +211,7 @@ namespace KrazyKrakenGames.DetectiveGame.UI
 
         private void OnCameraStateUpdatedHandler(GameCameraState _newCameraState)
         {
-            if(_newCameraState == GameCameraState.INVENTORY)
-            {
-                //Show only inventory UI
-
-                ActivateInventory();
-
-
-            }
-            else
-            {
-                //Hide inventory
-                DeactivateInventory();
-            }
+            
         }
 
         #endregion
@@ -364,6 +358,26 @@ namespace KrazyKrakenGames.DetectiveGame.UI
 
         #endregion
 
+        #region Message Screen Section
+
+        public void ToggleMessageScreen(string message = "")
+        {
+            if (!isMessageActive)
+            {
+                messageScreen.SetMessage(message);
+                mainScreens.SetState(ScreenState.Screen3);
+                isMessageActive = true;
+            }
+            else
+            {
+                //Hide Message Screen
+                mainScreens.SetState(ScreenState.Screen1);
+                isMessageActive = false;
+            }
+        }
+
+        #endregion
+
         #region Inventory Section
 
         public void ToggleInventory()
@@ -451,16 +465,14 @@ namespace KrazyKrakenGames.DetectiveGame.UI
         {
             Debug.Log("Activate inventory");
 
-            gameCanvas.SetActive(false);
-            inventoryCanvas.SetActive(true);
+            mainScreens.SetState(ScreenState.Screen2);
         }
 
         private void DeactivateInventory()
         {
             Debug.Log("Deactivate inventory");
 
-            gameCanvas.SetActive(true);
-            inventoryCanvas.SetActive(false);
+            mainScreens.SetState(ScreenState.Screen1);
         }
 
         #endregion

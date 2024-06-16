@@ -1,6 +1,7 @@
 using RootMotion.FinalIK;
 using System;
 using UnityEngine;
+using UnityEngine.Events;
 using static KrazyKrakenGames.DetectiveGame.Global.MetaConstants;
 
 namespace KrazyKrakenGames.DetectiveGame.Gameplay
@@ -16,6 +17,7 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay
         //Root IK component reference
         [SerializeField] private InteractionObject interactableObject;
 
+        public UnityEvent OnInteractedWith;
         public InteractableType type
         {
             get
@@ -37,6 +39,7 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay
             PlayerInteractionSystem.instance.StartInteraction();
 
             OnInteractionInitEvent?.Invoke();
+            OnInteractedWith?.Invoke();
         }
     }
 }

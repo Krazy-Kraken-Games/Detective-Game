@@ -560,6 +560,8 @@ public class ThirdPersonPlayer : MonoBehaviour
                     interactableObject.Interact();
                 }
             }
+
+            Debug.Log("Interaction is pressed");
         }
     }
     #endregion
