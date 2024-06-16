@@ -10158,6 +10158,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogBox: {fileID: 848505159}
+  speakerText: {fileID: 0}
   messageText: {fileID: 1872066461}
   optionsParent: {fileID: 0}
   convoOptionPrefab: {fileID: 0}
@@ -19007,6 +19008,7 @@ MonoBehaviour:
   primaryCamera: {fileID: 363423838}
   primaryFramingTransposer: {fileID: 0}
   secondaryCamera: {fileID: 1295488589}
+  inventoryCamera: {fileID: 0}
   middlePoint: {x: 0, y: 0, z: 0}
 --- !u!1 &1599619626
 GameObject:
@@ -25826,7 +25828,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb5920bc9e8c2634abcb1c1e507f342e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cameraManager: {fileID: 0}
+  gameCanvas: {fileID: 0}
+  inventoryCanvas: {fileID: 0}
   crossHair: {fileID: 1406939889}
+  investigationSlider: {fileID: 0}
+  investigationSliderMaxValue: 0
+  currentClue: {fileID: 0}
   dialogSystem: {fileID: 848505161}
   isDialogActive: 0
   activeDialogInteraction: {fileID: 0}
@@ -25835,6 +25843,8 @@ MonoBehaviour:
   instructionSystem: {fileID: 830058143}
   isInstructionActive: 0
   toasterSystem: {fileID: 0}
+  modelParent: {fileID: 0}
+  inventoryUI: {fileID: 0}
   currentNpc: {fileID: 0}
 --- !u!1 &2122278083
 GameObject:
@@ -30451,10 +30461,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74de8ec4c176fc64492eecbb437c4933, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentState: 0
   smooth: 2
   DoorOpenAngle: 90
   doorKnob: {fileID: 1024340273}
+  localState: 0
 --- !u!33 &6140249935591169597
 MeshFilter:
   m_ObjectHideFlags: 0
