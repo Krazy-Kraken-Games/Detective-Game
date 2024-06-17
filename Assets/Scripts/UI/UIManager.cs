@@ -119,7 +119,6 @@ namespace KrazyKrakenGames.DetectiveGame.UI
 
             HideInventory();
 
-            //ToggleMessageScreen();
         }
 
         private void OnDestroy()

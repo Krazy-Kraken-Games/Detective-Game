@@ -2,9 +2,9 @@ using KrazyKrakenGames.DetectiveGame.Gameplay;
 using KrazyKrakenGames.DetectiveGame.Global;
 using UnityEngine;
 
-public class ConversationTrigger : MonoBehaviour
+public class InteractionTrigger : MonoBehaviour
 {
-    [SerializeField] private ConversationInteraction conversationInteraction;
+    [SerializeField] private InteractableObject interaction;
 
     [SerializeField] private bool showMultiple;
     [SerializeField] private bool hasShown = false;
@@ -12,7 +12,7 @@ public class ConversationTrigger : MonoBehaviour
 
     private void Start()
     {
-        conversationInteraction = GetComponent<ConversationInteraction>();
+        interaction = GetComponent<InteractableObject>();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -23,11 +23,9 @@ public class ConversationTrigger : MonoBehaviour
         {
             if (collidedWith.tag == MetaConstants.PlayerTag)
             {
-                Debug.Log("Start own thought convo");
-
                 hasShown = true;
 
-                conversationInteraction.Interact();
+                interaction.Interact();
             }
         }
         else
@@ -36,11 +34,9 @@ public class ConversationTrigger : MonoBehaviour
 
             if (collidedWith.tag == MetaConstants.PlayerTag)
             {
-                Debug.Log("Start own thought convo");
-
                 hasShown = true;
 
-                conversationInteraction.Interact();
+                interaction.Interact();
             }
         }
 
