@@ -18,6 +18,9 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay
         [SerializeField] private InteractionObject interactableObject;
 
         public UnityEvent OnInteractedWith;
+
+        //Only being used for door, refactor later to remove this variable
+        public bool direction;
         public InteractableType type
         {
             get
@@ -26,7 +29,7 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay
             }
         }
 
-        public Action OnInteractionInitEvent;
+        public Action<InteractableObject> OnInteractionInitEvent;
 
         private void Start()
         {
@@ -38,7 +41,7 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay
             PlayerInteractionSystem.instance.interactableObject = interactableObject;
             PlayerInteractionSystem.instance.StartInteraction();
 
-            OnInteractionInitEvent?.Invoke();
+            OnInteractionInitEvent?.Invoke(this);
             OnInteractedWith?.Invoke();
         }
     }

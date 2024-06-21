@@ -1,6 +1,4 @@
-using KrazyKrakenGames.DetectiveGame.Gameplay.Puzzles;
 using KrazyKrakenGames.DetectiveGame.UI;
-using KrazyKrakenGames.DetectiveGame.Utility;
 using System.Collections;
 using UnityEngine;
 
@@ -8,8 +6,6 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay.Objects
 {
     public class Door : MonoBehaviour
     {
-
-        private MessageQueue<Puzzle> dummyQuue = new MessageQueue<Puzzle>();
         public enum State
         {
             OPEN = 0,
@@ -19,20 +15,28 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay.Objects
         [SerializeField] private State currentState;
 
         private bool open;
+        public bool direction = false;
         public float smooth = 2.0f;
         public float DoorOpenAngle = 90.0f;
+        private float DoorNegAngle;
         private Quaternion defaultRot;
         private Quaternion openRot;
 
         public InteractableObject doorKnob;
+        public InteractableObject negativeKnob; //To open in opposite direction
 
         private void Start()
         {
             defaultRot = transform.rotation;
+            DoorNegAngle = -DoorOpenAngle;
 
-            openRot = Quaternion.Euler(defaultRot.eulerAngles + new Vector3(0, DoorOpenAngle, 0));
 
             doorKnob.OnInteractionInitEvent += OnInteractionDetected;
+
+            if (negativeKnob != null)
+            {
+                negativeKnob.OnInteractionInitEvent += OnInteractionDetected;
+            }
 
         }
 
@@ -40,13 +44,26 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay.Objects
         {
             doorKnob.OnInteractionInitEvent -= OnInteractionDetected;
 
+            if (negativeKnob != null)
+            {
+                negativeKnob.OnInteractionInitEvent -= OnInteractionDetected;
+            }
+
         }
 
         private void Update()
         {
           if (open)
           {
-             StartCoroutine(OpenDoor());
+                if (!direction)
+                {
+                    StartCoroutine(OpenDoor(DoorOpenAngle));
+                }
+                else
+                {
+                    StartCoroutine(OpenDoor(DoorNegAngle));
+                }
+             
           }
           else
           {
@@ -54,8 +71,11 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay.Objects
           }
         }
 
-        private IEnumerator OpenDoor()
+        private IEnumerator OpenDoor(float openAngle)
         {
+            //Find openRot angle
+            openRot = Quaternion.Euler(defaultRot.eulerAngles + new Vector3(0, openAngle, 0));
+
             while (Quaternion.Angle(transform.rotation, openRot) > 0.01f)
             {
                 transform.rotation = Quaternion.Slerp(transform.rotation, openRot, Time.deltaTime * smooth);
@@ -72,8 +92,10 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay.Objects
             }
         }
 
-        private void OnInteractionDetected()
+        private void OnInteractionDetected(InteractableObject _object)
         {
+           direction = _object.direction;   
+
             if (currentState == State.OPEN)
             {
                 Invoke("UpdateDoorStatus", 1f);

@@ -2,6 +2,7 @@ using KrazyKrakenGames.DetectiveGame.Global;
 using KrazyKrakenGames.DetectiveGame.Managers;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace KrazyKrakenGames.DetectiveGame.QuestSystem
 {
@@ -23,6 +24,8 @@ namespace KrazyKrakenGames.DetectiveGame.QuestSystem
 
         private QuestManager questManager;
 
+        public UnityEvent CompletedQuestEventsFired;
+
         private void Awake()
         {
             CreateQuest();
@@ -36,6 +39,8 @@ namespace KrazyKrakenGames.DetectiveGame.QuestSystem
             activeQuest.Segments = questSegments;
 
             questManager = QuestManager.instance;
+
+            activeQuest.OnQuestCompleteEvent?.AddListener(OnActiveQuestCompleted);
         }
 
         public void QuestSegmentComplete(int _segmentID)
@@ -68,6 +73,14 @@ namespace KrazyKrakenGames.DetectiveGame.QuestSystem
                 Debug.Log($"Starting quest:{activeQuest.Title}");
                 StartQuest();
             }
+        }
+
+
+        private void OnActiveQuestCompleted(Quest _quest)
+        {
+            activeQuest.OnQuestCompleteEvent?.RemoveAllListeners();
+
+            CompletedQuestEventsFired?.Invoke();
         }
 
     }

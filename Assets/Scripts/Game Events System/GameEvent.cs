@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
+using static KrazyKrakenGames.DetectiveGame.Global.GameControlConstants;
 using static UnityEngine.InputSystem.InputAction;
 
 namespace KrazyKrakenGames.DetectiveGame.Gameplay
@@ -12,35 +13,36 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay
     /// </summary>
     public class GameEvent : MonoBehaviour,IGameEvent,IGameInputEvent
     {
+        public bool EventCompleted = false;
+
         //Two types of effects would be triggered on an activity with the game event
         public UnityEvent OnTriggeredEffect;
         public UnityEvent OnExecutedEffect;
 
-        public bool EventCompleted = false;
-
         [Space(5)]
         [Header("Input Action to complete event")]
-        [SerializeField] private InputAction requiredAction;
-        [SerializeField] private bool ListenToInput = false;
+        [SerializeField] private ActionKey buttonKey;
 
-        [SerializeField] private InputActionMap actionMap;
+        private InputActionMap actionMap;
         [SerializeField] private InputActionAsset allActions;
 
-        [SerializeField] private InputAction newAction;
+        private InputAction newAction;
+
+        
         public InputAction IA 
         { 
             set
             {
-                if(requiredAction != null)
+                if(newAction != null)
                 {
-                    requiredAction.performed -= InputListenerCallback;
-                    requiredAction.Disable();
-                    requiredAction.Dispose();
+                    newAction.performed -= InputListenerCallback;
+                    newAction.Disable();
+                    newAction.Dispose();
                 }
 
-                requiredAction = value;
+                newAction = value;
             } 
-            get => requiredAction; 
+            get => newAction; 
         }
         public void OnEventTriggered()
         {
@@ -57,18 +59,11 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay
         public void RegisterListener()
         {
             IA.performed += InputListenerCallback;
-            IA.Enable();
-
-            ListenToInput = true;
         }
 
         public void UnregisterListener()
         {
             IA.performed -= InputListenerCallback;
-            ListenToInput = false;
-
-            IA.Disable();
-            IA.Dispose();
         }
 
         private void InputListenerCallback(CallbackContext context)
@@ -82,28 +77,28 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay
 
         private void Start()
         {
-            FindNewAction("Player","Interact");
+            FindNewAction("Player", buttonKey.ToString());
         }
 
-        private void FindNewAction(string actionMapName, string actionName)
+        private InputAction FindNewAction(string actionMapName, string actionName)
         {
-            Debug.Log("Findign actions");
             var actionMap = allActions.FindActionMap(actionMapName);
             if (actionMap != null)
             {
                 newAction = actionMap.FindAction(actionName);
                 if (newAction == null)
                 {
-                    Debug.LogError($"Action '{actionName}' not found in Action Map '{actionMapName}'");
+                    return null;
                 }
                 else
                 {
-                    Debug.Log("Actioon found");
+                    return newAction;
                 }
             }
             else
             {
                 Debug.LogError($"Action Map '{actionMapName}' not found in Input Action Asset");
+                return null;
             }
         }
     }
