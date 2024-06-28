@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd150a1e7a585cd4e806c948d3ef2cfc, type: 3}
   m_Name: Trainee-1
   m_EditorClassIdentifier: 
-  nodes: []
+  nodes:
+  - {fileID: 11400000, guid: 958c092367dee3d428ee35f4364309b4, type: 2}
+  - {fileID: 11400000, guid: cddfd30d1a1db7144aa13a99fd3e0026, type: 2}
   questInProgressIndex: 0
   questCompleteIndex: 0

@@ -868,6 +868,7 @@ GameObject:
   - component: {fileID: 3274693798640083050}
   - component: {fileID: 7759229574423042470}
   - component: {fileID: 56120062176744887}
+  - component: {fileID: 4576618967821391483}
   m_Layer: 8
   m_Name: GamePlayer
   m_TagString: Player
@@ -985,6 +986,7 @@ MonoBehaviour:
   leftShoulder: 0
   leftTrigger: 0
   rightTrigger: 0
+  inventory: 0
   kraken: 0
   analogMovement: 0
   cursorLocked: 1
@@ -1146,6 +1148,15 @@ MonoBehaviour:
   pieceLayer:
     serializedVersion: 2
     m_Bits: 32768
+  investigateClueLayer:
+    serializedVersion: 2
+    m_Bits: 65536
+  investigateObjectLayer:
+    serializedVersion: 2
+    m_Bits: 131072
+  combinedLayerMask:
+    serializedVersion: 2
+    m_Bits: 0
   selectedPuzzlePiece: {fileID: 0}
 --- !u!114 &7690884436903042268
 MonoBehaviour:
@@ -1843,6 +1854,18 @@ MonoBehaviour:
     poleTarget: {fileID: 0}
     clampWeight: 0.1
     clampSmoothing: 2
+--- !u!114 &4576618967821391483
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2577962281278469258}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47d094b8524f6884e881c108375e4954, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2713560972567264230
 GameObject:
   m_ObjectHideFlags: 0
@@ -2174,6 +2197,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d36b55073d49b04cbc30fd17cb9723c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isModeAllowed: 1
   postProcessManager: {fileID: 0}
   monoSphere: {fileID: 5963778599999754558}
   defaultScale: 1

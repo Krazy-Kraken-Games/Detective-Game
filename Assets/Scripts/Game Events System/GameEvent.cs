@@ -13,6 +13,7 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay
     /// </summary>
     public class GameEvent : MonoBehaviour,IGameEvent,IGameInputEvent
     {
+        public bool Listening = false;
         public bool EventCompleted = false;
 
         //Two types of effects would be triggered on an activity with the game event
@@ -54,11 +55,13 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay
         {
             OnExecutedEffect?.Invoke();
             EventCompleted = true;
+            Listening = false;
         }
 
         public void RegisterListener()
         {
             IA.performed += InputListenerCallback;
+            Listening = true;
         }
 
         public void UnregisterListener()

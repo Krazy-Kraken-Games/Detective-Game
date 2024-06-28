@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7756d03313f6d6444b0d851bc48c2d6b, type: 3}
   m_Name: ABC
   m_EditorClassIdentifier: 
-  speakerName: ABC
-  message: Hello World
+  speakerName: Ruby
+  message: Great you found your ID card!
   MessageType: 0
   QuestSegmentID: 0

@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: IM_House_Key
   m_EditorClassIdentifier: 
   objectName: House Key
-  investigationObjectPrefab: {fileID: 652110526593796702, guid: ca1c0af0b156a1041a6581c78649987a, type: 3}
+  investigationObjectPrefab: {fileID: 2062719001531511765, guid: fef25b663670fcd408fb04c8f00b3b65, type: 3}

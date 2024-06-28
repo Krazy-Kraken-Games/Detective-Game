@@ -31,6 +31,7 @@ namespace KrazyKrakenGames.DetectiveGame.Managers
                 investigationModelsSO.Add(_data);
 
                 CreateUIButton(_data);
+                Debug.Log($"Added new UI invest: {_data.objectName}");
             }
         }
 

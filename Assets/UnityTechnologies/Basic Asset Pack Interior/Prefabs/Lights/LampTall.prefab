@@ -212,6 +212,7 @@ GameObject:
   - component: {fileID: 3025616243497312681}
   - component: {fileID: 3185000465812729794}
   - component: {fileID: 3383790519185446380}
+  - component: {fileID: 4159113563732002935}
   m_Layer: 0
   m_Name: LampSelfStanding
   m_TagString: Untagged
@@ -284,6 +285,27 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &4159113563732002935
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5289977627886394631}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.1384281, y: 1.1384279, z: 5.421148}
+  m_Center: {x: 0.0000003061448, y: 0.000015044832, z: 2.7118344}
 --- !u!1 &7176252611868903098
 GameObject:
   m_ObjectHideFlags: 0

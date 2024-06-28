@@ -1,6 +1,7 @@
 using KrazyKrakenGames.DetectiveGame.UI;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace KrazyKrakenGames.DetectiveGame.Gameplay.Objects
 {
@@ -25,6 +26,8 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay.Objects
         public InteractableObject doorKnob;
         public InteractableObject negativeKnob; //To open in opposite direction
 
+
+        public UnityEvent OnDoorOpenEvent;
         private void Start()
         {
             defaultRot = transform.rotation;
@@ -81,6 +84,8 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay.Objects
                 transform.rotation = Quaternion.Slerp(transform.rotation, openRot, Time.deltaTime * smooth);
                 yield return null;
             }
+
+            OnDoorOpenEvent?.Invoke();
         }
 
         private IEnumerator CloseDoor()

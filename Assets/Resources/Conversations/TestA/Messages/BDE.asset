@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7756d03313f6d6444b0d851bc48c2d6b, type: 3}
   m_Name: BDE
   m_EditorClassIdentifier: 
-  speakerName: BDE
-  message: My name is Pratik
+  speakerName: Ruby
+  message: The doors to lobby will be open for you now!
   MessageType: 0
   QuestSegmentID: 0

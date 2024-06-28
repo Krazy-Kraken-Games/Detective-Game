@@ -363,6 +363,7 @@ namespace KrazyKrakenGames.DetectiveGame.UI
         {
             if (!isMessageActive)
             {
+                GamePlayerManager.instance.UpdateInputMode(PlayerInputMode.SECONDARY);
                 messageScreen.SetMessage(message);
                 mainScreens.SetState(ScreenState.Screen3);
                 isMessageActive = true;
@@ -372,6 +373,7 @@ namespace KrazyKrakenGames.DetectiveGame.UI
                 //Hide Message Screen
                 mainScreens.SetState(ScreenState.Screen1);
                 isMessageActive = false;
+                GamePlayerManager.instance.UpdateInputMode(PlayerInputMode.PRIMARY);
             }
         }
 
@@ -398,6 +400,8 @@ namespace KrazyKrakenGames.DetectiveGame.UI
             playerManager.UpdateInputMode(PlayerInputMode.SECONDARY);
             playerManager.UpdateMode(GameState.INVENTORY);
 
+            mainScreens.SetState(ScreenState.Screen2);
+
             isInventoryActive = true;
         }
 
@@ -407,7 +411,7 @@ namespace KrazyKrakenGames.DetectiveGame.UI
             playerManager.UpdateInputMode(PlayerInputMode.PRIMARY);
             playerManager.UpdateMode(GameState.NORMAL);
 
-
+            mainScreens.SetState(ScreenState.Screen1);
             inventoryUI.SetActive(false);
             isInventoryActive = false;
         }
