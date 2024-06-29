@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d693ad349da2d9344a780b08f5defc11, type: 3}
+  m_Name: CI11
+  m_EditorClassIdentifier: 
+  NodeID: CI11
+  id: ff2c19bb-fba9-4bc9-98e4-76d02d33cde5
+  messageData: {fileID: 11400000, guid: 29fc416bf260fbf44b37d8de16c903c4, type: 2}
+  Children: []
+  ParentNode: {fileID: 0}
