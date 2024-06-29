@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd150a1e7a585cd4e806c948d3ef2cfc, type: 3}
   m_Name: StarterOver
   m_EditorClassIdentifier: 
-  nodes: []
+  nodes:
+  - {fileID: 11400000, guid: 0580ce53a0d4ee4499c39a27bf246992, type: 2}
+  - {fileID: 11400000, guid: a4a9dc341e625ab4ab9d21a2031fbc01, type: 2}
   questInProgressIndex: 0
   questCompleteIndex: 0

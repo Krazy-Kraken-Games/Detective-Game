@@ -19682,6 +19682,7 @@ Transform:
   - {fileID: 1857362067}
   - {fileID: 329281782}
   - {fileID: 2046424807}
+  - {fileID: 1938772419}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &428984725
@@ -81037,6 +81038,65 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 442048, guid: 36a7c36a016378e4a8f00004c68a1f3d, type: 3}
   m_PrefabInstance: {fileID: 1937981442}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1938772418
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1938772419}
+  - component: {fileID: 1938772420}
+  m_Layer: 0
+  m_Name: QT-Training-Quest
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1938772419
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1938772418}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 428298218}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1938772420
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1938772418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18898eed3f9f064ab764880b83bf71a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  questData: {fileID: 11400000, guid: 6ed49e3f1e0c7f74e8f2c74e5e2d0709, type: 2}
+  activeQuest:
+    ID: 1
+    Title: Starter Test
+    Status: 0
+    QuestTrigger: {fileID: 0}
+    Segments: []
+    SegmentsCompleted: 0
+    OnQuestCompleteEvent:
+      m_PersistentCalls:
+        m_Calls: []
+  questSegments: []
+  CompletedQuestEventsFired:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1939443101
 GameObject:
   m_ObjectHideFlags: 0
@@ -81127,12 +81187,25 @@ MonoBehaviour:
   interactableObject: {fileID: 0}
   OnInteractedWith:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1607504026}
+        m_TargetAssemblyTypeName: KrazyKrakenGames.DetectiveGame.QuestSystem.QuestTrigger,
+          Assembly-CSharp
+        m_MethodName: QuestSegmentComplete
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 501
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   direction: 0
   isActive: 0
   lookAt: {fileID: 1935662213}
   isSelfConversation: 0
-  conversationSO: {fileID: 0}
+  conversationSO: {fileID: 11400000, guid: 19ebb654100c073418a00c14316ebe98, type: 2}
   allConversationNodes: []
   rootNode: {fileID: 0}
   processingParentNode: {fileID: 0}
@@ -81142,7 +81215,7 @@ MonoBehaviour:
   activeConvoNode: {fileID: 0}
   isLastMessage: 0
   npc: {fileID: 1939655005}
-  questTrigger: {fileID: 0}
+  questTrigger: {fileID: 1938772420}
   IsQuestRunning: 0
   WaitingForUserResponse: 0
 --- !u!114 &1939655005

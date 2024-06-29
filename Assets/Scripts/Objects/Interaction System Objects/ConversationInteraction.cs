@@ -110,6 +110,8 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay
             GamePlayerManager.instance.UpdateInputMode(PlayerInputMode.SECONDARY);
 
             ConversationLogic();
+
+            OnInteractedWith?.Invoke();
         }
 
         private void ConversationLogic()

@@ -12,6 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd150a1e7a585cd4e806c948d3ef2cfc, type: 3}
   m_Name: Ruby-Greet
   m_EditorClassIdentifier: 
-  nodes: []
+  nodes:
+  - {fileID: 11400000, guid: f384f0dbacd322446849414b33609c1b, type: 2}
+  - {fileID: 11400000, guid: 5555657bcda62204e95eb3178b6ad5ba, type: 2}
+  - {fileID: 11400000, guid: 015ee6c872b1ab14eba2c01cff783915, type: 2}
+  - {fileID: 11400000, guid: effc9a5315f14ba429e74ac7bc833480, type: 2}
+  - {fileID: 11400000, guid: 97e3aeb7b7e02574f987a2059ca7dcbb, type: 2}
+  - {fileID: 11400000, guid: dd4bc797bdd273b42925609f15673906, type: 2}
   questInProgressIndex: 0
   questCompleteIndex: 0
