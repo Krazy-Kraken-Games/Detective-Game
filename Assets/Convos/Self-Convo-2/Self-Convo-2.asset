@@ -12,6 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd150a1e7a585cd4e806c948d3ef2cfc, type: 3}
   m_Name: Self-Convo-2
   m_EditorClassIdentifier: 
-  nodes: []
+  nodes:
+  - {fileID: 11400000, guid: 326704caa9f39624d8380abb282c9b61, type: 2}
+  - {fileID: 11400000, guid: 17801ebe1e67ddd47b258d33e64ce052, type: 2}
+  - {fileID: 11400000, guid: ee95864ec079fa144964e0f5cb73c4ff, type: 2}
   questInProgressIndex: 0
   questCompleteIndex: 0
