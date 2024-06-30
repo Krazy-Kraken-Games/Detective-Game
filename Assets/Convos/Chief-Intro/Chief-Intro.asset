@@ -12,6 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd150a1e7a585cd4e806c948d3ef2cfc, type: 3}
   m_Name: Chief-Intro
   m_EditorClassIdentifier: 
-  nodes: []
+  nodes:
+  - {fileID: 11400000, guid: ffa2f74c8794ce847b7a8ed15b2045bb, type: 2}
+  - {fileID: 11400000, guid: f122750a9c2dc87438bb7969b73f4520, type: 2}
+  - {fileID: 11400000, guid: b0cfc2a22603ce9498ca332f76a2ee5a, type: 2}
+  - {fileID: 11400000, guid: 8a9f31720a36ba64db7289c7d0316a81, type: 2}
+  - {fileID: 11400000, guid: 9239fc4ff62fc0b4fa12484ff95d6a65, type: 2}
+  - {fileID: 11400000, guid: e44400573b487c742bf40921ac87e9c9, type: 2}
+  - {fileID: 11400000, guid: 6d12b54bcbfcb9343bfbd77034d0dd0a, type: 2}
+  - {fileID: 11400000, guid: 15514b79f62f23740b482d8e1987a50d, type: 2}
+  - {fileID: 11400000, guid: d8018fe0dbe180b419f7f568238881f9, type: 2}
+  - {fileID: 11400000, guid: 01f1485aa9098e1468e1f590fe5af743, type: 2}
+  - {fileID: 11400000, guid: 96c25951abb83194e801d1999e218897, type: 2}
   questInProgressIndex: 0
   questCompleteIndex: 0
