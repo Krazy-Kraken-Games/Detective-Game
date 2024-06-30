@@ -15,5 +15,6 @@ MonoBehaviour:
   NodeID: CI4
   id: c568fac9-4535-473b-a63b-39459d53afba
   messageData: {fileID: 11400000, guid: 1dc0b22993512174bbdd43b346c273fe, type: 2}
-  Children: []
-  ParentNode: {fileID: 0}
+  Children:
+  - {fileID: 11400000, guid: 9239fc4ff62fc0b4fa12484ff95d6a65, type: 2}
+  ParentNode: {fileID: 11400000, guid: b0cfc2a22603ce9498ca332f76a2ee5a, type: 2}
