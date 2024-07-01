@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d693ad349da2d9344a780b08f5defc11, type: 3}
+  m_Name: TPS4
+  m_EditorClassIdentifier: 
+  NodeID: TPS4
+  id: TPS4
+  messageData: {fileID: 11400000, guid: c2db61ad070623b41a2fc5f5e060b99b, type: 2}
+  Children: []
+  ParentNode: {fileID: 11400000, guid: 88470043807dfeb49af6443aacf2dfde, type: 2}

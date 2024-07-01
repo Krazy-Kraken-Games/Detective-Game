@@ -121,5 +121,12 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay.Objects
             Debug.Log("Door unlocked through questing");
             currentState = State.OPEN;
         }
+
+        public void LockDoor()
+        {
+            currentState = State.LOCKED;
+
+            StartCoroutine(CloseDoor());
+        }
     }
 }
