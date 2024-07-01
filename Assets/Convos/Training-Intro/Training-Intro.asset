@@ -12,6 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd150a1e7a585cd4e806c948d3ef2cfc, type: 3}
   m_Name: Training-Intro
   m_EditorClassIdentifier: 
-  nodes: []
+  nodes:
+  - {fileID: 11400000, guid: 154111ee374cca8498e957a19836dedf, type: 2}
+  - {fileID: 11400000, guid: 1c4432853dda46f439c572a21a31b741, type: 2}
+  - {fileID: 11400000, guid: 12149202235843847ae7aeec62dff059, type: 2}
+  - {fileID: 11400000, guid: 305edaa28eb0acc48ac2c541c5e92ee2, type: 2}
   questInProgressIndex: 0
   questCompleteIndex: 0

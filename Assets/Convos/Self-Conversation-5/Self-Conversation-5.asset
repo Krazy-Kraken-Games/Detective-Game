@@ -12,6 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd150a1e7a585cd4e806c948d3ef2cfc, type: 3}
   m_Name: Self-Conversation-5
   m_EditorClassIdentifier: 
-  nodes: []
+  nodes:
+  - {fileID: 11400000, guid: b0c45fd621da87d4ca4f015d8469b0df, type: 2}
+  - {fileID: 11400000, guid: d1ab3332830880a4eba24b28933ee157, type: 2}
+  - {fileID: 11400000, guid: d6c7c85a124dd2b439017f537d478452, type: 2}
   questInProgressIndex: 0
   questCompleteIndex: 0

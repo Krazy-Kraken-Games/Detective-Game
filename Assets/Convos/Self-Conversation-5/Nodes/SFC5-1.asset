@@ -15,5 +15,6 @@ MonoBehaviour:
   NodeID: SFC5-1
   id: c3e7d3c9-38c8-43b4-a49a-115efc83ead7
   messageData: {fileID: 11400000, guid: 1d028db5dbc7bc646b4f09d977183f3e, type: 2}
-  Children: []
+  Children:
+  - {fileID: 11400000, guid: d1ab3332830880a4eba24b28933ee157, type: 2}
   ParentNode: {fileID: 0}

@@ -15,5 +15,6 @@ MonoBehaviour:
   NodeID: TI-2
   id: 7cadbadd-87b3-48a8-9ad6-c3de83a349d2
   messageData: {fileID: 11400000, guid: 58c27e82621339345b995efe8a3d2786, type: 2}
-  Children: []
-  ParentNode: {fileID: 0}
+  Children:
+  - {fileID: 11400000, guid: 12149202235843847ae7aeec62dff059, type: 2}
+  ParentNode: {fileID: 11400000, guid: 154111ee374cca8498e957a19836dedf, type: 2}
