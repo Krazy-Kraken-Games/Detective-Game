@@ -96,6 +96,11 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay
             }
         }
 
+        public void SetQuestTrigger(QuestTrigger _newQuestTrigger)
+        {
+            questTrigger = _newQuestTrigger;
+        }
+
         public override void Interact()
         {
             //Conversation is started from here!
