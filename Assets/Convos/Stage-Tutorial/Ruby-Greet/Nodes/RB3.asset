@@ -15,5 +15,6 @@ MonoBehaviour:
   NodeID: RB3
   id: 8182e6ee-f2dc-4fda-a32c-4c0d46595cb3
   messageData: {fileID: 11400000, guid: 497cb96c3076ccf4fb2299facb200915, type: 2}
-  Children: []
-  ParentNode: {fileID: 0}
+  Children:
+  - {fileID: 11400000, guid: effc9a5315f14ba429e74ac7bc833480, type: 2}
+  ParentNode: {fileID: 11400000, guid: 5555657bcda62204e95eb3178b6ad5ba, type: 2}

@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: RB1
   m_EditorClassIdentifier: 
   speakerName: Ruby
-  message: "\u201CMr.Derek! It's been such a long time! Welcome back, Sir!"
+  message: Mr.Derek! It's been such a long time! Welcome back, Sir!
   MessageType: 0
   QuestSegmentID: 0
