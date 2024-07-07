@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd150a1e7a585cd4e806c948d3ef2cfc, type: 3}
+  m_Name: AI-SF
+  m_EditorClassIdentifier: 
+  nodes:
+  - {fileID: 11400000, guid: a446fe970f7b2784481f50d544141f87, type: 2}
+  - {fileID: 11400000, guid: 005e7aac13983ae47b608b07673bfb5a, type: 2}
+  - {fileID: 11400000, guid: 06d780dc650608948988a1b24d990182, type: 2}
+  questInProgressIndex: 0
+  questCompleteIndex: 0

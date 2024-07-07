@@ -1,5 +1,6 @@
 using KrazyKrakenGames.DetectiveGame.Gameplay.AI;
 using KrazyKrakenGames.DetectiveGame.Gameplay.Shooting;
+using KrazyKrakenGames.DetectiveGame.QuestSystem;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -35,7 +36,6 @@ namespace KrazyKrakenGames.DetectiveGame.AI
         public Action<EnemyState> OnStateChangedEvent;
 
 
-        [SerializeField] private LineRenderer pathRenderer;
         public int currentPathIndex = 0;
 
         //TO BE REMOVED:
@@ -49,6 +49,9 @@ namespace KrazyKrakenGames.DetectiveGame.AI
 
         [Header("AI Group Detection Section")]
         [SerializeField] private AIGroupDetection detectionGroup;
+
+        [Header("Quest Target Reference")]
+        [SerializeField] private QuestTarget _questTarget;
 
         private void Start()
         {
@@ -134,7 +137,7 @@ namespace KrazyKrakenGames.DetectiveGame.AI
             {
                 Debug.Log("Destroying myself");
 
-                Destroy(gameObject);
+                //Destroy(gameObject);
             }
         }
 
@@ -163,12 +166,22 @@ namespace KrazyKrakenGames.DetectiveGame.AI
         {
             //Destroy immedietaly for now
             SetState(EnemyState.DEATH);
+
+            if (_questTarget != null)
+            {
+                _questTarget.KillSelf();
+            }
         }
 
         public void OnCollisionWithProjectile(Projectile projectile)
         {
             //Just destroy for now
             SetState(EnemyState.DEATH);
+
+            if (_questTarget != null)
+            {
+                _questTarget.KillSelf();
+            }
         }
 
         #endregion
