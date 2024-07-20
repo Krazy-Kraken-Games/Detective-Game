@@ -116,7 +116,7 @@ public class ThirdPersonPlayer : MonoBehaviour
 #if ENABLE_INPUT_SYSTEM
     private PlayerInput _playerInput;
 #endif
-    private Animator _animator;
+    [SerializeField] private Animator _animator;
     private bool _hasAnimator;
     private CharacterController _controller;
     private StarterAssetsInputs _input;
@@ -185,7 +185,7 @@ public class ThirdPersonPlayer : MonoBehaviour
 
         RegisterEvents();
         
-        _hasAnimator = TryGetComponent(out _animator);
+        //_hasAnimator = TryGetComponent(out _animator);
         _controller = GetComponent<CharacterController>();
         _input = GetComponent<StarterAssetsInputs>();
 #if ENABLE_INPUT_SYSTEM
@@ -357,7 +357,7 @@ public class ThirdPersonPlayer : MonoBehaviour
             QueryTriggerInteraction.Ignore);
 
         // update animator if using character
-        if (_hasAnimator)
+        if (_animator != null)
         {
             _animator.SetBool(_animIDGrounded, Grounded);
         }

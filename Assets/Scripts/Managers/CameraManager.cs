@@ -100,13 +100,20 @@ namespace KrazyKrakenGames.DetectiveGame.Managers
                 case GameCameraState.PRIMARY:
                     primaryCamera.gameObject.SetActive(true);
                     secondaryCamera.gameObject.SetActive(false);
-                    inventoryCamera.gameObject.SetActive(false);
+                    if (inventoryCamera != null)
+                    {
+                        inventoryCamera.gameObject.SetActive(false);
+                    }
                     break;
 
                 case GameCameraState.SECONDARY:
                     primaryCamera.gameObject.SetActive(false);
                     secondaryCamera.gameObject.SetActive(true);
-                    inventoryCamera.gameObject.SetActive(false);
+
+                    if (inventoryCamera != null)
+                    {
+                        inventoryCamera.gameObject.SetActive(false);
+                    }
 
                     if (lookAt != null)
                     {
