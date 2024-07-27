@@ -644,6 +644,8 @@ public class ThirdPersonPlayer : MonoBehaviour
             {
                 interactableObject = triggerBox.interactionObject;
                 nearbyInteractableObj = true;
+
+                triggerBox.ShowUIBox();
             }
         }
     }
@@ -657,6 +659,14 @@ public class ThirdPersonPlayer : MonoBehaviour
             nearbyInteractableObj = false;
 
             PlayerInteractionSystem.instance.interactableObject = null;
+
+            TriggerBox triggerBox = other.gameObject.GetComponent<TriggerBox>();
+
+            if (triggerBox != null)
+            {
+                triggerBox.HideUIBox();
+            }
+
         }
     }
 

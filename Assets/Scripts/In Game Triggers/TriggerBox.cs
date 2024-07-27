@@ -11,6 +11,8 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay
         [SerializeField] private Transform pivotPoint;
         [SerializeField] private Transform playerPosition;
 
+        [SerializeField] private GameObject uiVisualizer;
+
         /// <summary>
         /// Holds reference to the interactable object partner
         /// </summary>
@@ -21,6 +23,23 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay
 
         
         public Transform PlayerPosition { get {  return playerPosition; } }
+
+        public void ShowUIBox()
+        {
+            if(uiVisualizer != null)
+            {
+                uiVisualizer.SetActive(true);
+            }
+        }
+
+        public void HideUIBox()
+        {
+
+            if (uiVisualizer != null)
+            {
+                uiVisualizer.SetActive(false);
+            }
+        }
 
     }
 }
