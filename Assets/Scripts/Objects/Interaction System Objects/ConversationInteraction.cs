@@ -4,6 +4,7 @@ using KrazyKrakenGames.DetectiveGame.Managers;
 using KrazyKrakenGames.DetectiveGame.Player;
 using KrazyKrakenGames.DetectiveGame.QuestSystem;
 using KrazyKrakenGames.DetectiveGame.UI;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -114,7 +115,9 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay
 
             GamePlayerManager.instance.UpdateInputMode(PlayerInputMode.SECONDARY);
 
-            ConversationLogic();
+            //ConversationLogic();
+
+            StartCoroutine("StartConversationCoroutine");
 
             OnInteractedWith?.Invoke();
         }
@@ -126,6 +129,15 @@ namespace KrazyKrakenGames.DetectiveGame.Gameplay
             activeConvoNode = rootNode;
 
             Invoke("StartConversation", 0.8f);
+        }
+
+        private IEnumerator StartConversationCoroutine()
+        {
+            yield return new WaitForFixedUpdate();
+
+            activeConvoNode = rootNode;
+
+            StartConversation();
         }
 
         private void StartConversation()
